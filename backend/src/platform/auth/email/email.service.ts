@@ -1,4 +1,3 @@
-
 import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import * as nodemailer from 'nodemailer';
@@ -6,7 +5,8 @@ import * as nodemailer from 'nodemailer';
 @Injectable()
 export class EmailService {
     private readonly logger = new Logger(EmailService.name);
-    private readonly transporter: nodemailer.Transporter;
+    private readonly transporter: nodemailer.Transporter | null = null;
+    private readonly isConfigured: boolean = false;
 
     constructor(private readonly configService: ConfigService) {
         const host = this.configService.get<string>('MAIL_HOST');
@@ -18,20 +18,32 @@ export class EmailService {
         const password = this.configService.get<string>('MAIL_PASSWORD');
 
         if (!host || !user || !password) {
-            throw new Error(
-                'Email configuration is missing. Check MAIL_HOST, MAIL_USER and MAIL_PASSWORD.',
+            this.logger.warn(
+                'Email configuration is missing (MAIL_HOST, MAIL_USER, MAIL_PASSWORD). ' +
+                'Running in development/mock mode: outgoing emails will be logged to console.',
             );
+            this.isConfigured = false;
+            this.transporter = null;
+            return;
         }
 
-        this.transporter = nodemailer.createTransport({
-            host,
-            port,
-            secure,
-            auth: {
-                user,
-                pass: password,
-            },
-        });
+        try {
+            this.transporter = nodemailer.createTransport({
+                host,
+                port,
+                secure,
+                auth: {
+                    user,
+                    pass: password,
+                },
+            });
+            this.isConfigured = true;
+            this.logger.log(`Email service initialized with host: ${host}:${port}`);
+        } catch (err) {
+            this.logger.error('Failed to initialize email transporter', err);
+            this.isConfigured = false;
+            this.transporter = null;
+        }
     }
 
     private get sender(): string {
@@ -40,7 +52,8 @@ export class EmailService {
 
         const email =
             this.configService.get<string>('MAIL_FROM_EMAIL') ||
-            this.configService.get<string>('MAIL_USER');
+            this.configService.get<string>('MAIL_USER') ||
+            'noreply@crm.local';
 
         return `"${name}" <${email}>`;
     }
@@ -60,6 +73,11 @@ export class EmailService {
     }
 
     async sendWelcomeEmail(email: string, name: string): Promise<void> {
+        if (!this.isConfigured || !this.transporter) {
+            this.logger.log(`[DEV MODE] Welcome email to ${email} (${name}): Account created successfully.`);
+            return;
+        }
+
         try {
             await this.transporter.sendMail({
                 from: this.sender,
@@ -90,6 +108,13 @@ export class EmailService {
         name: string,
         resetLink: string,
     ): Promise<void> {
+        if (!this.isConfigured || !this.transporter) {
+            this.logger.log(
+                `[DEV MODE] Password reset email to ${email} (${name}). Reset Link: ${resetLink}`,
+            );
+            return;
+        }
+
         try {
             await this.transporter.sendMail({
                 from: this.sender,
