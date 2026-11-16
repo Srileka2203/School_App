@@ -105,7 +105,7 @@ export const TeamMembersPage: React.FC = () => {
     document.body.style.setProperty('scrollbar-gutter', 'auto', 'important');
 
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && !isSubmitting) {
+      if (e.key === 'Escape' && !isAdding) {
         setIsAddModalOpen(false);
       }
     };
@@ -122,7 +122,7 @@ export const TeamMembersPage: React.FC = () => {
       if (prevBodyOverflow) document.body.style.overflow = prevBodyOverflow;
       if (prevHtmlOverflow) document.documentElement.style.overflow = prevHtmlOverflow;
     };
-  }, [isAddModalOpen, isSubmitting]);
+  }, [isAddModalOpen, isAdding]);
 
   // Handle Role Update
   const handleRoleChange = async (member: TeamMemberEntity, newRole: TeamMemberRole) => {

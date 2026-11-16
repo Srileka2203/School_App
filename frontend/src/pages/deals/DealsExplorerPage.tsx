@@ -37,7 +37,6 @@ import { ConfirmDeleteModal } from '../../components/workspace/ConfirmDeleteModa
 import { formatCurrency } from '../lead-generation/leadGenConstants';
 import { triggerFileDownload } from '../leads/leadConstants';
 import {
-  BriefcaseIcon,
   CheckCircleIcon,
   TrophyIcon,
   ExternalLinkIcon,

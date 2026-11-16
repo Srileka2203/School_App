@@ -43,7 +43,6 @@ import {
   BuildingIcon,
   CalendarIcon,
   CheckCircleIcon,
-  DollarSignIcon,
   TrophyIcon,
   EditIcon,
   MailIcon,

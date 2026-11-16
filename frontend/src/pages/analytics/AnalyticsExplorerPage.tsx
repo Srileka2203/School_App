@@ -1406,7 +1406,7 @@ export const AnalyticsExplorerPage: React.FC<AnalyticsExplorerPageProps> = ({
                       label="Average Deal Size / Source"
                       value={formatCurrency(
                         filteredSources.length
-                          ? filteredSources.reduce((sum, s) => sum + s.avgDealSize, 0) /
+                          ? filteredSources.reduce((sum, s) => sum + ((s as any).avgDealSize || (s.convertedCount ? s.revenue / s.convertedCount : 0)), 0) /
                               filteredSources.length
                           : 0,
                       )}
@@ -1520,7 +1520,7 @@ export const AnalyticsExplorerPage: React.FC<AnalyticsExplorerPageProps> = ({
                     tally2Label="Stages Configured"
                     tally2Value={pipelineData?.stages.length || 0}
                     tally3Label="Avg Deal Size"
-                    tally3Value={formatCurrency(pipelineData?.avgDealSize || 0)}
+                    tally3Value={formatCurrency((pipelineData as any)?.avgDealSize || (pipelineData?.totalDeals ? pipelineData.totalPipelineValue / pipelineData.totalDeals : 0))}
                     efficiencyLabel="Weighted Forecast"
                     efficiencyValue={formatCurrency(pipelineData?.totalWeightedValue || 0)}
                     auditLabel="Sales Audit"
@@ -1562,7 +1562,7 @@ export const AnalyticsExplorerPage: React.FC<AnalyticsExplorerPageProps> = ({
                     />
                     <DashboardKpiCard
                       label="Average Deal Size"
-                      value={formatCurrency(pipelineData?.avgDealSize || salesData?.kpis.avgDealSize.current)}
+                      value={formatCurrency((pipelineData as any)?.avgDealSize || (pipelineData?.totalDeals ? pipelineData.totalPipelineValue / pipelineData.totalDeals : salesData?.kpis.avgDealSize.current))}
                       subtitle="Opportunity value avg"
                       icon={<DollarSignIcon size={20} />}
                       tone="cyan"
@@ -2133,7 +2133,7 @@ export const AnalyticsExplorerPage: React.FC<AnalyticsExplorerPageProps> = ({
                     />
                     <DashboardKpiCard
                       label="Touchpoints per Deal"
-                      value={`${formatNumber(activityData?.kpis.avgPerDeal || 4)}`}
+                      value={`${formatNumber((activityData?.kpis as any)?.avgPerDeal || 4)}`}
                       subtitle="Effort per customer"
                       icon={<TrendingUpIcon size={20} />}
                       tone="purple"

@@ -8,7 +8,7 @@ import { ConfirmDeleteModal } from '../../components/workspace/ConfirmDeleteModa
 import { EmptyState } from '../../components/common/EmptyState';
 import { LoadingIndicator } from '../../components/auth/LoadingIndicator';
 import { formatDate } from '../lead-generation/leadGenConstants';
-import { getPipelinePermissions, probabilityTone } from './pipelineConstants';
+import { getPipelinePermissions } from './pipelineConstants';
 import { PipelinesLayout } from './components/PipelinesLayout';
 import {
   ArrowRightIcon,

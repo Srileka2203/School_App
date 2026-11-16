@@ -23,7 +23,7 @@ export const WorkspaceSwitcher: React.FC<WorkspaceSwitcherProps> = ({
   onClose,
   onOpenCreate,
 }) => {
-  const { currentWorkspace, myWorkspaces, switchWorkspace, isSwitching } = useWorkspace();
+  const { currentWorkspace, myWorkspaces, switchWorkspace } = useWorkspace();
   const [searchQuery, setSearchQuery] = useState('');
   const [switchingId, setSwitchingId] = useState<string | null>(null);
 

@@ -5,7 +5,6 @@ import { Navbar } from '../../../components/common/Navbar';
 import { ErrorMessage } from '../../../components/auth/ErrorMessage';
 import { SuccessMessage } from '../../../components/auth/SuccessMessage';
 import {
-  AlertCircleIcon,
   CheckCircleIcon,
   LockIcon,
   RefreshCwIcon,
@@ -76,7 +75,7 @@ const SETTINGS_ICONS: Record<
 
 const GROUP_ICONS: Record<
   'Personal & Workspace' | 'CRM Modules' | 'Communications & Security',
-  React.ComponentType<{ size?: number; className?: string }>
+  React.ComponentType<{ size?: number; className?: string; style?: React.CSSProperties }>
 > = {
   'Personal & Workspace': BuildingIcon,
   'CRM Modules': BriefcaseIcon,

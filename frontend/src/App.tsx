@@ -10,7 +10,6 @@ import { EmailVerificationPage } from './pages/EmailVerificationPage';
 import { ChangePasswordPage } from './pages/ChangePasswordPage';
 import { SessionManagementPage } from './pages/SessionManagementPage';
 import { ProfilePage } from './pages/ProfilePage';
-import { WorkspacePage } from './pages/workspace/WorkspacePage';
 import { WorkspaceSwitcherPage } from './pages/workspace/WorkspaceSwitcherPage';
 import { WorkspaceMembersPage } from './pages/workspace/WorkspaceMembersPage';
 import { WorkspaceRolesPage } from './pages/workspace/WorkspaceRolesPage';

@@ -10,7 +10,6 @@ import {
   TargetIcon,
   UserIcon,
   SlidersIcon,
-  DollarSignIcon,
   DealsIcon,
   ZapIcon,
   ShieldIcon,

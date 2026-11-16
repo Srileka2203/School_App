@@ -17,7 +17,6 @@ import {
   SearchIcon,
   BuildingIcon,
   UserIcon,
-  DollarSignIcon,
   TrophyIcon,
   FilterIcon,
   RefreshCwIcon,

@@ -53,8 +53,6 @@ export const AnalyticsFilterBar: React.FC<AnalyticsFilterBarProps> = ({
   onToggleComparison,
   sortBy,
   onChangeSortBy,
-  sortOrder,
-  onChangeSortOrder,
   onReset,
   onRefresh,
   isLoading = false,

@@ -13,7 +13,7 @@ import type {
 } from '../../types/pipeline.types';
 import type { Contact, ContactOrganization } from '../../types/contact.types';
 import { useUserOptions } from '../lead-generation/leadGenHooks';
-import { Badge, SectionCard, StatCard } from '../lead-generation/components/Cards';
+import { SectionCard, StatCard } from '../lead-generation/components/Cards';
 import { FilterBar, FilterSelect, SearchInput } from '../lead-generation/components/FilterBar';
 import { ConfirmDeleteModal } from '../../components/workspace/ConfirmDeleteModal';
 import { EmptyState } from '../../components/common/EmptyState';
@@ -39,7 +39,6 @@ import {
 import {
   AwardIcon,
   CheckCircleIcon,
-  DollarSignIcon,
   TrophyIcon,
   EditIcon,
   PlusIcon,

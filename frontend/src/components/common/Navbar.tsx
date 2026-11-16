@@ -26,7 +26,6 @@ import {
   XIcon,
   HomeIcon,
   BellIcon,
-  DollarSignIcon,
   DealsIcon,
   CalendarIcon,
   MailIcon,

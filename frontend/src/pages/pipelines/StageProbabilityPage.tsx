@@ -21,7 +21,6 @@ import { PipelinesLayout } from './components/PipelinesLayout';
 import {
   ArrowLeftIcon,
   AwardIcon,
-  DollarSignIcon,
   TrophyIcon,
   SlidersIcon,
   TrendingUpIcon,

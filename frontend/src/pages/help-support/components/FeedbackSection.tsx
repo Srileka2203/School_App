@@ -212,8 +212,14 @@ export const FeedbackSection: React.FC<FeedbackSectionProps> = ({
                       key={star}
                       type="button"
                       onClick={() => setRating(star)}
-                      onMouseEnter={() => setHoverRating(star)}
-                      onMouseLeave={() => setHoverRating(0)}
+                      onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) => {
+                        setHoverRating(star);
+                        e.currentTarget.style.transform = 'scale(1.15)';
+                      }}
+                      onMouseLeave={(e: React.MouseEvent<HTMLButtonElement>) => {
+                        setHoverRating(0);
+                        e.currentTarget.style.transform = 'scale(1)';
+                      }}
                       style={{
                         padding: '2px',
                         backgroundColor: 'transparent',
@@ -222,12 +228,6 @@ export const FeedbackSection: React.FC<FeedbackSectionProps> = ({
                         color: isFilled ? '#F59E0B' : '#CBD5E1',
                         display: 'inline-flex',
                         transition: 'transform 0.1s ease',
-                      }}
-                      onMouseEnterCapture={(e) => {
-                        e.currentTarget.style.transform = 'scale(1.15)';
-                      }}
-                      onMouseLeaveCapture={(e) => {
-                        e.currentTarget.style.transform = 'scale(1)';
                       }}
                       aria-label={`${star} star`}
                     >

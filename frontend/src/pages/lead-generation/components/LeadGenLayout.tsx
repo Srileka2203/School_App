@@ -103,7 +103,7 @@ export const LeadGenLayout: React.FC<LeadGenLayoutProps> = ({
 
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const navRef = useRef<HTMLElement>(null);
-  const hoverTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const hoverTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const handleMouseEnterGroup = (group: NavGroup) => {
     if (hoverTimerRef.current) {

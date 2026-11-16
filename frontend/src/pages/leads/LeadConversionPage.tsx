@@ -20,7 +20,6 @@ import {
   ArrowLeftIcon,
   ArrowRightIcon,
   CheckCircleIcon,
-  DollarSignIcon,
   TrophyIcon,
   TargetIcon,
 } from '../../components/common/Icons';
