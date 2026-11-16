@@ -144,11 +144,14 @@
 
 .ld-view-mode-group {
   display: inline-flex;
-  background: #FFFFFF !important;
-  border: 1px solid rgba(16, 185, 129, 0.25) !important;
   border-radius: var(--radius-md, 10px);
   padding: 0.2rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04) !important;
+}
+
+html:not(.dark):not([data-theme="dark"]) .ld-view-mode-group {
+  background: #FFFFFF !important;
+  border: 1px solid rgba(16, 185, 129, 0.25) !important;
 }
 
 .ld-view-btn {
