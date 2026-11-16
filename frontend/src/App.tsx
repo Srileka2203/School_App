@@ -40,21 +40,21 @@ import { TagsListPage } from './pages/tags/TagsListPage';
 import { CreateTagPage } from './pages/tags/CreateTagPage';
 import { EditTagPage } from './pages/tags/EditTagPage';
 import { TagUsagePage } from './pages/tags/TagUsagePage';
-import { LeadGenOverviewPage } from './pages/lead-generation/LeadGenOverviewPage';
-import { SourcesListPage } from './pages/lead-generation/SourcesListPage';
-import { SourceFormPage } from './pages/lead-generation/SourceFormPage';
-import { SourceDetailsPage } from './pages/lead-generation/SourceDetailsPage';
-import { WebFormsListPage } from './pages/lead-generation/WebFormsListPage';
-import { FormBuilderPage } from './pages/lead-generation/FormBuilderPage';
-import { CaptureFormsPage } from './pages/lead-generation/CaptureFormsPage';
-import { ManualCapturePage } from './pages/lead-generation/ManualCapturePage';
-import { ChannelLeadsPage } from './pages/lead-generation/ChannelLeadsPage';
-import { ScoringPage } from './pages/lead-generation/ScoringPage';
-import { QualificationPage } from './pages/lead-generation/QualificationPage';
-import { RoutingPage } from './pages/lead-generation/RoutingPage';
-import { AssignmentRulesPage } from './pages/lead-generation/AssignmentRulesPage';
-import { LeadGenAnalyticsPage } from './pages/lead-generation/LeadGenAnalyticsPage';
-import { SourceAnalyticsPage } from './pages/lead-generation/SourceAnalyticsPage';
+import { LeadGenOverviewPage } from './pages/crm/lead-generation/LeadGenOverviewPage';
+import { SourcesListPage } from './pages/crm/lead-generation/SourcesListPage';
+import { SourceFormPage } from './pages/crm/lead-generation/SourceFormPage';
+import { SourceDetailsPage } from './pages/crm/lead-generation/SourceDetailsPage';
+import { WebFormsListPage } from './pages/crm/lead-generation/WebFormsListPage';
+import { FormBuilderPage } from './pages/crm/lead-generation/FormBuilderPage';
+import { CaptureFormsPage } from './pages/crm/lead-generation/CaptureFormsPage';
+import { ManualCapturePage } from './pages/crm/lead-generation/ManualCapturePage';
+import { ChannelLeadsPage } from './pages/crm/lead-generation/ChannelLeadsPage';
+import { ScoringPage } from './pages/crm/lead-generation/ScoringPage';
+import { QualificationPage } from './pages/crm/lead-generation/QualificationPage';
+import { RoutingPage } from './pages/crm/lead-generation/RoutingPage';
+import { AssignmentRulesPage } from './pages/crm/lead-generation/AssignmentRulesPage';
+import { LeadGenAnalyticsPage } from './pages/crm/lead-generation/LeadGenAnalyticsPage';
+import { SourceAnalyticsPage } from './pages/crm/lead-generation/SourceAnalyticsPage';
 import {
   LeadsExplorerPage,
   CreateLeadPage,
@@ -70,7 +70,7 @@ import {
   LeadExportPage,
   LeadConversionPage,
   LeadSettingsPage,
-} from './pages/leads';
+} from './pages/crm/leads';
 import {
   ContactsExplorerPage,
   CreateContactPage,
@@ -81,7 +81,7 @@ import {
   ContactDocumentsPage,
   ContactImportPage,
   ContactExportPage,
-} from './pages/contacts';
+} from './pages/crm/contacts';
 import {
   PipelineOverviewPage,
   PipelineSelectorPage,
@@ -90,7 +90,7 @@ import {
   StageManagementPage,
   StageProbabilityPage,
   PipelineSettingsPage,
-} from './pages/pipelines';
+} from './pages/crm/pipelines';
 import {
   DealsExplorerPage,
   CreateDealPage,
@@ -100,13 +100,13 @@ import {
   DealNotesPage,
   DealDocumentsPage,
   DealSettingsPage,
-} from './pages/deals';
+} from './pages/crm/deals';
 import {
   ActivitiesExplorerPage,
   CreateActivityPage,
   EditActivityPage,
   ActivityDetailsPage,
-} from './pages/activities';
+} from './pages/crm/activities';
 import {
   CalendarExplorerPage,
   CreateEventPage,
@@ -114,7 +114,7 @@ import {
   EventDetailsPage,
   MeetingSchedulingPage,
   CalendarRemindersPage,
-} from './pages/calendar';
+} from './pages/crm/calendar';
 import {
   CommunicationCenterPage,
   EmailsExplorerPage,
@@ -123,7 +123,7 @@ import {
   InternalCommentsPage,
   CommunicationHistoryPage,
   EmailTemplatesPage,
-} from './pages/communications';
+} from './pages/crm/communications';
 import { GlobalSearchPage } from './pages/search';
 import { DashboardExplorerPage } from './pages/dashboard';
 import { AnalyticsExplorerPage } from './pages/analytics';
