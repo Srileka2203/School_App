@@ -3233,22 +3233,19 @@ html:not(.dark):not([data-theme="dark"]) .crm-widget-span-btn {
   font-weight: 700 !important;
 }
 
-.crm-badge-primary,
-.crm-badge-primary * {
+.crm-badge-primary {
   background: #10B981 !important;
   color: #FFFFFF !important;
   border: 1px solid #059669 !important;
 }
 
-html:not(.dark):not([data-theme="dark"]) .crm-badge-secondary,
-html:not(.dark):not([data-theme="dark"]) .crm-badge-secondary * {
+html:not(.dark):not([data-theme="dark"]) .crm-badge-secondary {
   background: #EAF4ED !important;
   color: #047857 !important;
   border: 1px solid rgba(16, 185, 129, 0.35) !important;
 }
 
-html:not(.dark):not([data-theme="dark"]) .crm-badge-accent,
-html:not(.dark):not([data-theme="dark"]) .crm-badge-accent * {
+html:not(.dark):not([data-theme="dark"]) .crm-badge-accent {
   background: #EAF4ED !important;
   color: #065F46 !important;
   border: 1px solid rgba(16, 185, 129, 0.3) !important;

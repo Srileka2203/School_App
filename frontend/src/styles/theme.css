@@ -2111,16 +2111,16 @@ html.dark .btn:not(.crm-btn-primary),
 }
 
 html.dark .crm-btn-primary,
-html.dark .crm-btn-primary *,
 [data-theme="dark"] .crm-btn-primary,
-[data-theme="dark"] .crm-btn-primary * {
+body.dark .crm-btn-primary {
   background: linear-gradient(135deg, #10B981 0%, #059669 100%) !important;
   color: #FFFFFF !important;
   border: 1px solid #34D399 !important;
 }
 
 html.dark .crm-btn-secondary,
-[data-theme="dark"] .crm-btn-secondary {
+[data-theme="dark"] .crm-btn-secondary,
+body.dark .crm-btn-secondary {
   background: #122217 !important;
   border: 1.5px solid rgba(52, 211, 153, 0.45) !important;
   color: #34D399 !important;
@@ -2129,7 +2129,9 @@ html.dark .crm-btn-secondary,
 html.dark .crm-btn-outline,
 html.dark .crm-btn-ghost,
 [data-theme="dark"] .crm-btn-outline,
-[data-theme="dark"] .crm-btn-ghost {
+[data-theme="dark"] .crm-btn-ghost,
+body.dark .crm-btn-outline,
+body.dark .crm-btn-ghost {
   background: rgba(255, 255, 255, 0.05) !important;
   border: 1px solid rgba(148, 163, 184, 0.35) !important;
   color: #E2E8F0 !important;
@@ -2153,7 +2155,16 @@ html.dark .count-pill,
 [data-theme="dark"] .status-badge,
 [data-theme="dark"] .role-pill,
 [data-theme="dark"] .crm-widget-opt-badge,
-[data-theme="dark"] .count-pill {
+[data-theme="dark"] .count-pill,
+body.dark .crm-badge,
+body.dark .lg-badge,
+body.dark .score-pill,
+body.dark .field-type-badge,
+body.dark .tag-pill,
+body.dark .status-badge,
+body.dark .role-pill,
+body.dark .crm-widget-opt-badge,
+body.dark .count-pill {
   background: #122217 !important;
   border: 1px solid rgba(16, 185, 129, 0.35) !important;
   color: #34D399 !important;
@@ -2166,17 +2177,11 @@ body.dark .crm-badge * {
 }
 
 html.dark .crm-badge-primary,
-html.dark .crm-badge-primary *,
 html.dark .crm-badge.crm-badge-primary,
-html.dark .crm-badge.crm-badge-primary *,
 [data-theme="dark"] .crm-badge-primary,
-[data-theme="dark"] .crm-badge-primary *,
 [data-theme="dark"] .crm-badge.crm-badge-primary,
-[data-theme="dark"] .crm-badge.crm-badge-primary *,
 body.dark .crm-badge-primary,
-body.dark .crm-badge-primary *,
-body.dark .crm-badge.crm-badge-primary,
-body.dark .crm-badge.crm-badge-primary * {
+body.dark .crm-badge.crm-badge-primary {
   background: #10B981 !important;
   background-color: #10B981 !important;
   color: #042102 !important;
@@ -2185,17 +2190,11 @@ body.dark .crm-badge.crm-badge-primary * {
 }
 
 html.dark .crm-badge-secondary,
-html.dark .crm-badge-secondary *,
 html.dark .crm-badge.crm-badge-secondary,
-html.dark .crm-badge.crm-badge-secondary *,
 [data-theme="dark"] .crm-badge-secondary,
-[data-theme="dark"] .crm-badge-secondary *,
 [data-theme="dark"] .crm-badge.crm-badge-secondary,
-[data-theme="dark"] .crm-badge.crm-badge-secondary *,
 body.dark .crm-badge-secondary,
-body.dark .crm-badge-secondary *,
-body.dark .crm-badge.crm-badge-secondary,
-body.dark .crm-badge.crm-badge-secondary * {
+body.dark .crm-badge.crm-badge-secondary {
   background: rgba(16, 185, 129, 0.22) !important;
   background-color: rgba(16, 185, 129, 0.22) !important;
   color: #34D399 !important;
@@ -3015,9 +3014,13 @@ body.dark .ld-view-btn.is-active {
   font-weight: 700 !important;
 }
 
-/* 14.13 Refresh Button Secondary Alignment & Icon/Text Center */
+/* 14.13 Refresh & Action Buttons Alignment & Icon/Text Center */
 .refresh-btn-secondary,
-button.refresh-btn-secondary {
+button.refresh-btn-secondary,
+.crm-filter-action-btn,
+.crm-filter-refresh-btn,
+.crm-filter-reset-btn,
+.refresh-btn {
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -3026,22 +3029,33 @@ button.refresh-btn-secondary {
   height: 38px !important;
   min-height: 38px !important;
   border-radius: 9999px !important;
-  line-height: 1 !important;
+  line-height: normal !important;
   vertical-align: middle !important;
 }
 
-.refresh-btn-secondary svg {
+.refresh-btn-secondary svg,
+button.refresh-btn-secondary svg,
+.crm-filter-action-btn svg,
+.crm-filter-refresh-btn svg,
+.crm-filter-reset-btn svg,
+.refresh-btn svg {
+  display: block !important;
   flex-shrink: 0 !important;
-  display: inline-block !important;
-  vertical-align: middle !important;
   margin: 0 !important;
+  vertical-align: middle !important;
 }
 
-.refresh-btn-secondary span {
+.refresh-btn-secondary span,
+button.refresh-btn-secondary span,
+.crm-filter-action-btn span,
+.crm-filter-refresh-btn span,
+.crm-filter-reset-btn span,
+.refresh-btn span {
   display: inline-flex !important;
   align-items: center !important;
   line-height: 1 !important;
   margin: 0 !important;
+  padding: 0 !important;
   border: none !important;
   outline: none !important;
   box-shadow: none !important;
@@ -3094,6 +3108,8 @@ html.dark .search-input-box svg,
 [data-theme="dark"] .search-icon-svg,
 [data-theme="dark"] .search-input-box svg,
 body.dark .crm-filter-search-icon,
+body.dark .lg-search-icon,
+body.dark .crm-filter-search-wrap svg,
 body.dark .lg-search svg,
 body.dark .search-box svg,
 body.dark [role="search"] svg,
@@ -3101,6 +3117,253 @@ body.dark .search-icon-svg,
 body.dark .search-input-box svg {
   color: #FFFFFF !important;
   stroke: #FFFFFF !important;
+  fill: none !important;
   opacity: 1 !important;
 }
+
+html.dark .crm-filter-search-icon *,
+html.dark .lg-search-icon *,
+html.dark .crm-filter-search-wrap svg *,
+html.dark .lg-search svg *,
+[data-theme="dark"] .crm-filter-search-icon *,
+[data-theme="dark"] .lg-search-icon *,
+[data-theme="dark"] .crm-filter-search-wrap svg *,
+[data-theme="dark"] .lg-search svg *,
+body.dark .crm-filter-search-icon *,
+body.dark .lg-search svg * {
+  stroke: #FFFFFF !important;
+  color: #FFFFFF !important;
+}
+
+/* 14.15 Kanban Columns, Body & Empty States in Dark Mode */
+html.dark .ld-board-column,
+html.dark .ld-board-col,
+[data-theme="dark"] .ld-board-column,
+[data-theme="dark"] .ld-board-col,
+body.dark .ld-board-column,
+body.dark .ld-board-col {
+  background: #0A140D !important;
+  background-color: #0A140D !important;
+  border: 1px solid rgba(16, 185, 129, 0.22) !important;
+}
+
+html.dark .ld-board-col-body,
+[data-theme="dark"] .ld-board-col-body,
+body.dark .ld-board-col-body {
+  background: #0A140D !important;
+  background-color: #0A140D !important;
+  color: #F8FAFC !important;
+}
+
+html.dark .ld-board-empty,
+html.dark .ld-board-empty-slot,
+[data-theme="dark"] .ld-board-empty,
+[data-theme="dark"] .ld-board-empty-slot,
+body.dark .ld-board-empty,
+body.dark .ld-board-empty-slot {
+  background: #0D1C12 !important;
+  background-color: #0D1C12 !important;
+  border: 1.5px dashed rgba(16, 185, 129, 0.3) !important;
+  border-radius: 12px !important;
+}
+
+html.dark .ld-board-empty span,
+html.dark .ld-board-empty-slot span,
+[data-theme="dark"] .ld-board-empty span,
+[data-theme="dark"] .ld-board-empty-slot span,
+body.dark .ld-board-empty span,
+body.dark .ld-board-empty-slot span {
+  color: #94A3B8 !important;
+  font-weight: 500 !important;
+}
+
+html.dark .ld-board-empty .lg-link-btn,
+html.dark .ld-board-empty-slot .lg-link-btn,
+[data-theme="dark"] .ld-board-empty .lg-link-btn,
+[data-theme="dark"] .ld-board-empty-slot .lg-link-btn,
+body.dark .ld-board-empty .lg-link-btn,
+body.dark .ld-board-empty-slot .lg-link-btn {
+  color: #34D399 !important;
+  font-weight: 700 !important;
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+}
+
+/* 14.16 View Switcher Mode Toggle in Dark Mode */
+html.dark .ld-view-switcher,
+html.dark .ld-view-mode-group,
+[data-theme="dark"] .ld-view-switcher,
+[data-theme="dark"] .ld-view-mode-group,
+body.dark .ld-view-switcher,
+body.dark .ld-view-mode-group {
+  background: #0A140D !important;
+  background-color: #0A140D !important;
+  border: 1px solid rgba(16, 185, 129, 0.35) !important;
+  border-radius: 10px !important;
+}
+
+html.dark .ld-view-btn,
+[data-theme="dark"] .ld-view-btn,
+body.dark .ld-view-btn {
+  background: transparent !important;
+  color: #CBD5E1 !important;
+  font-weight: 600 !important;
+}
+
+html.dark .ld-view-btn:hover,
+[data-theme="dark"] .ld-view-btn:hover,
+body.dark .ld-view-btn:hover {
+  background: rgba(16, 185, 129, 0.18) !important;
+  color: #FFFFFF !important;
+}
+
+html.dark .ld-view-btn.is-active,
+html.dark .ld-view-btn.active,
+[data-theme="dark"] .ld-view-btn.is-active,
+[data-theme="dark"] .ld-view-btn.active,
+body.dark .ld-view-btn.is-active,
+body.dark .ld-view-btn.active {
+  background: #10B981 !important;
+  color: #FFFFFF !important;
+  font-weight: 700 !important;
+}
+
+/* 14.17 Alert Banners & Toasts in Dark Mode */
+html.dark .auth-alert-banner,
+html.dark .auth-alert-banner.alert-success,
+[data-theme="dark"] .auth-alert-banner,
+[data-theme="dark"] .auth-alert-banner.alert-success,
+body.dark .auth-alert-banner,
+body.dark .auth-alert-banner.alert-success {
+  background: #0A180E !important;
+  background-color: #0A180E !important;
+  border: 1.5px solid rgba(16, 185, 129, 0.45) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5) !important;
+}
+
+html.dark .auth-alert-banner.alert-success .alert-title,
+[data-theme="dark"] .auth-alert-banner.alert-success .alert-title,
+body.dark .auth-alert-banner.alert-success .alert-title {
+  color: #34D399 !important;
+  font-weight: 700 !important;
+}
+
+html.dark .auth-alert-banner.alert-success .alert-text,
+html.dark .auth-alert-banner.alert-success p,
+html.dark .auth-alert-banner.alert-success span,
+[data-theme="dark"] .auth-alert-banner.alert-success .alert-text,
+[data-theme="dark"] .auth-alert-banner.alert-success p,
+[data-theme="dark"] .auth-alert-banner.alert-success span,
+body.dark .auth-alert-banner.alert-success .alert-text,
+body.dark .auth-alert-banner.alert-success p,
+body.dark .auth-alert-banner.alert-success span {
+  color: #E2E8F0 !important;
+}
+
+html.dark .auth-alert-banner.alert-success .alert-icon-wrap,
+html.dark .auth-alert-banner.alert-success .alert-icon-wrap svg,
+[data-theme="dark"] .auth-alert-banner.alert-success .alert-icon-wrap,
+[data-theme="dark"] .auth-alert-banner.alert-success .alert-icon-wrap svg,
+body.dark .auth-alert-banner.alert-success .alert-icon-wrap,
+body.dark .auth-alert-banner.alert-success .alert-icon-wrap svg {
+  color: #10B981 !important;
+  stroke: #10B981 !important;
+}
+
+/* 14.18 Dashboard Showcase Scenic Hero in Dark Mode */
+html.dark .crm-hero-banner,
+[data-theme="dark"] .crm-hero-banner,
+body.dark .crm-hero-banner {
+  background: linear-gradient(135deg, #06150B 0%, #0A2012 45%, #0F2E1B 100%) !important;
+  border: 1px solid rgba(16, 185, 129, 0.35) !important;
+  box-shadow: 0 16px 36px -6px rgba(0, 0, 0, 0.65), 0 0 35px rgba(16, 185, 129, 0.14) !important;
+}
+
+html.dark .crm-hero-badge,
+[data-theme="dark"] .crm-hero-badge,
+body.dark .crm-hero-badge {
+  background: #0E1F14 !important;
+  border: 1px solid rgba(16, 185, 129, 0.45) !important;
+  color: #34D399 !important;
+}
+
+html.dark .crm-hero-badge *,
+[data-theme="dark"] .crm-hero-badge *,
+body.dark .crm-hero-badge * {
+  color: #34D399 !important;
+  background: transparent !important;
+}
+
+html.dark .crm-scenic-arch,
+[data-theme="dark"] .crm-scenic-arch,
+body.dark .crm-scenic-arch {
+  background: linear-gradient(180deg, #102316 0%, #07110A 100%) !important;
+  border: 2px solid rgba(16, 185, 129, 0.35) !important;
+}
+
+html.dark .crm-arch-door,
+[data-theme="dark"] .crm-arch-door,
+body.dark .crm-arch-door {
+  background: rgba(16, 185, 129, 0.12) !important;
+  border-color: rgba(16, 185, 129, 0.35) !important;
+}
+
+/* 14.19 UNIVERSAL ERADICATION OF INNER BORDERS & OUTLINES ON BUTTON/BADGE CHILDREN */
+button *,
+.btn *,
+.crm-btn *,
+.lg-btn *,
+.auth-btn *,
+.primary-button *,
+.crm-btn-primary *,
+.crm-btn-secondary *,
+.crm-btn-outline *,
+.crm-btn-ghost *,
+.crm-btn-icon-left,
+.crm-btn-icon-right,
+.refresh-btn-secondary *,
+.crm-filter-action-btn *,
+.role-pill *,
+.org-pill *,
+.member-since-pill *,
+.workspace-role-pill *,
+.badge *,
+.crm-badge *,
+.lg-badge *,
+.tag-pill *,
+.status-pill *,
+.count-pill *,
+.identity-badges-row *,
+.identity-badges-row span,
+html.dark button *,
+html.dark .btn *,
+html.dark .crm-btn *,
+html.dark .role-pill *,
+html.dark .org-pill *,
+html.dark .member-since-pill *,
+html.dark .crm-badge *,
+html.dark .identity-badges-row *,
+[data-theme="dark"] button *,
+[data-theme="dark"] .btn *,
+[data-theme="dark"] .crm-btn *,
+[data-theme="dark"] .role-pill *,
+[data-theme="dark"] .org-pill *,
+[data-theme="dark"] .member-since-pill *,
+[data-theme="dark"] .crm-badge *,
+[data-theme="dark"] .identity-badges-row *,
+body.dark button *,
+body.dark .btn *,
+body.dark .crm-btn *,
+body.dark .role-pill *,
+body.dark .org-pill *,
+body.dark .member-since-pill *,
+body.dark .crm-badge *,
+body.dark .identity-badges-row * {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
 
