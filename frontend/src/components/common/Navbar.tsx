@@ -409,9 +409,16 @@ export const Navbar: React.FC = () => {
 
     fetchUnreadCount();
     const interval = setInterval(fetchUnreadCount, 30000);
+
+    const handleNotificationsUpdated = () => {
+      void fetchUnreadCount();
+    };
+    window.addEventListener('crm:notifications-updated', handleNotificationsUpdated);
+
     return () => {
       isMounted = false;
       clearInterval(interval);
+      window.removeEventListener('crm:notifications-updated', handleNotificationsUpdated);
     };
   }, [user, location.pathname]);
 
@@ -1185,7 +1192,7 @@ export const Navbar: React.FC = () => {
             <div className="sidebar-profile-actions">
               {/* Notification Bell (Only shows red badge when there are actual unread notifications) */}
               <Link
-                to="/settings/notifications"
+                to="/notifications"
                 className="sidebar-action-btn notif-btn"
                 title={unreadNotificationsCount > 0 ? `Notifications (${unreadNotificationsCount} new)` : 'Notifications'}
                 aria-label="Notifications"

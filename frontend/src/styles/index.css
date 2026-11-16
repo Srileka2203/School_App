@@ -76,12 +76,12 @@
   --accent-purple: #7c3aed;
   --accent-indigo: #6366f1;
 
-  /* Brand Gradients */
-  --brand-gradient: linear-gradient(135deg, #062e03 0%, #10b981 55%, #7c3aed 100%);
-  --brand-gradient-hover: linear-gradient(135deg, #041f02 0%, #059669 55%, #6d28d9 100%);
-  --brand-gradient-accent: linear-gradient(135deg, #10b981 0%, #7c3aed 100%);
+  /* Brand Gradients (Strictly matching CRM Emerald/Forest Green Theme) */
+  --brand-gradient: linear-gradient(135deg, #062e03 0%, #059669 55%, #10b981 100%);
+  --brand-gradient-hover: linear-gradient(135deg, #041f02 0%, #047857 55%, #059669 100%);
+  --brand-gradient-accent: linear-gradient(135deg, #10b981 0%, #059669 100%);
   --brand-gradient-hero: linear-gradient(135deg, #062e03 0%, #0d4a07 50%, #10b981 100%);
-  --brand-gradient-warm: linear-gradient(135deg, #062e03 0%, #10b981 45%, #7c3aed 100%);
+  --brand-gradient-warm: linear-gradient(135deg, #062e03 0%, #059669 50%, #10b981 100%);
 
   /* Status Colors */
   --color-success: #10b981;

@@ -877,7 +877,21 @@ button span,
 .crm-badge span,
 .lg-badge span,
 .tag-pill span,
-.count-pill span {
+.count-pill span,
+.role-pill > *,
+.org-pill > *,
+.member-since-pill > *,
+.workspace-role-pill > *,
+button > *,
+.btn > *,
+.crm-btn > *,
+.lg-btn > *,
+.refresh-btn-secondary > *,
+.badge > *,
+.crm-badge > *,
+.lg-badge > *,
+.tag-pill > *,
+.count-pill > * {
   border: none !important;
   outline: none !important;
   box-shadow: none !important;
@@ -2145,13 +2159,48 @@ html.dark .count-pill,
   color: #34D399 !important;
 }
 
+html.dark .crm-badge *,
+[data-theme="dark"] .crm-badge *,
+body.dark .crm-badge * {
+  color: inherit !important;
+}
+
+html.dark .crm-badge-primary,
+html.dark .crm-badge-primary *,
+html.dark .crm-badge.crm-badge-primary,
+html.dark .crm-badge.crm-badge-primary *,
+[data-theme="dark"] .crm-badge-primary,
+[data-theme="dark"] .crm-badge-primary *,
+[data-theme="dark"] .crm-badge.crm-badge-primary,
+[data-theme="dark"] .crm-badge.crm-badge-primary *,
+body.dark .crm-badge-primary,
+body.dark .crm-badge-primary *,
+body.dark .crm-badge.crm-badge-primary,
+body.dark .crm-badge.crm-badge-primary * {
+  background: #10B981 !important;
+  background-color: #10B981 !important;
+  color: #042102 !important;
+  border: 1px solid #059669 !important;
+  font-weight: 800 !important;
+}
+
 html.dark .crm-badge-secondary,
 html.dark .crm-badge-secondary *,
+html.dark .crm-badge.crm-badge-secondary,
+html.dark .crm-badge.crm-badge-secondary *,
 [data-theme="dark"] .crm-badge-secondary,
-[data-theme="dark"] .crm-badge-secondary * {
-  background: rgba(16, 185, 129, 0.18) !important;
+[data-theme="dark"] .crm-badge-secondary *,
+[data-theme="dark"] .crm-badge.crm-badge-secondary,
+[data-theme="dark"] .crm-badge.crm-badge-secondary *,
+body.dark .crm-badge-secondary,
+body.dark .crm-badge-secondary *,
+body.dark .crm-badge.crm-badge-secondary,
+body.dark .crm-badge.crm-badge-secondary * {
+  background: rgba(16, 185, 129, 0.22) !important;
+  background-color: rgba(16, 185, 129, 0.22) !important;
   color: #34D399 !important;
-  border: 1px solid rgba(16, 185, 129, 0.4) !important;
+  border: 1px solid rgba(52, 211, 153, 0.45) !important;
+  font-weight: 700 !important;
 }
 
 /* 11. Tailwind Text Colors in Dark Mode */
@@ -2930,31 +2979,39 @@ html.dark .ld-board-empty-slot .lg-link-btn,
 html.dark .ld-view-switcher,
 html.dark .ld-view-mode-group,
 [data-theme="dark"] .ld-view-switcher,
-[data-theme="dark"] .ld-view-mode-group {
+[data-theme="dark"] .ld-view-mode-group,
+body.dark .ld-view-switcher,
+body.dark .ld-view-mode-group {
   background: #0D1A10 !important;
   background-color: #0D1A10 !important;
-  border: 1px solid rgba(16, 185, 129, 0.3) !important;
+  border: 1px solid rgba(16, 185, 129, 0.35) !important;
+  border-radius: 10px !important;
 }
 
 html.dark .ld-view-btn,
-[data-theme="dark"] .ld-view-btn {
+[data-theme="dark"] .ld-view-btn,
+body.dark .ld-view-btn {
   background: transparent !important;
-  color: #94A3B8 !important;
+  color: #CBD5E1 !important;
+  font-weight: 600 !important;
 }
 
 html.dark .ld-view-btn:hover,
-[data-theme="dark"] .ld-view-btn:hover {
-  background: rgba(16, 185, 129, 0.15) !important;
+[data-theme="dark"] .ld-view-btn:hover,
+body.dark .ld-view-btn:hover {
+  background: rgba(16, 185, 129, 0.18) !important;
   color: #FFFFFF !important;
 }
 
 html.dark .ld-view-btn.active,
 html.dark .ld-view-btn.is-active,
 [data-theme="dark"] .ld-view-btn.active,
-[data-theme="dark"] .ld-view-btn.is-active {
-  background: #122217 !important;
-  color: #34D399 !important;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3) !important;
+[data-theme="dark"] .ld-view-btn.is-active,
+body.dark .ld-view-btn.active,
+body.dark .ld-view-btn.is-active {
+  background: #10B981 !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 1px 6px rgba(16, 185, 129, 0.35) !important;
   font-weight: 700 !important;
 }
 
@@ -3015,6 +3072,8 @@ html.dark .search-wrap svg,
 html.dark .search-bar svg,
 html.dark .search-wrapper svg,
 html.dark [role="search"] svg,
+html.dark .search-icon-svg,
+html.dark .search-input-box svg,
 [data-theme="dark"] .crm-filter-search-icon,
 [data-theme="dark"] .lg-search-icon,
 [data-theme="dark"] .search-box-icon,
@@ -3031,7 +3090,15 @@ html.dark [role="search"] svg,
 [data-theme="dark"] .search-wrap svg,
 [data-theme="dark"] .search-bar svg,
 [data-theme="dark"] .search-wrapper svg,
-[data-theme="dark"] [role="search"] svg {
+[data-theme="dark"] [role="search"] svg,
+[data-theme="dark"] .search-icon-svg,
+[data-theme="dark"] .search-input-box svg,
+body.dark .crm-filter-search-icon,
+body.dark .lg-search svg,
+body.dark .search-box svg,
+body.dark [role="search"] svg,
+body.dark .search-icon-svg,
+body.dark .search-input-box svg {
   color: #FFFFFF !important;
   stroke: #FFFFFF !important;
   opacity: 1 !important;

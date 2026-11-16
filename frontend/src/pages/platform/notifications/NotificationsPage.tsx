@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { Navbar } from '../../../components/common/Navbar';
+import { api } from '../../../services/api';
 import {
   BellIcon,
   CheckCircleIcon,
@@ -24,52 +25,63 @@ interface NotificationItem {
 export const NotificationsPage: React.FC = () => {
   const [filter, setFilter] = useState<'all' | 'unread' | 'lead' | 'deal'>('all');
   const [isRefreshing, setIsRefreshing] = useState(false);
-  const [notifications, setNotifications] = useState<NotificationItem[]>([
-    {
-      id: 'notif-1',
-      title: 'High-Value Lead Qualified',
-      description: 'Acme Corp was marked as Qualified by Sri (Admin). Estimated potential: $75,000.',
-      category: 'lead',
-      timestamp: '10 minutes ago',
-      read: false,
-    },
-    {
-      id: 'notif-2',
-      title: 'Enterprise Pipeline Review Scheduled',
-      description: 'Meeting scheduled for tomorrow at 10:30 AM with Key Stakeholders.',
-      category: 'deal',
-      timestamp: '1 hour ago',
-      read: false,
-    },
-    {
-      id: 'notif-3',
-      title: 'Security Audit Trail Export Completed',
-      description: 'Your requested platform compliance log report has been generated and ready for download.',
-      category: 'system',
-      timestamp: '3 hours ago',
-      read: true,
-    },
-    {
-      id: 'notif-4',
-      title: 'Follow-up Task Assigned',
-      description: 'Follow up on Q4 Proposal Sent to Global Retailers.',
-      category: 'task',
-      timestamp: 'Yesterday',
-      read: true,
-    },
-  ]);
+  const [notifications, setNotifications] = useState<NotificationItem[]>([]);
+  const [hasLoaded, setHasLoaded] = useState(false);
 
-  const handleRefresh = () => {
+  const fetchNotifications = useCallback(async () => {
+    try {
+      const res = await api.get<any>('/notifications');
+      const list = Array.isArray(res) ? res : Array.isArray(res?.data) ? res.data : [];
+      if (list.length > 0) {
+        setNotifications(
+          list.map((n: any) => ({
+            id: n.id,
+            title: n.title || 'Notification',
+            description: n.message || n.description || '',
+            category: (n.category || 'system').toLowerCase() as any,
+            timestamp: n.createdAt ? new Date(n.createdAt).toLocaleDateString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : 'Recently',
+            read: Boolean(n.isRead ?? n.read),
+          }))
+        );
+      } else {
+        setNotifications([]);
+      }
+    } catch {
+      // If endpoint not reachable, keep empty
+      setNotifications([]);
+    } finally {
+      setHasLoaded(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    void fetchNotifications();
+  }, [fetchNotifications]);
+
+  const handleRefresh = async () => {
     setIsRefreshing(true);
-    setTimeout(() => setIsRefreshing(false), 500);
+    await fetchNotifications();
+    setTimeout(() => setIsRefreshing(false), 300);
   };
 
-  const markAllAsRead = () => {
+  const markAllAsRead = async () => {
+    try {
+      await api.patch('/notifications/read-all', {});
+    } catch {
+      // Ignore network errors in local dev
+    }
     setNotifications((prev) => prev.map((n) => ({ ...n, read: true })));
+    window.dispatchEvent(new CustomEvent('crm:notifications-updated'));
   };
 
-  const markAsRead = (id: string) => {
+  const markAsRead = async (id: string) => {
+    try {
+      await api.patch(`/notifications/${id}/read`, {});
+    } catch {
+      // Ignore network errors in local dev
+    }
     setNotifications((prev) => prev.map((n) => (n.id === id ? { ...n, read: true } : n)));
+    window.dispatchEvent(new CustomEvent('crm:notifications-updated'));
   };
 
   const filteredNotifications = notifications.filter((n) => {
@@ -141,7 +153,7 @@ export const NotificationsPage: React.FC = () => {
         </div>
 
         {/* View Switcher Filter */}
-        <div className="ld-view-switcher" style={{ marginBottom: '1.25rem' }}>
+        <div className="ld-view-switcher ld-view-mode-group" style={{ marginBottom: '1.25rem' }}>
           <button
             type="button"
             className={`ld-view-btn ${filter === 'all' ? 'is-active' : ''}`}

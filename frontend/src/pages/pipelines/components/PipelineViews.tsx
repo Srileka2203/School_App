@@ -258,7 +258,7 @@ export const PipelineBoardView: React.FC<SharedPipelineViewProps> = ({
 
               <div className="ld-board-col-body">
                 {stageDeals.length === 0 ? (
-                  <div className="ld-board-empty">
+                  <div className="ld-board-empty ld-board-empty-slot">
                     <span>No deals in {stage.name}</span>
                     {canManageDeals && (
                       <button

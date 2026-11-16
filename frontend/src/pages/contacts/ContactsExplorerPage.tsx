@@ -411,7 +411,7 @@ export const ContactsExplorerPage: React.FC = () => {
           </button>
         </div>
 
-        <div className="ld-view-switcher" role="group" aria-label="Switch contact view mode">
+        <div className="ld-view-switcher ld-view-mode-group" role="group" aria-label="Switch contact view mode">
           <button
             type="button"
             className={`ld-view-btn ${viewMode === 'table' ? 'is-active' : ''}`}
