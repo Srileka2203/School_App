@@ -58,6 +58,7 @@ export const FaqsSection: React.FC<FaqsSectionProps> = ({
         {/* Search Input */}
         <div style={{ position: 'relative' }}>
           <div
+            className="crm-filter-search-icon search-icon-adornment"
             style={{
               position: 'absolute',
               top: 0,
@@ -65,7 +66,6 @@ export const FaqsSection: React.FC<FaqsSectionProps> = ({
               left: '12px',
               display: 'flex',
               alignItems: 'center',
-              color: '#10B981',
               pointerEvents: 'none',
             }}
           >

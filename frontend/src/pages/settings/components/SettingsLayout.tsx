@@ -462,12 +462,12 @@ export const SettingsLayout: React.FC<SettingsLayoutProps> = ({
                 <div className="settings-drawer-search-box">
                   <SearchIcon
                     size={16}
+                    className="crm-filter-search-icon settings-search-icon"
                     style={{
                       position: 'absolute',
                       left: '14px',
                       top: '50%',
                       transform: 'translateY(-50%)',
-                      color: '#10b981',
                       pointerEvents: 'none',
                       zIndex: 2,
                     }}

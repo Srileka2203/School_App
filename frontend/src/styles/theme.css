@@ -2941,210 +2941,27 @@ html.dark .auth-alert-banner.alert-info,
   color: #F8FAFC !important;
 }
 
-/* 14.11 Kanban Board Column Body & Empty Deal States in Dark Mode */
-html.dark .ld-board-col-body,
-[data-theme="dark"] .ld-board-col-body {
-  background: #09130C !important;
-  color: #F8FAFC !important;
-}
-
-html.dark .ld-board-empty,
-html.dark .ld-board-empty-slot,
-[data-theme="dark"] .ld-board-empty,
-[data-theme="dark"] .ld-board-empty-slot {
-  background: #0D1A10 !important;
-  background-color: #0D1A10 !important;
-  border: 1.5px dashed rgba(16, 185, 129, 0.28) !important;
-  color: #94A3B8 !important;
-  border-radius: 10px !important;
-}
-
-html.dark .ld-board-empty span,
-html.dark .ld-board-empty-slot span,
-[data-theme="dark"] .ld-board-empty span,
-[data-theme="dark"] .ld-board-empty-slot span {
-  color: #94A3B8 !important;
-}
-
-html.dark .ld-board-empty .lg-link-btn,
-html.dark .ld-board-empty-slot .lg-link-btn,
-[data-theme="dark"] .ld-board-empty .lg-link-btn,
-[data-theme="dark"] .ld-board-empty-slot .lg-link-btn {
-  color: #34D399 !important;
-  background: transparent !important;
-}
-
-/* 14.12 View Mode Switcher Container in Dark Mode */
-html.dark .ld-view-switcher,
-html.dark .ld-view-mode-group,
-[data-theme="dark"] .ld-view-switcher,
-[data-theme="dark"] .ld-view-mode-group,
-body.dark .ld-view-switcher,
-body.dark .ld-view-mode-group {
-  background: #0D1A10 !important;
-  background-color: #0D1A10 !important;
-  border: 1px solid rgba(16, 185, 129, 0.35) !important;
-  border-radius: 10px !important;
-}
-
-html.dark .ld-view-btn,
-[data-theme="dark"] .ld-view-btn,
-body.dark .ld-view-btn {
-  background: transparent !important;
-  color: #CBD5E1 !important;
-  font-weight: 600 !important;
-}
-
-html.dark .ld-view-btn:hover,
-[data-theme="dark"] .ld-view-btn:hover,
-body.dark .ld-view-btn:hover {
-  background: rgba(16, 185, 129, 0.18) !important;
-  color: #FFFFFF !important;
-}
-
-html.dark .ld-view-btn.active,
-html.dark .ld-view-btn.is-active,
-[data-theme="dark"] .ld-view-btn.active,
-[data-theme="dark"] .ld-view-btn.is-active,
-body.dark .ld-view-btn.active,
-body.dark .ld-view-btn.is-active {
-  background: #10B981 !important;
-  color: #FFFFFF !important;
-  box-shadow: 0 1px 6px rgba(16, 185, 129, 0.35) !important;
-  font-weight: 700 !important;
-}
-
-/* 14.13 Refresh & Action Buttons Alignment & Icon/Text Center */
-.refresh-btn-secondary,
-button.refresh-btn-secondary,
-.crm-filter-action-btn,
-.crm-filter-refresh-btn,
-.crm-filter-reset-btn,
-.refresh-btn {
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  gap: 0.5rem !important;
-  padding: 0.45rem 1.15rem !important;
-  height: 38px !important;
-  min-height: 38px !important;
-  border-radius: 9999px !important;
-  line-height: normal !important;
-  vertical-align: middle !important;
-}
-
-.refresh-btn-secondary svg,
-button.refresh-btn-secondary svg,
-.crm-filter-action-btn svg,
-.crm-filter-refresh-btn svg,
-.crm-filter-reset-btn svg,
-.refresh-btn svg {
-  display: block !important;
-  flex-shrink: 0 !important;
-  margin: 0 !important;
-  vertical-align: middle !important;
-}
-
-.refresh-btn-secondary span,
-button.refresh-btn-secondary span,
-.crm-filter-action-btn span,
-.crm-filter-refresh-btn span,
-.crm-filter-reset-btn span,
-.refresh-btn span {
-  display: inline-flex !important;
-  align-items: center !important;
-  line-height: 1 !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  border: none !important;
-  outline: none !important;
-  box-shadow: none !important;
-}
-
-.page-header .page-actions-group {
-  display: flex !important;
-  align-items: center !important;
-  align-self: flex-start !important;
-  margin-top: 4px !important;
-}
-
-/* 14.14 Universal White Magnifying / Zooming Glass Icon in Dark Mode */
-html.dark .crm-filter-search-icon,
-html.dark .lg-search-icon,
-html.dark .search-box-icon,
-html.dark .search-icon-adornment,
-html.dark .search-bar-icon,
-html.dark .quick-search-icon,
-html.dark .search-icon,
-html.dark .navbar-search-icon,
-html.dark .settings-search-icon,
-html.dark .search-input-icon,
-html.dark .crm-filter-search-wrap svg,
-html.dark .lg-search svg,
-html.dark .search-box svg,
-html.dark .search-wrap svg,
-html.dark .search-bar svg,
-html.dark .search-wrapper svg,
-html.dark [role="search"] svg,
-html.dark .search-icon-svg,
-html.dark .search-input-box svg,
-[data-theme="dark"] .crm-filter-search-icon,
-[data-theme="dark"] .lg-search-icon,
-[data-theme="dark"] .search-box-icon,
-[data-theme="dark"] .search-icon-adornment,
-[data-theme="dark"] .search-bar-icon,
-[data-theme="dark"] .quick-search-icon,
-[data-theme="dark"] .search-icon,
-[data-theme="dark"] .navbar-search-icon,
-[data-theme="dark"] .settings-search-icon,
-[data-theme="dark"] .search-input-icon,
-[data-theme="dark"] .crm-filter-search-wrap svg,
-[data-theme="dark"] .lg-search svg,
-[data-theme="dark"] .search-box svg,
-[data-theme="dark"] .search-wrap svg,
-[data-theme="dark"] .search-bar svg,
-[data-theme="dark"] .search-wrapper svg,
-[data-theme="dark"] [role="search"] svg,
-[data-theme="dark"] .search-icon-svg,
-[data-theme="dark"] .search-input-box svg,
-body.dark .crm-filter-search-icon,
-body.dark .lg-search-icon,
-body.dark .crm-filter-search-wrap svg,
-body.dark .lg-search svg,
-body.dark .search-box svg,
-body.dark [role="search"] svg,
-body.dark .search-icon-svg,
-body.dark .search-input-box svg {
-  color: #FFFFFF !important;
-  stroke: #FFFFFF !important;
-  fill: none !important;
-  opacity: 1 !important;
-}
-
-html.dark .crm-filter-search-icon *,
-html.dark .lg-search-icon *,
-html.dark .crm-filter-search-wrap svg *,
-html.dark .lg-search svg *,
-[data-theme="dark"] .crm-filter-search-icon *,
-[data-theme="dark"] .lg-search-icon *,
-[data-theme="dark"] .crm-filter-search-wrap svg *,
-[data-theme="dark"] .lg-search svg *,
-body.dark .crm-filter-search-icon *,
-body.dark .lg-search svg * {
-  stroke: #FFFFFF !important;
-  color: #FFFFFF !important;
-}
-
-/* 14.15 Kanban Columns, Body & Empty States in Dark Mode */
+/* 14.11 Kanban Board Columns, Header, Body & Empty States in Dark Mode */
 html.dark .ld-board-column,
 html.dark .ld-board-col,
+html.dark section.ld-board-col,
 [data-theme="dark"] .ld-board-column,
 [data-theme="dark"] .ld-board-col,
+[data-theme="dark"] section.ld-board-col,
 body.dark .ld-board-column,
-body.dark .ld-board-col {
+body.dark .ld-board-col,
+body.dark section.ld-board-col {
   background: #0A140D !important;
   background-color: #0A140D !important;
   border: 1px solid rgba(16, 185, 129, 0.22) !important;
+}
+
+html.dark .ld-board-col-header,
+[data-theme="dark"] .ld-board-col-header,
+body.dark .ld-board-col-header {
+  background: #0D1C12 !important;
+  background-color: #0D1C12 !important;
+  border-bottom: 1px solid rgba(16, 185, 129, 0.22) !important;
 }
 
 html.dark .ld-board-col-body,
@@ -3164,6 +2981,7 @@ body.dark .ld-board-empty-slot {
   background: #0D1C12 !important;
   background-color: #0D1C12 !important;
   border: 1.5px dashed rgba(16, 185, 129, 0.3) !important;
+  color: #94A3B8 !important;
   border-radius: 12px !important;
 }
 
@@ -3184,13 +3002,30 @@ html.dark .ld-board-empty-slot .lg-link-btn,
 body.dark .ld-board-empty .lg-link-btn,
 body.dark .ld-board-empty-slot .lg-link-btn {
   color: #34D399 !important;
-  font-weight: 700 !important;
   background: transparent !important;
   border: none !important;
   outline: none !important;
+  font-weight: 700 !important;
 }
 
-/* 14.16 View Switcher Mode Toggle in Dark Mode */
+html.dark .ld-board-col-footer,
+[data-theme="dark"] .ld-board-col-footer,
+body.dark .ld-board-col-footer {
+  background: #0D1C12 !important;
+  background-color: #0D1C12 !important;
+  border-top: 1px solid rgba(16, 185, 129, 0.18) !important;
+}
+
+html.dark .ld-board-col-footer button,
+[data-theme="dark"] .ld-board-col-footer button,
+body.dark .ld-board-col-footer button {
+  background: transparent !important;
+  color: #34D399 !important;
+  border: 1px dashed rgba(16, 185, 129, 0.35) !important;
+  border-radius: 8px !important;
+}
+
+/* 14.12 View Mode Switcher Container in Dark Mode */
 html.dark .ld-view-switcher,
 html.dark .ld-view-mode-group,
 [data-theme="dark"] .ld-view-switcher,
@@ -3201,35 +3036,347 @@ body.dark .ld-view-mode-group {
   background-color: #0A140D !important;
   border: 1px solid rgba(16, 185, 129, 0.35) !important;
   border-radius: 10px !important;
+  padding: 3px !important;
+  gap: 3px !important;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4) !important;
 }
 
 html.dark .ld-view-btn,
+html.dark .ld-view-switcher button,
+html.dark .ld-view-mode-group button,
 [data-theme="dark"] .ld-view-btn,
-body.dark .ld-view-btn {
+[data-theme="dark"] .ld-view-switcher button,
+[data-theme="dark"] .ld-view-mode-group button,
+body.dark .ld-view-btn,
+body.dark .ld-view-switcher button,
+body.dark .ld-view-mode-group button {
   background: transparent !important;
   color: #CBD5E1 !important;
+  border: none !important;
+  outline: none !important;
   font-weight: 600 !important;
+  border-radius: 7px !important;
 }
 
-html.dark .ld-view-btn:hover,
-[data-theme="dark"] .ld-view-btn:hover,
-body.dark .ld-view-btn:hover {
+html.dark .ld-view-btn:hover:not(.is-active):not(.active),
+html.dark .ld-view-switcher button:hover:not(.is-active):not(.active),
+html.dark .ld-view-mode-group button:hover:not(.is-active):not(.active),
+[data-theme="dark"] .ld-view-btn:hover:not(.is-active):not(.active),
+[data-theme="dark"] .ld-view-switcher button:hover:not(.is-active):not(.active),
+[data-theme="dark"] .ld-view-mode-group button:hover:not(.is-active):not(.active),
+body.dark .ld-view-btn:hover:not(.is-active):not(.active),
+body.dark .ld-view-switcher button:hover:not(.is-active):not(.active),
+body.dark .ld-view-mode-group button:hover:not(.is-active):not(.active) {
   background: rgba(16, 185, 129, 0.18) !important;
   color: #FFFFFF !important;
 }
 
-html.dark .ld-view-btn.is-active,
 html.dark .ld-view-btn.active,
-[data-theme="dark"] .ld-view-btn.is-active,
+html.dark .ld-view-btn.is-active,
+html.dark .ld-view-switcher button.active,
+html.dark .ld-view-switcher button.is-active,
+html.dark .ld-view-mode-group button.active,
+html.dark .ld-view-mode-group button.is-active,
 [data-theme="dark"] .ld-view-btn.active,
+[data-theme="dark"] .ld-view-btn.is-active,
+[data-theme="dark"] .ld-view-switcher button.active,
+[data-theme="dark"] .ld-view-switcher button.is-active,
+[data-theme="dark"] .ld-view-mode-group button.active,
+[data-theme="dark"] .ld-view-mode-group button.is-active,
+body.dark .ld-view-btn.active,
 body.dark .ld-view-btn.is-active,
-body.dark .ld-view-btn.active {
+body.dark .ld-view-switcher button.active,
+body.dark .ld-view-switcher button.is-active,
+body.dark .ld-view-mode-group button.active,
+body.dark .ld-view-mode-group button.is-active {
   background: #10B981 !important;
+  background-color: #10B981 !important;
   color: #FFFFFF !important;
+  box-shadow: 0 1px 6px rgba(16, 185, 129, 0.35) !important;
   font-weight: 700 !important;
+  border-radius: 7px !important;
 }
 
-/* 14.17 Alert Banners & Toasts in Dark Mode */
+/* 14.13 Refresh & Action Buttons Alignment & Icon/Text Center */
+.refresh-btn-secondary,
+button.refresh-btn-secondary,
+.crm-filter-action-btn,
+.crm-filter-refresh-btn,
+.crm-filter-reset-btn,
+.refresh-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 7px !important;
+  padding: 0 16px !important;
+  height: 36px !important;
+  min-height: 36px !important;
+  border-radius: 9999px !important;
+  box-sizing: border-box !important;
+  vertical-align: middle !important;
+}
+
+html.dark .refresh-btn-secondary,
+html.dark button.refresh-btn-secondary,
+html.dark .crm-filter-action-btn,
+html.dark .crm-filter-refresh-btn,
+html.dark .crm-filter-reset-btn,
+html.dark .refresh-btn,
+[data-theme="dark"] .refresh-btn-secondary,
+[data-theme="dark"] button.refresh-btn-secondary,
+[data-theme="dark"] .crm-filter-action-btn,
+[data-theme="dark"] .crm-filter-refresh-btn,
+[data-theme="dark"] .crm-filter-reset-btn,
+[data-theme="dark"] .refresh-btn,
+body.dark .refresh-btn-secondary,
+body.dark button.refresh-btn-secondary,
+body.dark .crm-filter-action-btn,
+body.dark .crm-filter-refresh-btn,
+body.dark .crm-filter-reset-btn,
+body.dark .refresh-btn {
+  background: #122217 !important;
+  background-color: #122217 !important;
+  border: 1.5px solid rgba(52, 211, 153, 0.45) !important;
+  color: #FFFFFF !important;
+}
+
+.refresh-btn-secondary svg,
+button.refresh-btn-secondary svg,
+.crm-filter-action-btn svg,
+.crm-filter-refresh-btn svg,
+.crm-filter-reset-btn svg,
+.refresh-btn svg {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
+  margin: 0 !important;
+  vertical-align: middle !important;
+}
+
+html.dark .refresh-btn-secondary svg,
+html.dark button.refresh-btn-secondary svg,
+html.dark .crm-filter-action-btn svg,
+html.dark .crm-filter-refresh-btn svg,
+html.dark .crm-filter-reset-btn svg,
+html.dark .refresh-btn svg,
+[data-theme="dark"] .refresh-btn-secondary svg,
+[data-theme="dark"] button.refresh-btn-secondary svg,
+[data-theme="dark"] .crm-filter-action-btn svg,
+[data-theme="dark"] .crm-filter-refresh-btn svg,
+[data-theme="dark"] .crm-filter-reset-btn svg,
+[data-theme="dark"] .refresh-btn svg,
+body.dark .refresh-btn-secondary svg,
+body.dark button.refresh-btn-secondary svg,
+body.dark .crm-filter-action-btn svg,
+body.dark .crm-filter-refresh-btn svg,
+body.dark .crm-filter-reset-btn svg,
+body.dark .refresh-btn svg {
+  color: #FFFFFF !important;
+  stroke: #FFFFFF !important;
+}
+
+.refresh-btn-secondary span,
+button.refresh-btn-secondary span,
+.crm-filter-action-btn span,
+.crm-filter-refresh-btn span,
+.crm-filter-reset-btn span,
+.refresh-btn span {
+  display: inline-flex !important;
+  align-items: center !important;
+  line-height: 1 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  vertical-align: middle !important;
+}
+
+html.dark .refresh-btn-secondary span,
+html.dark button.refresh-btn-secondary span,
+html.dark .crm-filter-action-btn span,
+html.dark .crm-filter-refresh-btn span,
+html.dark .crm-filter-reset-btn span,
+html.dark .refresh-btn span,
+[data-theme="dark"] .refresh-btn-secondary span,
+[data-theme="dark"] button.refresh-btn-secondary span,
+[data-theme="dark"] .crm-filter-action-btn span,
+[data-theme="dark"] .crm-filter-refresh-btn span,
+[data-theme="dark"] .crm-filter-reset-btn span,
+[data-theme="dark"] .refresh-btn span,
+body.dark .refresh-btn-secondary span,
+body.dark button.refresh-btn-secondary span,
+body.dark .crm-filter-action-btn span,
+body.dark .crm-filter-refresh-btn span,
+body.dark .crm-filter-reset-btn span,
+body.dark .refresh-btn span {
+  color: #FFFFFF !important;
+}
+
+.page-header .page-actions-group {
+  display: flex !important;
+  align-items: center !important;
+  align-self: flex-start !important;
+  margin-top: 4px !important;
+}
+
+/* 14.14 Universal White Magnifying / Zooming Glass Icon in Dark Mode */
+html.dark .crm-filter-search-icon,
+html.dark .lg-search-icon,
+html.dark .search-box-icon,
+html.dark .search-icon-adornment,
+html.dark .search-bar-icon,
+html.dark .quick-search-icon,
+html.dark .search-icon,
+html.dark .navbar-search-icon,
+html.dark .settings-search-icon,
+html.dark .search-input-icon,
+html.dark .search-field-icon,
+html.dark .crm-filter-search-wrap svg,
+html.dark .lg-search svg,
+html.dark .search-box svg,
+html.dark .search-wrap svg,
+html.dark .search-bar svg,
+html.dark .search-wrapper svg,
+html.dark [role="search"] svg,
+html.dark .search-icon-svg,
+html.dark .search-input-box svg,
+html.dark .search-input-container svg,
+html.dark div:has(> input[type="search"]) svg,
+html.dark div:has(> input[placeholder*="Search"]) svg,
+html.dark div:has(> input[placeholder*="Filter"]) svg,
+[data-theme="dark"] .crm-filter-search-icon,
+[data-theme="dark"] .lg-search-icon,
+[data-theme="dark"] .search-box-icon,
+[data-theme="dark"] .search-icon-adornment,
+[data-theme="dark"] .search-bar-icon,
+[data-theme="dark"] .quick-search-icon,
+[data-theme="dark"] .search-icon,
+[data-theme="dark"] .navbar-search-icon,
+[data-theme="dark"] .settings-search-icon,
+[data-theme="dark"] .search-input-icon,
+[data-theme="dark"] .search-field-icon,
+[data-theme="dark"] .crm-filter-search-wrap svg,
+[data-theme="dark"] .lg-search svg,
+[data-theme="dark"] .search-box svg,
+[data-theme="dark"] .search-wrap svg,
+[data-theme="dark"] .search-bar svg,
+[data-theme="dark"] .search-wrapper svg,
+[data-theme="dark"] [role="search"] svg,
+[data-theme="dark"] .search-icon-svg,
+[data-theme="dark"] .search-input-box svg,
+[data-theme="dark"] .search-input-container svg,
+[data-theme="dark"] div:has(> input[type="search"]) svg,
+[data-theme="dark"] div:has(> input[placeholder*="Search"]) svg,
+[data-theme="dark"] div:has(> input[placeholder*="Filter"]) svg,
+body.dark .crm-filter-search-icon,
+body.dark .lg-search-icon,
+body.dark .search-box-icon,
+body.dark .search-icon-adornment,
+body.dark .search-bar-icon,
+body.dark .quick-search-icon,
+body.dark .search-icon,
+body.dark .navbar-search-icon,
+body.dark .settings-search-icon,
+body.dark .search-input-icon,
+body.dark .search-field-icon,
+body.dark .crm-filter-search-wrap svg,
+body.dark .lg-search svg,
+body.dark .search-box svg,
+body.dark .search-wrap svg,
+body.dark .search-bar svg,
+body.dark .search-wrapper svg,
+body.dark [role="search"] svg,
+body.dark .search-icon-svg,
+body.dark .search-input-box svg,
+body.dark .search-input-container svg,
+body.dark div:has(> input[type="search"]) svg,
+body.dark div:has(> input[placeholder*="Search"]) svg,
+body.dark div:has(> input[placeholder*="Filter"]) svg {
+  color: #FFFFFF !important;
+  stroke: #FFFFFF !important;
+  fill: none !important;
+  opacity: 1 !important;
+}
+
+html.dark .crm-filter-search-icon *,
+html.dark .lg-search-icon *,
+html.dark .search-box-icon *,
+html.dark .search-icon-adornment *,
+html.dark .search-bar-icon *,
+html.dark .quick-search-icon *,
+html.dark .search-icon *,
+html.dark .navbar-search-icon *,
+html.dark .settings-search-icon *,
+html.dark .search-input-icon *,
+html.dark .search-field-icon *,
+html.dark .crm-filter-search-wrap svg *,
+html.dark .lg-search svg *,
+html.dark .search-box svg *,
+html.dark .search-wrap svg *,
+html.dark .search-bar svg *,
+html.dark .search-wrapper svg *,
+html.dark [role="search"] svg *,
+html.dark .search-icon-svg *,
+html.dark .search-input-box svg *,
+html.dark .search-input-container svg *,
+html.dark div:has(> input[type="search"]) svg *,
+html.dark div:has(> input[placeholder*="Search"]) svg *,
+html.dark div:has(> input[placeholder*="Filter"]) svg *,
+[data-theme="dark"] .crm-filter-search-icon *,
+[data-theme="dark"] .lg-search-icon *,
+[data-theme="dark"] .search-box-icon *,
+[data-theme="dark"] .search-icon-adornment *,
+[data-theme="dark"] .search-bar-icon *,
+[data-theme="dark"] .quick-search-icon *,
+[data-theme="dark"] .search-icon *,
+[data-theme="dark"] .navbar-search-icon *,
+[data-theme="dark"] .settings-search-icon *,
+[data-theme="dark"] .search-input-icon *,
+[data-theme="dark"] .search-field-icon *,
+[data-theme="dark"] .crm-filter-search-wrap svg *,
+[data-theme="dark"] .lg-search svg *,
+[data-theme="dark"] .search-box svg *,
+[data-theme="dark"] .search-wrap svg *,
+[data-theme="dark"] .search-bar svg *,
+[data-theme="dark"] .search-wrapper svg *,
+[data-theme="dark"] [role="search"] svg *,
+[data-theme="dark"] .search-icon-svg *,
+[data-theme="dark"] .search-input-box svg *,
+[data-theme="dark"] .search-input-container svg *,
+[data-theme="dark"] div:has(> input[type="search"]) svg *,
+[data-theme="dark"] div:has(> input[placeholder*="Search"]) svg *,
+[data-theme="dark"] div:has(> input[placeholder*="Filter"]) svg *,
+body.dark .crm-filter-search-icon *,
+body.dark .lg-search-icon *,
+body.dark .search-box-icon *,
+body.dark .search-icon-adornment *,
+body.dark .search-bar-icon *,
+body.dark .quick-search-icon *,
+body.dark .search-icon *,
+body.dark .navbar-search-icon *,
+body.dark .settings-search-icon *,
+body.dark .search-input-icon *,
+body.dark .search-field-icon *,
+body.dark .crm-filter-search-wrap svg *,
+body.dark .lg-search svg *,
+body.dark .search-box svg *,
+body.dark .search-wrap svg *,
+body.dark .search-bar svg *,
+body.dark .search-wrapper svg *,
+body.dark [role="search"] svg *,
+body.dark .search-icon-svg *,
+body.dark .search-input-box svg *,
+body.dark .search-input-container svg *,
+body.dark div:has(> input[type="search"]) svg *,
+body.dark div:has(> input[placeholder*="Search"]) svg *,
+body.dark div:has(> input[placeholder*="Filter"]) svg * {
+  stroke: #FFFFFF !important;
+  color: #FFFFFF !important;
+}
+
+/* 14.15 Alert Feedback Banners in Dark Mode (Success, Error, Warning, Info) */
 html.dark .auth-alert-banner,
 html.dark .auth-alert-banner.alert-success,
 [data-theme="dark"] .auth-alert-banner,
@@ -3271,7 +3418,42 @@ body.dark .auth-alert-banner.alert-success .alert-icon-wrap svg {
   stroke: #10B981 !important;
 }
 
-/* 14.18 Dashboard Showcase Scenic Hero in Dark Mode */
+html.dark .auth-alert-banner.alert-error,
+[data-theme="dark"] .auth-alert-banner.alert-error,
+body.dark .auth-alert-banner.alert-error {
+  background: #1C0F13 !important;
+  background-color: #1C0F13 !important;
+  border: 1.5px solid rgba(239, 68, 68, 0.45) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5) !important;
+}
+
+html.dark .auth-alert-banner.alert-error .alert-title,
+[data-theme="dark"] .auth-alert-banner.alert-error .alert-title,
+body.dark .auth-alert-banner.alert-error .alert-title {
+  color: #F87171 !important;
+  font-weight: 700 !important;
+}
+
+html.dark .auth-alert-banner.alert-error .alert-text,
+html.dark .auth-alert-banner.alert-error p,
+html.dark .auth-alert-banner.alert-error li,
+[data-theme="dark"] .auth-alert-banner.alert-error .alert-text,
+[data-theme="dark"] .auth-alert-banner.alert-error p,
+[data-theme="dark"] .auth-alert-banner.alert-error li,
+body.dark .auth-alert-banner.alert-error .alert-text,
+body.dark .auth-alert-banner.alert-error p,
+body.dark .auth-alert-banner.alert-error li {
+  color: #FECACA !important;
+}
+
+html.dark .auth-alert-banner.alert-error .alert-icon-wrap svg,
+[data-theme="dark"] .auth-alert-banner.alert-error .alert-icon-wrap svg,
+body.dark .auth-alert-banner.alert-error .alert-icon-wrap svg {
+  color: #EF4444 !important;
+  stroke: #EF4444 !important;
+}
+
+/* 14.16 Dashboard Showcase Scenic Hero in Dark Mode */
 html.dark .crm-hero-banner,
 [data-theme="dark"] .crm-hero-banner,
 body.dark .crm-hero-banner {
@@ -3309,61 +3491,122 @@ body.dark .crm-arch-door {
   border-color: rgba(16, 185, 129, 0.35) !important;
 }
 
-/* 14.19 UNIVERSAL ERADICATION OF INNER BORDERS & OUTLINES ON BUTTON/BADGE CHILDREN */
+/* 14.17 UNIVERSAL ERADICATION OF INNER BORDERS & OUTLINES ON ALL BUTTON AND BADGE CHILDREN */
 button *,
+button *::before,
+button *::after,
 .btn *,
+.btn *::before,
+.btn *::after,
 .crm-btn *,
+.crm-btn *::before,
+.crm-btn *::after,
 .lg-btn *,
+.lg-btn *::before,
+.lg-btn *::after,
 .auth-btn *,
 .primary-button *,
 .crm-btn-primary *,
 .crm-btn-secondary *,
+.crm-btn-accent *,
+.crm-btn-gradient *,
 .crm-btn-outline *,
 .crm-btn-ghost *,
+.crm-btn-soft *,
+.crm-btn-danger *,
 .crm-btn-icon-left,
 .crm-btn-icon-right,
 .refresh-btn-secondary *,
 .crm-filter-action-btn *,
+.crm-filter-refresh-btn *,
+.crm-filter-reset-btn *,
+a.crm-btn *,
+a.btn *,
+a.lg-btn *,
 .role-pill *,
+.role-pill span,
 .org-pill *,
+.org-pill span,
 .member-since-pill *,
+.member-since-pill span,
 .workspace-role-pill *,
+.workspace-role-pill span,
 .badge *,
+.badge span,
 .crm-badge *,
+.crm-badge span,
 .lg-badge *,
+.lg-badge span,
 .tag-pill *,
+.tag-pill span,
 .status-pill *,
+.status-pill span,
 .count-pill *,
+.count-pill span,
 .identity-badges-row *,
 .identity-badges-row span,
 html.dark button *,
+html.dark button *::before,
+html.dark button *::after,
 html.dark .btn *,
 html.dark .crm-btn *,
+html.dark .crm-btn-primary *,
+html.dark .crm-btn-secondary *,
+html.dark .crm-btn-icon-left,
+html.dark .crm-btn-icon-right,
 html.dark .role-pill *,
+html.dark .role-pill span,
 html.dark .org-pill *,
+html.dark .org-pill span,
 html.dark .member-since-pill *,
+html.dark .member-since-pill span,
 html.dark .crm-badge *,
+html.dark .crm-badge span,
 html.dark .identity-badges-row *,
+html.dark .identity-badges-row span,
 [data-theme="dark"] button *,
+[data-theme="dark"] button *::before,
+[data-theme="dark"] button *::after,
 [data-theme="dark"] .btn *,
 [data-theme="dark"] .crm-btn *,
+[data-theme="dark"] .crm-btn-primary *,
+[data-theme="dark"] .crm-btn-secondary *,
+[data-theme="dark"] .crm-btn-icon-left,
+[data-theme="dark"] .crm-btn-icon-right,
 [data-theme="dark"] .role-pill *,
+[data-theme="dark"] .role-pill span,
 [data-theme="dark"] .org-pill *,
+[data-theme="dark"] .org-pill span,
 [data-theme="dark"] .member-since-pill *,
+[data-theme="dark"] .member-since-pill span,
 [data-theme="dark"] .crm-badge *,
+[data-theme="dark"] .crm-badge span,
 [data-theme="dark"] .identity-badges-row *,
+[data-theme="dark"] .identity-badges-row span,
 body.dark button *,
+body.dark button *::before,
+body.dark button *::after,
 body.dark .btn *,
 body.dark .crm-btn *,
+body.dark .crm-btn-primary *,
+body.dark .crm-btn-secondary *,
+body.dark .crm-btn-icon-left,
+body.dark .crm-btn-icon-right,
 body.dark .role-pill *,
+body.dark .role-pill span,
 body.dark .org-pill *,
+body.dark .org-pill span,
 body.dark .member-since-pill *,
+body.dark .member-since-pill span,
 body.dark .crm-badge *,
-body.dark .identity-badges-row * {
+body.dark .crm-badge span,
+body.dark .identity-badges-row *,
+body.dark .identity-badges-row span {
   border: none !important;
+  border-width: 0 !important;
   outline: none !important;
   box-shadow: none !important;
-  background: transparent !important;
+  background-color: transparent !important;
 }
 
 

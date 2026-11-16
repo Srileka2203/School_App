@@ -86,7 +86,7 @@ export const WorkspaceSwitcherPage: React.FC = () => {
         {/* Search & Count Bar */}
         <div className="switcher-toolbar">
           <div className="search-input-box">
-            <SearchIcon size={18} className="search-icon" />
+            <SearchIcon size={18} className="search-icon crm-filter-search-icon" />
             <input
               type="text"
               className="search-input"

@@ -137,12 +137,12 @@ export const FilesPage: React.FC = () => {
         >
           <div style={{ position: 'relative', minWidth: '240px', flex: 1 }}>
             <span
+              className="crm-filter-search-icon search-icon-adornment"
               style={{
                 position: 'absolute',
                 left: '0.75rem',
                 top: '50%',
                 transform: 'translateY(-50%)',
-                color: '#64748B',
                 pointerEvents: 'none',
               }}
             >

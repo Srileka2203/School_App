@@ -1257,13 +1257,12 @@ export const Navbar: React.FC = () => {
               <div className="settings-search-input-box" style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
                 <SearchIcon
                   size={15}
-                  className="settings-search-icon"
+                  className="crm-filter-search-icon settings-search-icon"
                   style={{
                     position: 'absolute',
                     left: '12px',
                     top: '50%',
                     transform: 'translateY(-50%)',
-                    color: '#10B981',
                     pointerEvents: 'none',
                     zIndex: 2,
                     display: 'flex',

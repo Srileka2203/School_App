@@ -555,13 +555,12 @@ export const TagsListPage: React.FC = () => {
           >
             <SearchIcon
               size={18}
-              className="search-field-icon"
+              className="crm-filter-search-icon search-field-icon"
               style={{
                 position: 'absolute',
                 left: '12px',
                 top: '50%',
                 transform: 'translateY(-50%)',
-                color: '#10B981',
                 pointerEvents: 'none',
                 zIndex: 1,
               }}

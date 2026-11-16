@@ -105,6 +105,7 @@ export const AuditLogFilters: React.FC<AuditLogFiltersProps> = ({
         {/* Search Bar */}
         <div style={{ position: 'relative', flex: 1, minWidth: '260px' }}>
           <div
+            className="crm-filter-search-icon search-icon-adornment"
             style={{
               position: 'absolute',
               left: '14px',
@@ -114,7 +115,6 @@ export const AuditLogFilters: React.FC<AuditLogFiltersProps> = ({
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              color: '#10B981',
               zIndex: 2,
             }}
           >

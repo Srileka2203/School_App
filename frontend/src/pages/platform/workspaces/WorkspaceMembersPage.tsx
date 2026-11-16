@@ -363,7 +363,7 @@ export const WorkspaceMembersPage: React.FC = () => {
         {/* Search & Filters */}
         <div className="filters-bar-card">
           <div className="search-input-box">
-            <SearchIcon size={18} className="search-icon" />
+            <SearchIcon size={18} className="search-icon crm-filter-search-icon" />
             <input
               type="text"
               className="search-input"

@@ -110,6 +110,7 @@ export const HelpCenterSection: React.FC<HelpCenterSectionProps> = ({
           {/* Search Input Bar */}
           <div style={{ position: 'relative', maxWidth: '560px', margin: '0 auto', textAlign: 'left' }}>
             <div
+              className="crm-filter-search-icon search-icon-adornment"
               style={{
                 position: 'absolute',
                 top: 0,
@@ -117,7 +118,6 @@ export const HelpCenterSection: React.FC<HelpCenterSectionProps> = ({
                 left: '14px',
                 display: 'flex',
                 alignItems: 'center',
-                color: '#10B981',
                 pointerEvents: 'none',
               }}
             >

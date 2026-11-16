@@ -308,18 +308,22 @@ export const ProfilePage: React.FC = () => {
             <div className="identity-badges-row">
               <span className="role-pill">
                 <ShieldIcon size={14} />
-                <span>Role: {user?.role?.name || 'SALES_REP'}</span>
+                <span style={{ border: 'none', outline: 'none', boxShadow: 'none', background: 'transparent' }}>
+                  Role: {user?.role?.name || 'SALES_REP'}
+                </span>
               </span>
 
               {user?.organization && (
                 <span className="org-pill">
                   <BuildingIcon size={14} />
-                  <span>{user.organization.name}</span>
+                  <span style={{ border: 'none', outline: 'none', boxShadow: 'none', background: 'transparent' }}>
+                    {user.organization.name}
+                  </span>
                 </span>
               )}
 
               <span className="member-since-pill">
-                <span>
+                <span style={{ border: 'none', outline: 'none', boxShadow: 'none', background: 'transparent' }}>
                   Member since {formatDateWithTimezone(user?.createdAt, timezone)}
                 </span>
               </span>

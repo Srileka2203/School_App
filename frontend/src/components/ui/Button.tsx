@@ -68,13 +68,27 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           </span>
         )}
         {!loading && icon && iconPosition === 'left' && (
-          <span className="crm-btn-icon-left" aria-hidden="true">
+          <span
+            className="crm-btn-icon-left"
+            aria-hidden="true"
+            style={{ border: 'none', outline: 'none', boxShadow: 'none', background: 'transparent' }}
+          >
             {icon}
           </span>
         )}
-        {children && <span>{children}</span>}
+        {children && (
+          <span
+            style={{ border: 'none', outline: 'none', boxShadow: 'none', background: 'transparent' }}
+          >
+            {children}
+          </span>
+        )}
         {!loading && icon && iconPosition === 'right' && (
-          <span className="crm-btn-icon-right" aria-hidden="true">
+          <span
+            className="crm-btn-icon-right"
+            aria-hidden="true"
+            style={{ border: 'none', outline: 'none', boxShadow: 'none', background: 'transparent' }}
+          >
             {icon}
           </span>
         )}
