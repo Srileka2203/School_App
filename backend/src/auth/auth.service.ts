@@ -268,6 +268,17 @@ export class AuthService {
       return response;
     }
 
+    // Validate frontend URL before generating the reset token
+    const frontendUrl = this.configService
+      .get<string>('FRONTEND_URL')
+      ?.replace(/\/+$/, '');
+
+    if (!frontendUrl) {
+      throw new BadRequestException(
+        'FRONTEND_URL is not configured',
+      );
+    }
+
     // Generate secure reset token
     const resetToken = crypto.randomBytes(32).toString('hex');
 
@@ -287,17 +298,6 @@ export class AuthService {
         resetPasswordExpires: resetExpires,
       },
     });
-
-    // Get frontend URL from environment
-    const frontendUrl = this.configService
-      .get<string>('FRONTEND_URL')
-      ?.replace(/\/+$/, '');
-
-    if (!frontendUrl) {
-      throw new BadRequestException(
-        'FRONTEND_URL is not configured',
-      );
-    }
 
     // Construct password reset link
     const resetLink =
@@ -418,9 +418,13 @@ export class AuthService {
       changePasswordDto.newPassword,
     );
 
+    // Update password and invalidate existing refresh token
     await this.prisma.user.update({
       where: { id: userId },
-      data: { passwordHash: newHash },
+      data: {
+        passwordHash: newHash,
+        refreshToken: null,
+      },
     });
 
     return {
