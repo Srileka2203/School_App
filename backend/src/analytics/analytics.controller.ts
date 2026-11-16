@@ -8,7 +8,7 @@ import {
 import { AnalyticsService } from './services/analytics.service';
 import { AnalyticsQueryDto } from './dto/analytics-query.dto';
 import { PerformanceQueryDto } from './dto/performance-query.dto';
-import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { JwtAuthGuard } from '../platform/auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../common/guards/roles.guard';
 import { CurrentUser } from '../common/decorators/current-user.decorator';
 

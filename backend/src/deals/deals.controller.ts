@@ -19,7 +19,7 @@ import { UpdateDealStageDto } from './dto/update-deal-stage.dto';
 import { AssignDealDto } from './dto/assign-deal.dto';
 import { UpdateDealStatusDto } from './dto/update-deal-status.dto';
 import { DealQueryDto } from './dto/deal-query.dto';
-import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { JwtAuthGuard } from '../platform/auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../common/guards/roles.guard';
 
 @ApiTags('Deals')

@@ -3,7 +3,7 @@ import { workspaceService } from './workspace.service';
 import { leadService } from './lead.service';
 import { dealService } from './deal.service';
 import { pipelineService } from './pipeline.service';
-import { DEFAULT_SETTINGS_BUNDLE } from '../pages/settings/settingsConstants';
+import { DEFAULT_SETTINGS_BUNDLE } from '../pages/platform/settings/settingsConstants';
 import type { User } from '../types/auth.types';
 import type {
   AllSettingsBundle,

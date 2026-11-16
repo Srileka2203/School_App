@@ -10,7 +10,7 @@ import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagg
 import { CalendarService } from './calendar.service';
 import { CalendarQueryDto, MonthViewQueryDto, DayViewQueryDto } from './dto/calendar-query.dto';
 import { CreateCalendarEventDto } from './dto/create-calendar-event.dto';
-import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { JwtAuthGuard } from '../platform/auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../common/guards/roles.guard';
 import { CurrentUser } from '../common/decorators/current-user.decorator';
 

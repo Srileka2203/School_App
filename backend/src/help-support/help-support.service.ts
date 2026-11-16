@@ -6,7 +6,7 @@ import {
   Optional,
 } from '@nestjs/common';
 import { PrismaService } from '../database/prisma.service';
-import { AuditLogsService } from '../audit-logs/audit-logs.service';
+import { AuditLogsService } from '../platform/audit-logs/audit-logs.service';
 import { CreateHelpCategoryDto } from './dto/create-help-category.dto';
 import { UpdateHelpCategoryDto } from './dto/update-help-category.dto';
 import { CreateHelpArticleDto } from './dto/create-help-article.dto';
@@ -29,8 +29,8 @@ import { SubmitFeedbackDto } from './dto/submit-feedback.dto';
 import { UpdateFeedbackDto } from './dto/update-feedback.dto';
 import { FeedbackQueryDto } from './dto/feedback-query.dto';
 import { TicketStatus } from './enums/ticket-status.enum';
-import { AuditAction } from '../audit-logs/enums/audit-action.enum';
-import { AuditEntityType } from '../audit-logs/enums/audit-entity-type.enum';
+import { AuditAction } from '../platform/audit-logs/enums/audit-action.enum';
+import { AuditEntityType } from '../platform/audit-logs/enums/audit-entity-type.enum';
 
 @Injectable()
 export class HelpSupportService {

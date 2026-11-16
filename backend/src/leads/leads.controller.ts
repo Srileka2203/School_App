@@ -19,7 +19,7 @@ import { UpdateLeadStatusDto } from './dto/update-lead-status.dto';
 import { AssignLeadDto } from './dto/assign-lead.dto';
 import { ConvertLeadDto } from './dto/convert-lead.dto';
 import { LeadQueryDto } from './dto/lead-query.dto';
-import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { JwtAuthGuard } from '../platform/auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../common/guards/roles.guard';
 import { CurrentUser } from '../common/decorators/current-user.decorator';
 

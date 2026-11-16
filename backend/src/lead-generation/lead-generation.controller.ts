@@ -41,7 +41,7 @@ import { CreateAssignmentRuleDto } from './dto/create-assignment-rule.dto';
 import { UpdateAssignmentRuleDto } from './dto/update-assignment-rule.dto';
 import { RouteLeadDto } from './dto/route-lead.dto';
 import { BulkAssignDto } from './dto/bulk-assign.dto';
-import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { JwtAuthGuard } from '../platform/auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../common/guards/roles.guard';
 import { Public } from '../common/decorators/public.decorator';
 import { CurrentUser } from '../common/decorators/current-user.decorator';

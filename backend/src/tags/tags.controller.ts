@@ -28,7 +28,7 @@ import { DetachTagsDto } from './dto/detach-tags.dto';
 import { BulkTagAssignDto } from './dto/bulk-tag-assign.dto';
 import { BulkTagDetachDto } from './dto/bulk-tag-detach.dto';
 import { TagEntityType } from './enums/tag-entity-type.enum';
-import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { JwtAuthGuard } from '../platform/auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../common/guards/roles.guard';
 import { CurrentUser } from '../common/decorators/current-user.decorator';
 

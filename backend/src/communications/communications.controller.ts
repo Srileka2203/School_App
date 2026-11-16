@@ -39,7 +39,7 @@ import { CreateEmailIntegrationDto } from './dto/create-email-integration.dto';
 import { UpdateEmailIntegrationDto } from './dto/update-email-integration.dto';
 import { EmailIntegrationQueryDto } from './dto/email-integration-query.dto';
 import { IntegrationWebhookDto } from './dto/integration-webhook.dto';
-import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { JwtAuthGuard } from '../platform/auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../common/guards/roles.guard';
 import { CurrentUser } from '../common/decorators/current-user.decorator';
 

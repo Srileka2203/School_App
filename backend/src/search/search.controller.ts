@@ -22,7 +22,7 @@ import { GlobalSearchDto } from './dto/global-search.dto';
 import { EntitySearchDto } from './dto/entity-search.dto';
 import { SearchSuggestionsDto } from './dto/search-suggestions.dto';
 import { SearchHistoryQueryDto } from './dto/search-history.dto';
-import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { JwtAuthGuard } from '../platform/auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../common/guards/roles.guard';
 import { CurrentUser } from '../common/decorators/current-user.decorator';
 
