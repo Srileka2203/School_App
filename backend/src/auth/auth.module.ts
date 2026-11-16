@@ -14,10 +14,7 @@ import { EmailModule } from './email/email.module';
   imports: [
     ConfigModule,
     EmailModule,
-
-    PassportModule.register({
-      defaultStrategy: 'jwt',
-    }),
+    PassportModule.register({ defaultStrategy: 'jwt' }),
 
     JwtModule.registerAsync({
       imports: [ConfigModule],
@@ -26,7 +23,8 @@ import { EmailModule } from './email/email.module';
           configService.get<string>('jwt.secret') ||
           'crm-super-secret-key-change-in-production',
         signOptions: {
-          expiresIn: (configService.get<string>('jwt.expiresIn') || '7d') as any,
+          expiresIn:
+            (configService.get<string>('jwt.expiresIn') || '7d') as any,
         },
       }),
       inject: [ConfigService],
