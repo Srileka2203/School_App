@@ -1,24 +1,32 @@
+
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
+
 import { authService } from '../services/auth.service';
 import { Navbar } from '../components/common/Navbar';
 import { PasswordField } from '../components/auth/PasswordField';
 import { PrimaryButton } from '../components/auth/PrimaryButton';
 import { ErrorMessage } from '../components/auth/ErrorMessage';
 import { SuccessMessage } from '../components/auth/SuccessMessage';
-import { KeyRoundIcon, ShieldIcon, CheckCircleIcon } from '../components/common/Icons';
+import {
+  KeyRoundIcon,
+  ShieldIcon,
+  CheckCircleIcon,
+} from '../components/common/Icons';
 
 export const ChangePasswordPage: React.FC = () => {
+  const navigate = useNavigate();
+
   const [currentPassword, setCurrentPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
-  // Form states
   const [errors, setErrors] = useState<{
     currentPassword?: string;
     newPassword?: string;
     confirmPassword?: string;
   }>({});
+
   const [apiError, setApiError] = useState<string | string[] | null>(null);
   const [apiSuccess, setApiSuccess] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -33,9 +41,11 @@ export const ChangePasswordPage: React.FC = () => {
     if (!newPassword) {
       newErrors.newPassword = 'Enter your new password';
     } else if (newPassword.length < 6) {
-      newErrors.newPassword = 'New password must be at least 6 characters long';
+      newErrors.newPassword =
+        'New password must be at least 6 characters long';
     } else if (newPassword === currentPassword) {
-      newErrors.newPassword = 'New password must be different from current password';
+      newErrors.newPassword =
+        'New password must be different from current password';
     }
 
     if (!confirmPassword) {
@@ -45,19 +55,19 @@ export const ChangePasswordPage: React.FC = () => {
     }
 
     setErrors(newErrors);
+
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     if (isSubmitting) return;
 
     setApiError(null);
     setApiSuccess(null);
 
-    if (!validate()) {
-      return;
-    }
+    if (!validate()) return;
 
     setIsSubmitting(true);
 
@@ -67,13 +77,27 @@ export const ChangePasswordPage: React.FC = () => {
         newPassword,
       });
 
-      setApiSuccess(response.message || 'Password changed successfully!');
+      setApiSuccess(
+        response.message || 'Password changed successfully!',
+      );
+
       setCurrentPassword('');
       setNewPassword('');
       setConfirmPassword('');
       setErrors({});
-    } catch (err: any) {
-      setApiError(err.message || 'Failed to change password. Please verify your current password.');
+
+      // The auth service has cleared the local authentication tokens.
+      // Give the user time to read the success message before redirecting.
+      window.setTimeout(() => {
+        navigate('/login', { replace: true });
+      }, 1800);
+    } catch (err: unknown) {
+      const message =
+        err instanceof Error
+          ? err.message
+          : 'Failed to change password. Please verify your current password.';
+
+      setApiError(message);
     } finally {
       setIsSubmitting(false);
     }
@@ -83,31 +107,45 @@ export const ChangePasswordPage: React.FC = () => {
     <div className="authenticated-page-layout">
       <Navbar />
 
-      <main className="authenticated-container" id="change-password-page">
-        {/* Top Account & Security Sub-Navigation */}
+      <main
+        className="authenticated-container"
+        id="change-password-page"
+      >
+        {/* Account and Security Sub-Navigation */}
         <nav
           className="lg-subnav ld-subnav"
           aria-label="Account and Security sub-navigation"
           style={{ marginBottom: '1.5rem' }}
         >
           <div className="lg-subnav-group">
-            <span className="lg-subnav-label">Account & Security</span>
+            <span className="lg-subnav-label">
+              Account &amp; Security
+            </span>
+
             <div className="lg-subnav-links">
               <NavLink
                 to="/profile"
-                className={({ isActive }) => `lg-subnav-link ${isActive ? 'is-active' : ''}`}
+                className={({ isActive }) =>
+                  `lg-subnav-link ${isActive ? 'is-active' : ''}`
+                }
               >
                 Profile Settings
               </NavLink>
+
               <NavLink
                 to="/change-password"
-                className={({ isActive }) => `lg-subnav-link ${isActive ? 'is-active' : ''}`}
+                className={({ isActive }) =>
+                  `lg-subnav-link ${isActive ? 'is-active' : ''}`
+                }
               >
                 Change Password
               </NavLink>
+
               <NavLink
                 to="/sessions"
-                className={({ isActive }) => `lg-subnav-link ${isActive ? 'is-active' : ''}`}
+                className={({ isActive }) =>
+                  `lg-subnav-link ${isActive ? 'is-active' : ''}`
+                }
               >
                 Active Sessions
               </NavLink>
@@ -118,8 +156,10 @@ export const ChangePasswordPage: React.FC = () => {
         <div className="page-header">
           <div className="page-title-group">
             <h1 className="page-title">Change Password</h1>
+
             <p className="page-subtitle">
-              Manage your CRM security credentials and protect your workspace account
+              Manage your CRM security credentials and protect your
+              workspace account
             </p>
           </div>
         </div>
@@ -131,10 +171,15 @@ export const ChangePasswordPage: React.FC = () => {
               <div className="section-icon-badge" aria-hidden="true">
                 <KeyRoundIcon size={20} />
               </div>
+
               <div>
-                <h2 className="section-title">Update Your Password</h2>
+                <h2 className="section-title">
+                  Update Your Password
+                </h2>
+
                 <p className="section-desc">
-                  Choose a strong, unique password with letters, numbers, and symbols.
+                  Choose a strong, unique password with letters,
+                  numbers, and symbols.
                 </p>
               </div>
             </div>
@@ -151,7 +196,12 @@ export const ChangePasswordPage: React.FC = () => {
               title="Security Updated"
             />
 
-            <form onSubmit={handleSubmit} noValidate className="portal-form" id="change-password-form">
+            <form
+              onSubmit={handleSubmit}
+              noValidate
+              className="portal-form"
+              id="change-password-form"
+            >
               <PasswordField
                 id="current-password"
                 name="currentPassword"
@@ -160,7 +210,13 @@ export const ChangePasswordPage: React.FC = () => {
                 value={currentPassword}
                 onChange={(e) => {
                   setCurrentPassword(e.target.value);
-                  if (errors.currentPassword) setErrors((prev) => ({ ...prev, currentPassword: undefined }));
+
+                  if (errors.currentPassword) {
+                    setErrors((prev) => ({
+                      ...prev,
+                      currentPassword: undefined,
+                    }));
+                  }
                 }}
                 error={errors.currentPassword}
                 required
@@ -176,7 +232,13 @@ export const ChangePasswordPage: React.FC = () => {
                 value={newPassword}
                 onChange={(e) => {
                   setNewPassword(e.target.value);
-                  if (errors.newPassword) setErrors((prev) => ({ ...prev, newPassword: undefined }));
+
+                  if (errors.newPassword) {
+                    setErrors((prev) => ({
+                      ...prev,
+                      newPassword: undefined,
+                    }));
+                  }
                 }}
                 error={errors.newPassword}
                 showStrength={true}
@@ -194,7 +256,13 @@ export const ChangePasswordPage: React.FC = () => {
                 value={confirmPassword}
                 onChange={(e) => {
                   setConfirmPassword(e.target.value);
-                  if (errors.confirmPassword) setErrors((prev) => ({ ...prev, confirmPassword: undefined }));
+
+                  if (errors.confirmPassword) {
+                    setErrors((prev) => ({
+                      ...prev,
+                      confirmPassword: undefined,
+                    }));
+                  }
                 }}
                 error={errors.confirmPassword}
                 required
@@ -211,6 +279,7 @@ export const ChangePasswordPage: React.FC = () => {
                   icon={<CheckCircleIcon size={18} />}
                   iconPosition="left"
                   fullWidth={false}
+                  disabled={isSubmitting || !!apiSuccess}
                 >
                   Save New Password
                 </PrimaryButton>
@@ -223,20 +292,31 @@ export const ChangePasswordPage: React.FC = () => {
             <div className="portal-card tips-card">
               <div className="tips-card-header">
                 <ShieldIcon size={20} className="tips-icon" />
-                <h3 className="tips-title">Password Security Tips</h3>
+                <h3 className="tips-title">
+                  Password Security Tips
+                </h3>
               </div>
+
               <ul className="tips-list">
                 <li>
-                  <strong>Length:</strong> Use at least 8 to 12 characters for elevated security.
+                  <strong>Length:</strong> Use at least 8 to 12
+                  characters for elevated security.
                 </li>
+
                 <li>
-                  <strong>Complexity:</strong> Combine uppercase letters, digits, and special symbols (e.g. @, #, $, !).
+                  <strong>Complexity:</strong> Combine uppercase
+                  letters, digits, and special symbols (e.g. @, #, $, !).
                 </li>
+
                 <li>
-                  <strong>Uniqueness:</strong> Never reuse passwords across different business or personal services.
+                  <strong>Uniqueness:</strong> Never reuse passwords
+                  across different business or personal services.
                 </li>
+
                 <li>
-                  <strong>Sessions:</strong> Changing your password keeps your current session active while invalidating older unverified tokens.
+                  <strong>Sessions:</strong> Changing your password
+                  invalidates the stored refresh token. You will need
+                  to log in again.
                 </li>
               </ul>
             </div>

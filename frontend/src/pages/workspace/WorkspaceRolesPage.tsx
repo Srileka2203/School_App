@@ -20,7 +20,7 @@ import {
 } from '../../components/common/Icons';
 
 export const WorkspaceRolesPage: React.FC = () => {
-  const { currentWorkspace, canManageWorkspace, isLoading: isWorkspaceContextLoading } = useWorkspace();
+  const { currentWorkspace, canManageWorkspace } = useWorkspace();
 
   const getDefaultRoles = useCallback((): WorkspaceRole[] => [
     {
@@ -120,7 +120,6 @@ export const WorkspaceRolesPage: React.FC = () => {
       },
     ];
   });
-  const [isLoading, setIsLoading] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [isSwitcherOpen, setIsSwitcherOpen] = useState(false);
 
@@ -258,7 +257,7 @@ export const WorkspaceRolesPage: React.FC = () => {
           title="Role Updated"
         />
 
-        {isLoading && roles.length === 0 ? (
+        {isRefreshing && roles.length === 0 ? (
           <div className="workspace-loading-state" role="status">
             <LoadingIndicator size="large" message="Loading role policies..." />
           </div>

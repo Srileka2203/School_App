@@ -81,7 +81,6 @@ export const WorkspaceMembersPage: React.FC = () => {
     return [];
   });
 
-  const [isLoading, setIsLoading] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [roleFilter, setRoleFilter] = useState('ALL');
@@ -422,7 +421,7 @@ export const WorkspaceMembersPage: React.FC = () => {
         </div>
 
         {/* Content Table / List */}
-        {isLoading && members.length === 0 ? (
+        {isRefreshing && members.length === 0 ? (
           <div className="workspace-loading-state" role="status">
             <LoadingIndicator size="large" message="Loading member roster..." />
           </div>

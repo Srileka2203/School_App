@@ -139,8 +139,8 @@ export const authService = {
   // FORGOT PASSWORD
   async forgotPassword(
     params: ForgotPasswordParams,
-  ): Promise<{ message: string }> {
-    return api.post<{ message: string }>(
+  ): Promise<{ message: string; resetToken?: string }> {
+    return api.post<{ message: string; resetToken?: string }>(
       '/auth/forgot-password',
       params,
     );
