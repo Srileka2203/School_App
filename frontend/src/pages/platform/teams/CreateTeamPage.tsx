@@ -163,14 +163,8 @@ export const CreateTeamPage: React.FC = () => {
               <NavLink to="/users" end className={({ isActive }) => `lg-subnav-link ${isActive ? 'is-active' : ''}`}>
                 All Users
               </NavLink>
-              <NavLink to="/users/invite" className={({ isActive }) => `lg-subnav-link ${isActive ? 'is-active' : ''}`}>
-                Invite User
-              </NavLink>
               <NavLink to="/teams" end className={({ isActive }) => `lg-subnav-link ${isActive ? 'is-active' : ''}`}>
                 Teams
-              </NavLink>
-              <NavLink to="/teams/create" className={({ isActive }) => `lg-subnav-link ${isActive ? 'is-active' : ''}`}>
-                Create Team
               </NavLink>
             </div>
           </div>
