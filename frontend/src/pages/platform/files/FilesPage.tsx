@@ -6,10 +6,6 @@ import {
   RefreshCwIcon,
   SearchIcon,
   DownloadIcon,
-  TrashIcon,
-  CheckCircleIcon,
-  ShieldIcon,
-  GlobeIcon,
 } from '../../../components/common/Icons';
 
 interface FileItem {

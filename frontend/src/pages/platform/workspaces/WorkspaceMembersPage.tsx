@@ -81,7 +81,7 @@ export const WorkspaceMembersPage: React.FC = () => {
     return [];
   });
 
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [roleFilter, setRoleFilter] = useState('ALL');

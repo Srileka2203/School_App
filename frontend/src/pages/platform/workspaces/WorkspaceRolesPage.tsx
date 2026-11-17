@@ -20,7 +20,7 @@ import {
 } from '../../../components/common/Icons';
 
 export const WorkspaceRolesPage: React.FC = () => {
-  const { currentWorkspace, canManageWorkspace, isLoading: isWorkspaceContextLoading } = useWorkspace();
+  const { currentWorkspace, canManageWorkspace } = useWorkspace();
 
   const getDefaultRoles = useCallback((): WorkspaceRole[] => [
     {
@@ -120,7 +120,7 @@ export const WorkspaceRolesPage: React.FC = () => {
       },
     ];
   });
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [isSwitcherOpen, setIsSwitcherOpen] = useState(false);
 

@@ -4,13 +4,10 @@ import { api } from '../../../services/api';
 import {
   BellIcon,
   CheckCircleIcon,
-  MailIcon,
-  SparklesIcon,
   RefreshCwIcon,
   TrendingUpIcon,
   TargetIcon,
   CalendarIcon,
-  XIcon,
 } from '../../../components/common/Icons';
 
 interface NotificationItem {
@@ -26,7 +23,6 @@ export const NotificationsPage: React.FC = () => {
   const [filter, setFilter] = useState<'all' | 'unread' | 'lead' | 'deal'>('all');
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [notifications, setNotifications] = useState<NotificationItem[]>([]);
-  const [hasLoaded, setHasLoaded] = useState(false);
 
   const fetchNotifications = useCallback(async () => {
     try {
@@ -49,8 +45,6 @@ export const NotificationsPage: React.FC = () => {
     } catch {
       // If endpoint not reachable, keep empty
       setNotifications([]);
-    } finally {
-      setHasLoaded(true);
     }
   }, []);
 

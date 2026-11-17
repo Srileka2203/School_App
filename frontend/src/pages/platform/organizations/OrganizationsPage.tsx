@@ -1,15 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Navbar } from '../../../components/common/Navbar';
 import { useAuth } from '../../../context/AuthContext';
 import { useWorkspace } from '../../../context/useWorkspace';
 import {
   BuildingIcon,
-  UsersIcon,
   ShieldIcon,
   GlobeIcon,
   CheckCircleIcon,
   SparklesIcon,
-  ExternalLinkIcon,
   RefreshCwIcon,
 } from '../../../components/common/Icons';
 
@@ -159,7 +157,7 @@ export const OrganizationsPage: React.FC = () => {
                   <label style={{ fontSize: '0.72rem', color: '#64748B', display: 'block', textTransform: 'uppercase', fontWeight: 700 }}>
                     Domain Slug
                   </label>
-                  <span>{organization.slug || 'acme-crm'}</span>
+                  <span>{('slug' in organization ? (organization as any).slug : undefined) || 'acme-crm'}</span>
                 </div>
                 <div>
                   <label style={{ fontSize: '0.72rem', color: '#64748B', display: 'block', textTransform: 'uppercase', fontWeight: 700 }}>

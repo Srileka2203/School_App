@@ -5,7 +5,6 @@ import { Navbar } from '../../../../components/common/Navbar';
 import { ErrorMessage } from '../../../../components/auth/ErrorMessage';
 import { SuccessMessage } from '../../../../components/auth/SuccessMessage';
 import {
-  AlertCircleIcon,
   CheckCircleIcon,
   LockIcon,
   RefreshCwIcon,
@@ -518,7 +517,9 @@ export const SettingsLayout: React.FC<SettingsLayoutProps> = ({
                   return (
                     <div key={groupName} className="settings-nav-card" style={{ marginBottom: 0 }}>
                       <div className="settings-nav-group-header">
-                        <GroupIcon size={14} style={{ color: '#10b981' }} />
+                        <span style={{ color: '#10b981', display: 'inline-flex' }}>
+                          <GroupIcon size={14} />
+                        </span>
                         <span>{groupName}</span>
                         <span
                           style={{
