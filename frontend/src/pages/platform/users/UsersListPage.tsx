@@ -16,6 +16,7 @@ import { EmptyState } from '../../../components/common/EmptyState';
 import {
   UsersIcon,
   UserPlusIcon,
+  PlusIcon,
   EditIcon,
   TrashIcon,
   ActivityIcon,
@@ -210,16 +211,22 @@ export const UsersListPage: React.FC = () => {
           </div>
 
           <div className="lg-header-actions">
-            {canManage && (
-              <Link
-                to="/users/invite"
-                className="auth-btn btn-primary"
-                id="btn-invite-user"
-              >
-                <UserPlusIcon size={16} />
-                <span>Invite User</span>
-              </Link>
-            )}
+            <Link
+              to="/teams/create"
+              className="auth-btn btn-secondary"
+              id="btn-create-team"
+            >
+              <PlusIcon size={16} />
+              <span>Create Team</span>
+            </Link>
+            <Link
+              to="/users/invite"
+              className="auth-btn btn-primary"
+              id="btn-invite-user"
+            >
+              <UserPlusIcon size={16} />
+              <span>Invite User</span>
+            </Link>
           </div>
         </header>
 
@@ -306,11 +313,16 @@ export const UsersListPage: React.FC = () => {
                 : 'No users have been registered in the CRM yet.'
             }
             action={
-              canManage ? (
+              <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center' }}>
                 <Link to="/users/invite" className="auth-btn btn-primary">
-                  Invite First User
+                  <UserPlusIcon size={16} />
+                  <span>Invite First User</span>
                 </Link>
-              ) : undefined
+                <Link to="/teams/create" className="auth-btn btn-secondary">
+                  <PlusIcon size={16} />
+                  <span>Create Team</span>
+                </Link>
+              </div>
             }
           />
         ) : (

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, NavLink } from 'react-router-dom';
 import { teamService } from '../../../services/team.service';
 import { userService } from '../../../services/user.service';
 import { useAuth } from '../../../context/AuthContext';
@@ -34,7 +34,7 @@ const PRESET_COLORS = [
 export const CreateTeamPage: React.FC = () => {
   const navigate = useNavigate();
   const { user: currentUser } = useAuth();
-  const { currentWorkspace, userRoleInWorkspace } = useWorkspace();
+  const { currentWorkspace } = useWorkspace();
 
   // Form Fields
   const [name, setName] = useState('');
@@ -53,12 +53,6 @@ export const CreateTeamPage: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [apiError, setApiError] = useState<string | null>(null);
   const [apiSuccess, setApiSuccess] = useState<string | null>(null);
-
-  const canManageTeams =
-    currentUser?.role?.name === 'ADMIN' ||
-    currentUser?.role?.name === 'MANAGER' ||
-    userRoleInWorkspace === 'OWNER' ||
-    userRoleInWorkspace === 'ADMIN';
 
   useEffect(() => {
     let ignore = false;
@@ -153,29 +147,35 @@ export const CreateTeamPage: React.FC = () => {
     }
   };
 
-  if (!canManageTeams) {
-    return (
-      <div className="authenticated-shell">
-        <Navbar />
-        <main className="authenticated-container">
-          <div className="permission-denied-box">
-            <ShieldIcon size={40} className="text-warning" />
-            <h2>Access Denied</h2>
-            <p>You do not have administrative privileges to create new teams in this workspace.</p>
-            <Link to="/teams" className="auth-btn btn-primary">
-              Return to Teams Directory
-            </Link>
-          </div>
-        </main>
-      </div>
-    );
-  }
-
   return (
     <div className="authenticated-shell" id="create-team-page">
       <Navbar />
 
       <main className="authenticated-container">
+        {/* Top Users & Teams Sub-Navigation */}
+        <nav
+          className="lg-subnav ld-subnav"
+          aria-label="Users and Teams module navigation"
+          style={{ marginBottom: '1.5rem' }}
+        >
+          <div className="lg-subnav-group">
+            <div className="lg-subnav-links">
+              <NavLink to="/users" end className={({ isActive }) => `lg-subnav-link ${isActive ? 'is-active' : ''}`}>
+                All Users
+              </NavLink>
+              <NavLink to="/users/invite" className={({ isActive }) => `lg-subnav-link ${isActive ? 'is-active' : ''}`}>
+                Invite User
+              </NavLink>
+              <NavLink to="/teams" end className={({ isActive }) => `lg-subnav-link ${isActive ? 'is-active' : ''}`}>
+                Teams
+              </NavLink>
+              <NavLink to="/teams/create" className={({ isActive }) => `lg-subnav-link ${isActive ? 'is-active' : ''}`}>
+                Create Team
+              </NavLink>
+            </div>
+          </div>
+        </nav>
+
         {/* Navigation Breadcrumb */}
         <div className="ct-breadcrumb-row">
           <Link to="/teams" className="ct-breadcrumb-link">

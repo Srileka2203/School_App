@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { userService } from '../../../services/user.service';
-import { useAuth } from '../../../context/AuthContext';
-import { useWorkspace } from '../../../context/useWorkspace';
 import type { UserRole, CreateUserPayload } from '../../../types/user.types';
 import { Navbar } from '../../../components/common/Navbar';
 import { FormField } from '../../../components/auth/FormField';
@@ -24,8 +22,6 @@ import {
 
 export const InviteUserPage: React.FC = () => {
   const navigate = useNavigate();
-  const { user: currentUser } = useAuth();
-  const { userRoleInWorkspace } = useWorkspace();
 
   const [roles, setRoles] = useState<UserRole[]>([]);
   const [isRolesLoading, setIsRolesLoading] = useState(true);
@@ -41,10 +37,6 @@ export const InviteUserPage: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [apiError, setApiError] = useState<string | null>(null);
   const [apiSuccess, setApiSuccess] = useState<string | null>(null);
-
-  // Check permissions
-  const isSuperAdmin = currentUser?.role?.name === 'ADMIN' || userRoleInWorkspace === 'OWNER';
-  const canManage = isSuperAdmin || currentUser?.role?.name === 'MANAGER' || userRoleInWorkspace === 'ADMIN';
 
   useEffect(() => {
     let ignore = false;
@@ -123,29 +115,35 @@ export const InviteUserPage: React.FC = () => {
     }
   };
 
-  if (!canManage) {
-    return (
-      <div className="authenticated-shell">
-        <Navbar />
-        <main className="authenticated-container">
-          <div className="permission-denied-box">
-            <ShieldIcon size={40} className="text-warning" />
-            <h2>Access Restricted</h2>
-            <p>You do not have administrative permissions to invite or create new users.</p>
-            <Link to="/users" className="auth-btn btn-primary">
-              Return to Users
-            </Link>
-          </div>
-        </main>
-      </div>
-    );
-  }
-
   return (
     <div className="authenticated-shell" id="invite-user-page">
       <Navbar />
 
       <main className="authenticated-container">
+        {/* Top Users & Teams Sub-Navigation */}
+        <nav
+          className="lg-subnav ld-subnav"
+          aria-label="Users and Teams module navigation"
+          style={{ marginBottom: '1.5rem' }}
+        >
+          <div className="lg-subnav-group">
+            <div className="lg-subnav-links">
+              <NavLink to="/users" end className={({ isActive }) => `lg-subnav-link ${isActive ? 'is-active' : ''}`}>
+                All Users
+              </NavLink>
+              <NavLink to="/users/invite" className={({ isActive }) => `lg-subnav-link ${isActive ? 'is-active' : ''}`}>
+                Invite User
+              </NavLink>
+              <NavLink to="/teams" end className={({ isActive }) => `lg-subnav-link ${isActive ? 'is-active' : ''}`}>
+                Teams
+              </NavLink>
+              <NavLink to="/teams/create" className={({ isActive }) => `lg-subnav-link ${isActive ? 'is-active' : ''}`}>
+                Create Team
+              </NavLink>
+            </div>
+          </div>
+        </nav>
+
         {/* Navigation Breadcrumb */}
         <div className="breadcrumb-nav-row">
           <Link to="/users" className="breadcrumb-back-link">

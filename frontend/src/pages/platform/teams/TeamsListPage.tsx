@@ -16,6 +16,7 @@ import {
   ShieldIcon,
   UsersIcon,
   PlusIcon,
+  UserPlusIcon,
   EditIcon,
   TrashIcon,
   TrendingUpIcon,
@@ -164,12 +165,18 @@ export const TeamsListPage: React.FC = () => {
           </div>
 
           <div className="lg-header-actions">
-            {canManageTeams && (
-              <Link to="/teams/create" className="auth-btn btn-primary" id="btn-create-team">
-                <PlusIcon size={16} />
-                <span>Create Team</span>
-              </Link>
-            )}
+            <Link
+              to="/users/invite"
+              className="auth-btn btn-secondary"
+              id="btn-invite-user"
+            >
+              <UserPlusIcon size={16} />
+              <span>Invite User</span>
+            </Link>
+            <Link to="/teams/create" className="auth-btn btn-primary" id="btn-create-team">
+              <PlusIcon size={16} />
+              <span>Create Team</span>
+            </Link>
           </div>
         </header>
 
@@ -261,12 +268,16 @@ export const TeamsListPage: React.FC = () => {
                   : 'Get started by creating your first sales or operational team to organize workspace members.'
               }
               action={
-                canManageTeams ? (
+                <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center' }}>
                   <Link to="/teams/create" className="auth-btn btn-primary">
                     <PlusIcon size={16} />
                     <span>Create Team</span>
                   </Link>
-                ) : undefined
+                  <Link to="/users/invite" className="auth-btn btn-secondary">
+                    <UserPlusIcon size={16} />
+                    <span>Invite User</span>
+                  </Link>
+                </div>
               }
             />
           </div>
