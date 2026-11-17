@@ -20,7 +20,7 @@ import {
   SEED_FAQS,
   SEED_HELP_ARTICLES,
   SEED_HELP_CATEGORIES,
-} from '../pages/help-support/helpSupportConstants';
+} from '../pages/platform/help-support/helpSupportConstants';
 
 function unwrap<T = any>(res: any): T {
   if (res && typeof res === 'object' && 'data' in res && !('meta' in res && !Array.isArray(res.data))) {

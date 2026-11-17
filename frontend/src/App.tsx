@@ -36,10 +36,10 @@ import { CreateCustomFieldPage } from './pages/platform/custom-fields/CreateCust
 import { CustomFieldDetailsPage } from './pages/platform/custom-fields/CustomFieldDetailsPage';
 import { EditCustomFieldPage } from './pages/platform/custom-fields/EditCustomFieldPage';
 import { NotificationsPage } from './pages/platform/notifications';
-import { TagsListPage } from './pages/tags/TagsListPage';
-import { CreateTagPage } from './pages/tags/CreateTagPage';
-import { EditTagPage } from './pages/tags/EditTagPage';
-import { TagUsagePage } from './pages/tags/TagUsagePage';
+import { TagsListPage } from './pages/crm/tags/TagsListPage';
+import { CreateTagPage } from './pages/crm/tags/CreateTagPage';
+import { EditTagPage } from './pages/crm/tags/EditTagPage';
+import { TagUsagePage } from './pages/crm/tags/TagUsagePage';
 import { LeadGenOverviewPage } from './pages/crm/lead-generation/LeadGenOverviewPage';
 import { SourcesListPage } from './pages/crm/lead-generation/SourcesListPage';
 import { SourceFormPage } from './pages/crm/lead-generation/SourceFormPage';
@@ -124,12 +124,12 @@ import {
   CommunicationHistoryPage,
   EmailTemplatesPage,
 } from './pages/crm/communications';
-import { GlobalSearchPage } from './pages/search';
-import { DashboardExplorerPage } from './pages/dashboard';
-import { AnalyticsExplorerPage } from './pages/analytics';
+import { GlobalSearchPage } from './pages/crm/search';
+import { DashboardExplorerPage } from './pages/platform/dashboard';
+import { AnalyticsExplorerPage } from './pages/crm/analytics';
 import { SettingsExplorerPage } from './pages/platform/settings';
 import { AuditLogsExplorerPage } from './pages/platform/audit-logs';
-import { HelpSupportExplorerPage } from './pages/help-support';
+import { HelpSupportExplorerPage } from './pages/platform/help-support';
 import { NotFoundPage } from './pages/NotFoundPage';
 import { ApiConfigBanner } from './components/common/ApiConfigBanner';
 

@@ -9,3 +9,6 @@ export * from './calendar/calendar.module';
 export * from './communications/communications.module';
 export * from './notes/notes.module';
 export * from './tasks/tasks.module';
+export * from './analytics/analytics.module';
+export * from './search/search.module';
+export * from './tags/tags.module';

@@ -10,3 +10,5 @@ export * from './notifications';
 export * from './files';
 export * from './audit-logs';
 export * from './custom-fields';
+export * from './dashboard';
+export * from './help-support';
