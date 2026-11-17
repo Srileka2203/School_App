@@ -1,6 +1,6 @@
 import React from 'react';
-import { SectionCard } from '../../../lead-generation/components/Cards';
-import { Field, Toggle } from '../../../lead-generation/components/FormParts';
+import { SectionCard } from '../../../crm/lead-generation/components/Cards';
+import { Field, Toggle } from '../../../crm/lead-generation/components/FormParts';
 import {
   CURRENCY_SELECT_OPTIONS,
   LANGUAGE_SELECT_OPTIONS,

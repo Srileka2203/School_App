@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import type { SearchResultItem } from '../../../types/search.types';
-import { Badge } from '../../lead-generation/components/Cards';
-import { formatDateTime } from '../../lead-generation/leadGenConstants';
+import { Badge } from '../../crm/lead-generation/components/Cards';
+import { formatDateTime } from '../../crm/lead-generation/leadGenConstants';
 import { ArrowRightIcon } from '../../../components/common/Icons';
 import {
   entityBadgeTone,

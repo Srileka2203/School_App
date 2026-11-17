@@ -25,10 +25,10 @@ import {
   Badge,
   SectionCard,
   StatCard,
-} from '../lead-generation/components/Cards';
+} from '../crm/lead-generation/components/Cards';
 import { EmptyState } from '../../components/common/EmptyState';
 import { LoadingIndicator } from '../../components/auth/LoadingIndicator';
-import { formatDateTime } from '../lead-generation/leadGenConstants';
+import { formatDateTime } from '../crm/lead-generation/leadGenConstants';
 import {
   ArrowRightIcon,
   ClockIcon,

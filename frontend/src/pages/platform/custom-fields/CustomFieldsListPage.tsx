@@ -20,8 +20,8 @@ import { LoadingIndicator } from '../../../components/auth/LoadingIndicator';
 import { ErrorMessage } from '../../../components/auth/ErrorMessage';
 import { SuccessMessage } from '../../../components/auth/SuccessMessage';
 import { EmptyState } from '../../../components/common/EmptyState';
-import { StatCard } from '../../lead-generation/components/Cards';
-import { FilterBar, SearchInput } from '../../lead-generation/components/FilterBar';
+import { StatCard } from '../../crm/lead-generation/components/Cards';
+import { FilterBar, SearchInput } from '../../crm/lead-generation/components/FilterBar';
 import {
   SlidersIcon,
   PlusIcon,

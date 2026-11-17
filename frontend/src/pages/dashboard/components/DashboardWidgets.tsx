@@ -17,8 +17,8 @@ import type {
 import {
   Badge,
   SectionCard,
-} from '../../lead-generation/components/Cards';
-import { LineChart } from '../../lead-generation/components/Charts';
+} from '../../crm/lead-generation/components/Cards';
+import { LineChart } from '../../crm/lead-generation/components/Charts';
 import { EmptyState } from '../../../components/common/EmptyState';
 import {
   formatCurrency,
@@ -28,7 +28,7 @@ import {
   humanize,
   toneForStatus,
   type Tone,
-} from '../../lead-generation/leadGenConstants';
+} from '../../crm/lead-generation/leadGenConstants';
 import {
   formatLeadDisplayName,
   INTERVAL_OPTIONS,

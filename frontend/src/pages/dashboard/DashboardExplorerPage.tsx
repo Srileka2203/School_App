@@ -41,19 +41,19 @@ import {
   RevenueSummaryWidget,
   TeamPerformanceWidget,
 } from './components/DashboardWidgets';
-import { SectionCard } from '../lead-generation/components/Cards';
+import { SectionCard } from '../crm/lead-generation/components/Cards';
 import {
   BarList,
   DonutChart,
   Funnel,
   LineChart,
-} from '../lead-generation/components/Charts';
+} from '../crm/lead-generation/components/Charts';
 import {
   formatCurrency,
   formatNumber,
   formatPercent,
   humanize,
-} from '../lead-generation/leadGenConstants';
+} from '../crm/lead-generation/leadGenConstants';
 import {
   ActivityIcon,
   ArrowRightIcon,

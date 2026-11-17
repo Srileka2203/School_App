@@ -40,21 +40,21 @@ import {
   Badge,
   ScorePill,
   SectionCard,
-} from '../lead-generation/components/Cards';
+} from '../crm/lead-generation/components/Cards';
 import {
   BarList,
   DonutChart,
   Funnel,
   LineChart,
-} from '../lead-generation/components/Charts';
-import { DataTable, type Column } from '../lead-generation/components/DataTable';
+} from '../crm/lead-generation/components/Charts';
+import { DataTable, type Column } from '../crm/lead-generation/components/DataTable';
 import { Button } from '../../components/ui';
 import {
   formatCurrency,
   formatNumber,
   formatPercent,
   humanize,
-} from '../lead-generation/leadGenConstants';
+} from '../crm/lead-generation/leadGenConstants';
 import {
   ActivityIcon,
   ArrowRightIcon,
