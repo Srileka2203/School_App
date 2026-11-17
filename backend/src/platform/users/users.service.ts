@@ -2,9 +2,12 @@ import {
   Injectable,
   NotFoundException,
   ConflictException,
+  Logger,
 } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { PrismaService } from '../../database/prisma.service';
 import { HashUtil } from '../../common/utils/hash.util';
+import { EmailService } from '../auth/email/email.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserQueryDto } from './dto/user-query.dto';
@@ -12,7 +15,13 @@ import { createPaginatedResponse } from '../../common/utils/response.util';
 
 @Injectable()
 export class UsersService {
-  constructor(private prisma: PrismaService) {}
+  private readonly logger = new Logger(UsersService.name);
+
+  constructor(
+    private prisma: PrismaService,
+    private configService: ConfigService,
+    private emailService: EmailService,
+  ) {}
 
   async findAll(query: UserQueryDto) {
     const page = Number(query.page) || 1;
@@ -101,6 +110,25 @@ export class UsersService {
     });
 
     const { passwordHash: _, refreshToken: __, ...result } = user;
+
+    const frontendUrl =
+      this.configService.get<string>('app.frontendUrl') ||
+      this.configService.get<string>('FRONTEND_URL') ||
+      'http://localhost:5173';
+
+    // Dispatch invitation email to the newly invited user
+    this.emailService
+      .sendUserInvitationEmail(
+        user.email,
+        user.name,
+        dto.password,
+        user.role?.name || 'MEMBER',
+        `${frontendUrl}/login`,
+      )
+      .catch((err) => {
+        this.logger.error(`Failed to send invitation email to ${user.email}: ${err.message}`);
+      });
+
     return result;
   }
 

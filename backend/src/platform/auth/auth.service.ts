@@ -4,12 +4,14 @@ import {
   ConflictException,
   NotFoundException,
   BadRequestException,
+  Logger,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import * as crypto from 'crypto';
 import { PrismaService } from '../../database/prisma.service';
 import { HashUtil } from '../../common/utils/hash.util';
+import { EmailService } from './email/email.service';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
 import { ForgotPasswordDto } from './dto/forgot-password.dto';
@@ -18,10 +20,13 @@ import { ChangePasswordDto } from './dto/change-password.dto';
 
 @Injectable()
 export class AuthService {
+  private readonly logger = new Logger(AuthService.name);
+
   constructor(
     private prisma: PrismaService,
     private jwtService: JwtService,
     private configService: ConfigService,
+    private emailService: EmailService,
   ) {}
 
   async validateUser(email: string, pass: string): Promise<any> {
@@ -115,6 +120,17 @@ export class AuthService {
     const tokens = await this.generateTokens(user.id, user.email, user.role?.name);
     await this.updateRefreshToken(user.id, tokens.refreshToken);
 
+    const frontendUrl =
+      this.configService.get<string>('app.frontendUrl') ||
+      this.configService.get<string>('FRONTEND_URL') ||
+      'http://localhost:5173';
+
+    this.emailService
+      .sendWelcomeEmail(user.email, user.name, `${frontendUrl}/login`)
+      .catch((err) => {
+        this.logger.error(`Failed to send welcome email to ${user.email}: ${err.message}`);
+      });
+
     const { passwordHash: _, refreshToken: __, ...userResponse } = user;
     return {
       user: userResponse,
@@ -206,8 +222,17 @@ export class AuthService {
       },
     });
 
+    const frontendUrl =
+      this.configService.get<string>('app.frontendUrl') ||
+      this.configService.get<string>('FRONTEND_URL') ||
+      'http://localhost:5173';
+
+    const resetLink = `${frontendUrl}/reset-password?token=${resetToken}`;
+
+    await this.emailService.sendPasswordResetEmail(user.email, user.name, resetLink);
+
     return {
-      message: 'Password reset token generated successfully',
+      message: 'Password reset link has been sent to your email address.',
       resetToken, // Returned in API for testing/development convenience
     };
   }

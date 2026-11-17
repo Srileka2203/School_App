@@ -4,9 +4,13 @@ import {
   BadRequestException,
   ConflictException,
   ForbiddenException,
+  Logger,
+  Optional,
 } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import * as crypto from 'crypto';
 import { PrismaService } from '../../database/prisma.service';
+import { EmailService } from '../auth/email/email.service';
 import { CreateWorkspaceDto } from './dto/create-workspace.dto';
 import { UpdateWorkspaceDto } from './dto/update-workspace.dto';
 import { WorkspaceQueryDto } from './dto/workspace-query.dto';
@@ -184,7 +188,13 @@ export interface WorkspaceContext {
 
 @Injectable()
 export class WorkspacesService {
-  constructor(private readonly prisma: PrismaService) { }
+  private readonly logger = new Logger(WorkspacesService.name);
+
+  constructor(
+    private readonly prisma: PrismaService,
+    @Optional() private readonly configService?: ConfigService,
+    @Optional() private readonly emailService?: EmailService,
+  ) { }
 
   /**
    * Helper to format a name into a clean, URL-safe slug.
@@ -1682,7 +1692,31 @@ export class WorkspacesService {
       now,
     );
 
-    return rows[0];
+    const invite = rows[0];
+
+    if (this.emailService) {
+      const frontendUrl =
+        this.configService?.get<string>('app.frontendUrl') ||
+        this.configService?.get<string>('FRONTEND_URL') ||
+        'http://localhost:5173';
+      const inviteLink = `${frontendUrl}/login?inviteToken=${token}`;
+
+      this.findOne(workspaceId)
+        .then((ws) => {
+          const workspaceName = ws?.name || 'CRM Workspace';
+          return this.emailService?.sendWorkspaceInviteEmail(
+            email,
+            workspaceName,
+            role,
+            inviteLink,
+          );
+        })
+        .catch((err) => {
+          this.logger.error(`Failed to send workspace invitation email to ${email}: ${err.message}`);
+        });
+    }
+
+    return invite;
   }
 
   /**
@@ -1783,9 +1817,32 @@ export class WorkspacesService {
       inviteId,
     );
 
+    const updated = updatedRows[0];
+    if (this.emailService && updated) {
+      const frontendUrl =
+        this.configService?.get<string>('app.frontendUrl') ||
+        this.configService?.get<string>('FRONTEND_URL') ||
+        'http://localhost:5173';
+      const inviteLink = `${frontendUrl}/login?inviteToken=${newToken}`;
+
+      this.findOne(workspaceId)
+        .then((ws) => {
+          const workspaceName = ws?.name || 'CRM Workspace';
+          return this.emailService?.sendWorkspaceInviteEmail(
+            updated.email,
+            workspaceName,
+            updated.role || 'MEMBER',
+            inviteLink,
+          );
+        })
+        .catch((err) => {
+          this.logger.error(`Failed to resend workspace invitation email to ${updated.email}: ${err.message}`);
+        });
+    }
+
     return {
       message: 'Invitation resent successfully with updated security token and expiry date',
-      invitation: updatedRows[0],
+      invitation: updated,
     };
   }
 
