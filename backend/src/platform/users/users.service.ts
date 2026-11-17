@@ -117,17 +117,21 @@ export class UsersService {
       'http://localhost:5173';
 
     // Dispatch invitation email to the newly invited user
-    this.emailService
-      .sendUserInvitationEmail(
-        user.email,
-        user.name,
-        dto.password,
-        user.role?.name || 'MEMBER',
-        `${frontendUrl}/login`,
-      )
-      .catch((err) => {
-        this.logger.error(`Failed to send invitation email to ${user.email}: ${err.message}`);
-      });
+    try {
+      this.emailService
+        .sendUserInvitationEmail(
+          user.email,
+          user.name,
+          dto.password,
+          user.role?.name || 'MEMBER',
+          `${frontendUrl}/login`,
+        )
+        .catch((err) => {
+          this.logger.error(`Failed to send invitation email to ${user.email}: ${err.message}`);
+        });
+    } catch (err: any) {
+      this.logger.error(`Error initiating invitation email to ${user.email}: ${err?.message}`);
+    }
 
     return result;
   }

@@ -58,8 +58,9 @@ export class EmailService {
         return `"${name}" <${email}>`;
     }
 
-    private escapeHtml(value: string): string {
-        return value.replace(/[&<>"']/g, (character) => {
+    private escapeHtml(value?: string | null): string {
+        if (!value) return '';
+        return String(value).replace(/[&<>"']/g, (character) => {
             const entities: Record<string, string> = {
                 '&': '&amp;',
                 '<': '&lt;',
@@ -73,8 +74,13 @@ export class EmailService {
     }
 
     async sendWelcomeEmail(email: string, name: string, loginUrl?: string): Promise<void> {
+        if (!email || !email.includes('@')) {
+            this.logger.warn(`Skipping welcome email: invalid recipient '${email}'`);
+            return;
+        }
+
         if (!this.isConfigured || !this.transporter) {
-            this.logger.log(`[DEV MODE] Welcome email to ${email} (${name}): Account created successfully.`);
+            this.logger.log(`[DEV MODE] Welcome email to ${email} (${name || 'User'}): Account created successfully.`);
             return;
         }
 
@@ -84,19 +90,21 @@ export class EmailService {
             this.configService.get<string>('FRONTEND_URL') ||
             'http://localhost:5173/login';
 
+        const safeName = this.escapeHtml(name?.trim() || 'there');
+
         try {
             await this.transporter.sendMail({
                 from: this.sender,
                 to: email,
                 subject: 'Welcome to CRM - Account Confirmation',
-                text: `Hello ${name},\n\nWelcome to our CRM platform! Your account has been created successfully.\n\nYou can sign in here: ${effectiveLoginUrl}\n\nBest regards,\nThe CRM Team`,
+                text: `Hello ${safeName},\n\nWelcome to our CRM platform! Your account has been created successfully.\n\nYou can sign in here: ${effectiveLoginUrl}\n\nBest regards,\nThe CRM Team`,
                 html: `
           <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 580px; margin: 0 auto; padding: 28px 24px; border: 1px solid #e2e8f0; border-radius: 10px; background-color: #ffffff; color: #1e293b;">
             <div style="margin-bottom: 20px;">
               <h2 style="color: #065f46; margin: 0 0 6px 0; font-size: 22px;">Welcome to CRM!</h2>
               <p style="color: #64748b; font-size: 14px; margin: 0;">Your account is ready</p>
             </div>
-            <p style="font-size: 15px; line-height: 1.6;">Hello <strong>${this.escapeHtml(name)}</strong>,</p>
+            <p style="font-size: 15px; line-height: 1.6;">Hello <strong>${safeName}</strong>,</p>
             <p style="font-size: 15px; line-height: 1.6;">Thank you for registering. Your CRM account has been created successfully and is now active.</p>
             <p style="font-size: 15px; line-height: 1.6;">You can begin managing your leads, contacts, deals, communications, and collaborating with your team.</p>
             <div style="margin: 30px 0; text-align: center;">
@@ -125,6 +133,11 @@ export class EmailService {
         name: string,
         resetLink: string,
     ): Promise<void> {
+        if (!email || !email.includes('@')) {
+            this.logger.warn(`Skipping password reset email: invalid recipient '${email}'`);
+            return;
+        }
+
         if (!this.isConfigured || !this.transporter) {
             this.logger.log(
                 `[DEV MODE] Password reset email to ${email} (${name}). Reset Link: ${resetLink}`,
@@ -132,19 +145,21 @@ export class EmailService {
             return;
         }
 
+        const safeName = this.escapeHtml(name?.trim() || 'there');
+
         try {
             await this.transporter.sendMail({
                 from: this.sender,
                 to: email,
                 subject: 'Reset Your CRM Password',
-                text: `Hello ${name},\n\nWe received a request to reset your CRM password.\n\nClick the link below to set a new password:\n${resetLink}\n\nThis link will expire in 1 hour.\n\nIf you did not request this, please ignore this email.\n\nBest regards,\nThe CRM Team`,
+                text: `Hello ${safeName},\n\nWe received a request to reset your CRM password.\n\nClick the link below to set a new password:\n${resetLink}\n\nThis link will expire in 1 hour.\n\nIf you did not request this, please ignore this email.\n\nBest regards,\nThe CRM Team`,
                 html: `
           <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 580px; margin: 0 auto; padding: 28px 24px; border: 1px solid #e2e8f0; border-radius: 10px; background-color: #ffffff; color: #1e293b;">
             <div style="margin-bottom: 20px;">
               <h2 style="color: #065f46; margin: 0 0 6px 0; font-size: 22px;">Password Reset Request</h2>
               <p style="color: #64748b; font-size: 14px; margin: 0;">Secure link to reset your account password</p>
             </div>
-            <p style="font-size: 15px; line-height: 1.6;">Hello <strong>${this.escapeHtml(name)}</strong>,</p>
+            <p style="font-size: 15px; line-height: 1.6;">Hello <strong>${safeName}</strong>,</p>
             <p style="font-size: 15px; line-height: 1.6;">We received a request to reset the password for your CRM account. Click the button below to set a new password:</p>
             <div style="margin: 30px 0; text-align: center;">
               <a href="${resetLink}" style="background-color: #10b981; color: #ffffff; padding: 13px 28px; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 15px; display: inline-block;">
@@ -180,6 +195,11 @@ export class EmailService {
         roleName?: string,
         loginUrl?: string,
     ): Promise<void> {
+        if (!email || !email.includes('@')) {
+            this.logger.warn(`Skipping invitation email: invalid recipient '${email}'`);
+            return;
+        }
+
         if (!this.isConfigured || !this.transporter) {
             this.logger.log(
                 `[DEV MODE] User invitation email to ${email} (${name}). Temp Pass: ${tempPassword}, Role: ${roleName}`,
@@ -193,23 +213,27 @@ export class EmailService {
             this.configService.get<string>('FRONTEND_URL') ||
             'http://localhost:5173/login';
 
+        const safeName = this.escapeHtml(name?.trim() || 'there');
+        const safeRole = this.escapeHtml(roleName?.trim() || 'Team Member');
+        const safePassword = this.escapeHtml(tempPassword || '');
+
         try {
             await this.transporter.sendMail({
                 from: this.sender,
                 to: email,
                 subject: "You've been invited to join CRM!",
-                text: `Hello ${name},\n\nYou have been invited to join the CRM platform as a ${roleName || 'Team Member'}.\n\nYour login email: ${email}${tempPassword ? `\nTemporary password: ${tempPassword}` : ''}\n\nSign in here: ${effectiveLoginUrl}\n\nBest regards,\nThe CRM Team`,
+                text: `Hello ${safeName},\n\nYou have been invited to join the CRM platform as a ${safeRole}.\n\nYour login email: ${email}${safePassword ? `\nTemporary password: ${safePassword}` : ''}\n\nSign in here: ${effectiveLoginUrl}\n\nBest regards,\nThe CRM Team`,
                 html: `
           <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 580px; margin: 0 auto; padding: 28px 24px; border: 1px solid #e2e8f0; border-radius: 10px; background-color: #ffffff; color: #1e293b;">
             <div style="margin-bottom: 20px;">
               <h2 style="color: #065f46; margin: 0 0 6px 0; font-size: 22px;">You're Invited to Join CRM!</h2>
               <p style="color: #64748b; font-size: 14px; margin: 0;">Your team member account has been created</p>
             </div>
-            <p style="font-size: 15px; line-height: 1.6;">Hello <strong>${this.escapeHtml(name)}</strong>,</p>
-            <p style="font-size: 15px; line-height: 1.6;">You have been invited to join the CRM platform as <strong>${this.escapeHtml(roleName || 'Team Member')}</strong>.</p>
+            <p style="font-size: 15px; line-height: 1.6;">Hello <strong>${safeName}</strong>,</p>
+            <p style="font-size: 15px; line-height: 1.6;">You have been invited to join the CRM platform as <strong>${safeRole}</strong>.</p>
             <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; margin: 20px 0;">
               <p style="margin: 0 0 8px 0; font-size: 14px;"><strong>Login Email:</strong> ${this.escapeHtml(email)}</p>
-              ${tempPassword ? `<p style="margin: 0; font-size: 14px;"><strong>Temporary Password:</strong> <code style="background: #e2e8f0; padding: 3px 8px; border-radius: 4px; font-weight: bold; color: #0f172a;">${this.escapeHtml(tempPassword)}</code></p>` : ''}
+              ${safePassword ? `<p style="margin: 0; font-size: 14px;"><strong>Temporary Password:</strong> <code style="background: #e2e8f0; padding: 3px 8px; border-radius: 4px; font-weight: bold; color: #0f172a;">${safePassword}</code></p>` : ''}
             </div>
             <div style="margin: 30px 0; text-align: center;">
               <a href="${effectiveLoginUrl}" style="background-color: #10b981; color: #ffffff; padding: 13px 28px; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 15px; display: inline-block;">
@@ -241,6 +265,11 @@ export class EmailService {
         roleName: string,
         inviteLink: string,
     ): Promise<void> {
+        if (!email || !email.includes('@')) {
+            this.logger.warn(`Skipping workspace invite email: invalid recipient '${email}'`);
+            return;
+        }
+
         if (!this.isConfigured || !this.transporter) {
             this.logger.log(
                 `[DEV MODE] Workspace invite email to ${email}. Workspace: ${workspaceName}, Role: ${roleName}`,
@@ -248,12 +277,15 @@ export class EmailService {
             return;
         }
 
+        const safeWorkspace = this.escapeHtml(workspaceName?.trim() || 'CRM Workspace');
+        const safeRole = this.escapeHtml(roleName?.trim() || 'Member');
+
         try {
             await this.transporter.sendMail({
                 from: this.sender,
                 to: email,
-                subject: `Invitation to join ${workspaceName} on CRM`,
-                text: `Hello,\n\nYou have been invited to join the "${workspaceName}" workspace on CRM as ${roleName}.\n\nAccept your invitation here:\n${inviteLink}\n\nBest regards,\nThe CRM Team`,
+                subject: `Invitation to join ${safeWorkspace} on CRM`,
+                text: `Hello,\n\nYou have been invited to join the "${safeWorkspace}" workspace on CRM as ${safeRole}.\n\nAccept your invitation here:\n${inviteLink}\n\nBest regards,\nThe CRM Team`,
                 html: `
           <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 580px; margin: 0 auto; padding: 28px 24px; border: 1px solid #e2e8f0; border-radius: 10px; background-color: #ffffff; color: #1e293b;">
             <div style="margin-bottom: 20px;">
@@ -261,7 +293,7 @@ export class EmailService {
               <p style="color: #64748b; font-size: 14px; margin: 0;">Collaborate with your team</p>
             </div>
             <p style="font-size: 15px; line-height: 1.6;">Hello,</p>
-            <p style="font-size: 15px; line-height: 1.6;">You have been invited to join the <strong>${this.escapeHtml(workspaceName)}</strong> workspace on CRM as <strong>${this.escapeHtml(roleName)}</strong>.</p>
+            <p style="font-size: 15px; line-height: 1.6;">You have been invited to join the <strong>${safeWorkspace}</strong> workspace on CRM as <strong>${safeRole}</strong>.</p>
             <div style="margin: 30px 0; text-align: center;">
               <a href="${inviteLink}" style="background-color: #10b981; color: #ffffff; padding: 13px 28px; text-decoration: none; border-radius: 6px; font-weight: 600; font-size: 15px; display: inline-block;">
                 Accept Invitation

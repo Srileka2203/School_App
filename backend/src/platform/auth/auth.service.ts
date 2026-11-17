@@ -125,11 +125,15 @@ export class AuthService {
       this.configService.get<string>('FRONTEND_URL') ||
       'http://localhost:5173';
 
-    this.emailService
-      .sendWelcomeEmail(user.email, user.name, `${frontendUrl}/login`)
-      .catch((err) => {
-        this.logger.error(`Failed to send welcome email to ${user.email}: ${err.message}`);
-      });
+    try {
+      this.emailService
+        .sendWelcomeEmail(user.email, user.name, `${frontendUrl}/login`)
+        .catch((err) => {
+          this.logger.error(`Failed to send welcome email to ${user.email}: ${err.message}`);
+        });
+    } catch (err: any) {
+      this.logger.error(`Error initiating welcome email to ${user.email}: ${err?.message}`);
+    }
 
     const { passwordHash: _, refreshToken: __, ...userResponse } = user;
     return {
@@ -229,7 +233,11 @@ export class AuthService {
 
     const resetLink = `${frontendUrl}/reset-password?token=${resetToken}`;
 
-    await this.emailService.sendPasswordResetEmail(user.email, user.name, resetLink);
+    try {
+      await this.emailService.sendPasswordResetEmail(user.email, user.name, resetLink);
+    } catch (err: any) {
+      this.logger.error(`Failed to send password reset email to ${user.email}: ${err?.message}`);
+    }
 
     return {
       message: 'Password reset link has been sent to your email address.',
