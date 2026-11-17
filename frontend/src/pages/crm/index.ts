@@ -9,3 +9,6 @@ export * from './calendar';
 export * from './communications';
 export * from './notes';
 export * from './tasks';
+export * from './analytics';
+export * from './search';
+export * from './tags';
