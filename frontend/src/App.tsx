@@ -125,11 +125,11 @@ import {
   EmailTemplatesPage,
 } from './pages/crm/communications';
 import { GlobalSearchPage } from './pages/crm/search';
-import { DashboardExplorerPage } from './pages/dashboard';
+import { DashboardExplorerPage } from './pages/platform/dashboard';
 import { AnalyticsExplorerPage } from './pages/crm/analytics';
 import { SettingsExplorerPage } from './pages/platform/settings';
 import { AuditLogsExplorerPage } from './pages/platform/audit-logs';
-import { HelpSupportExplorerPage } from './pages/help-support';
+import { HelpSupportExplorerPage } from './pages/platform/help-support';
 import { NotFoundPage } from './pages/NotFoundPage';
 import { ApiConfigBanner } from './components/common/ApiConfigBanner';
 

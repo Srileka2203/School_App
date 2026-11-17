@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { useWorkspace } from '../../context/useWorkspace';
-import { dashboardService } from '../../services/dashboard.service';
+import { useWorkspace } from '../../../context/useWorkspace';
+import { dashboardService } from '../../../services/dashboard.service';
 import type {
   ActivityAnalyticsResponse,
   ConversionFunnelResponse,
@@ -21,13 +21,13 @@ import type {
   RevenueAnalyticsResponse,
   SalesAnalyticsResponse,
   TeamAnalyticsResponse,
-} from '../../types/dashboard.types';
+} from '../../../types/dashboard.types';
 import {
   CUSTOM_WIDGETS_STORAGE_KEY,
   DEFAULT_CUSTOM_WIDGETS,
 } from './dashboardConstants';
 import { DashboardLayout } from './components/DashboardLayout';
-import { Button } from '../../components/ui';
+import { Button } from '../../../components/ui';
 import { DashboardScenicHero } from './components/DashboardScenicHero';
 import { DashboardLeftRail, DashboardRightRail } from './components/DashboardRails';
 import {
@@ -41,19 +41,19 @@ import {
   RevenueSummaryWidget,
   TeamPerformanceWidget,
 } from './components/DashboardWidgets';
-import { SectionCard } from '../crm/lead-generation/components/Cards';
+import { SectionCard } from '../../crm/lead-generation/components/Cards';
 import {
   BarList,
   DonutChart,
   Funnel,
   LineChart,
-} from '../crm/lead-generation/components/Charts';
+} from '../../crm/lead-generation/components/Charts';
 import {
   formatCurrency,
   formatNumber,
   formatPercent,
   humanize,
-} from '../crm/lead-generation/leadGenConstants';
+} from '../../crm/lead-generation/leadGenConstants';
 import {
   ActivityIcon,
   ArrowRightIcon,
@@ -68,7 +68,7 @@ import {
   TargetIcon,
   TrendingUpIcon,
   UsersIcon,
-} from '../../components/common/Icons';
+} from '../../../components/common/Icons';
 
 interface DashboardExplorerPageProps {
   screen: DashboardScreenSlug;

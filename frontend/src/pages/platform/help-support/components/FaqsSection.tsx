@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import type { FaqItem } from '../../../types/help-support.types';
+import type { FaqItem } from '../../../../types/help-support.types';
 import { FAQ_CATEGORIES } from '../helpSupportConstants';
 import { HelpCircleIcon, LifeBuoyIcon, ThumbsUpIcon } from '../helpIcons';
 import {
@@ -8,7 +8,7 @@ import {
   ChevronRightIcon,
   SearchIcon,
   XIcon,
-} from '../../../components/common/Icons';
+} from '../../../../components/common/Icons';
 
 interface FaqsSectionProps {
   faqs: FaqItem[];

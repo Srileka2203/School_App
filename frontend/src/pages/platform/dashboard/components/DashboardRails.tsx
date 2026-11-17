@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Badge } from '../../../components/ui';
-import { TrendingUpIcon, PlusIcon, AwardIcon } from '../../../components/common/Icons';
+import { Button, Badge } from '../../../../components/ui';
+import { TrendingUpIcon, PlusIcon, AwardIcon } from '../../../../components/common/Icons';
 
 /* ==========================================================================
    LEFT RAIL: Pipeline Health, Quota Gauges & Sliders (Matching Reference Layout)

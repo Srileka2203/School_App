@@ -28,14 +28,14 @@ import {
 } from './analyticsConstants';
 import { AnalyticsLayout } from './components/AnalyticsLayout';
 import { AnalyticsFilterBar } from './components/AnalyticsFilterBar';
-import { DashboardScenicHero } from '../../dashboard/components/DashboardScenicHero';
-import { DashboardLeftRail, DashboardRightRail } from '../../dashboard/components/DashboardRails';
+import { DashboardScenicHero } from '../../platform/dashboard/components/DashboardScenicHero';
+import { DashboardLeftRail, DashboardRightRail } from '../../platform/dashboard/components/DashboardRails';
 import {
   DashboardKpiCard,
   DashboardSkeleton,
   PipelineSummaryWidget,
   RevenueSummaryWidget,
-} from '../../dashboard/components/DashboardWidgets';
+} from '../../platform/dashboard/components/DashboardWidgets';
 import {
   Badge,
   ScorePill,

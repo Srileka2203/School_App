@@ -1,11 +1,11 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { Navbar } from '../../../components/common/Navbar';
-import { ErrorMessage } from '../../../components/auth/ErrorMessage';
-import { SuccessMessage } from '../../../components/auth/SuccessMessage';
-import { BarChart2Icon } from '../../../components/common/Icons';
+import { Navbar } from '../../../../components/common/Navbar';
+import { ErrorMessage } from '../../../../components/auth/ErrorMessage';
+import { SuccessMessage } from '../../../../components/auth/SuccessMessage';
+import { BarChart2Icon } from '../../../../components/common/Icons';
 import { DASHBOARD_SCREEN_META } from '../dashboardConstants';
-import type { DashboardScreenSlug } from '../../../types/dashboard.types';
+import type { DashboardScreenSlug } from '../../../../types/dashboard.types';
 
 const DASHBOARD_NAV_ITEMS: Array<{
   slug: DashboardScreenSlug;

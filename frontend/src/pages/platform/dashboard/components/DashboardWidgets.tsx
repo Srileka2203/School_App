@@ -13,13 +13,13 @@ import type {
   RepPerformanceMetric,
   RevenueAnalyticsResponse,
   TeamMetric,
-} from '../../../types/dashboard.types';
+} from '../../../../types/dashboard.types';
 import {
   Badge,
   SectionCard,
-} from '../../crm/lead-generation/components/Cards';
-import { LineChart } from '../../crm/lead-generation/components/Charts';
-import { EmptyState } from '../../../components/common/EmptyState';
+} from '../../../crm/lead-generation/components/Cards';
+import { LineChart } from '../../../crm/lead-generation/components/Charts';
+import { EmptyState } from '../../../../components/common/EmptyState';
 import {
   formatCurrency,
   formatDateTime,
@@ -28,7 +28,7 @@ import {
   humanize,
   toneForStatus,
   type Tone,
-} from '../../crm/lead-generation/leadGenConstants';
+} from '../../../crm/lead-generation/leadGenConstants';
 import {
   formatLeadDisplayName,
   INTERVAL_OPTIONS,
@@ -43,8 +43,8 @@ import {
   RefreshCwIcon,
   TargetIcon,
   XIcon,
-} from '../../../components/common/Icons';
-import { Button } from '../../../components/ui/Button';
+} from '../../../../components/common/Icons';
+import { Button } from '../../../../components/ui/Button';
 
 /* ==========================================================================
    1. Loading Skeleton

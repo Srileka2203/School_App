@@ -8,7 +8,7 @@ import type {
 import {
   INTERVAL_OPTIONS,
   TIMEFRAME_OPTIONS,
-} from '../../../dashboard/dashboardConstants';
+} from '../../../platform/dashboard/dashboardConstants';
 import {
   LEAD_SOURCE_FILTER_OPTIONS,
   PERFORMANCE_SORT_OPTIONS,

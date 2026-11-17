@@ -3,14 +3,14 @@ import type {
   FeedbackType,
   SubmitFeedbackPayload,
   UserFeedback,
-} from '../../../types/help-support.types';
+} from '../../../../types/help-support.types';
 import { FEEDBACK_TYPE_OPTIONS } from '../helpSupportConstants';
 import { MessageSquareIcon, StarIcon } from '../helpIcons';
 import {
   CheckCircleIcon,
   ClockIcon,
   SendIcon,
-} from '../../../components/common/Icons';
+} from '../../../../components/common/Icons';
 
 interface FeedbackSectionProps {
   feedbacks: UserFeedback[];

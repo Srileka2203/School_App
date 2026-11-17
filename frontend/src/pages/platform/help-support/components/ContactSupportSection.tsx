@@ -4,7 +4,7 @@ import type {
   SupportTicket,
   TicketCategory,
   TicketPriority,
-} from '../../../types/help-support.types';
+} from '../../../../types/help-support.types';
 import {
   TICKET_CATEGORY_OPTIONS,
   TICKET_PRIORITY_OPTIONS,
@@ -16,7 +16,7 @@ import {
   ClockIcon,
   SendIcon,
   XIcon,
-} from '../../../components/common/Icons';
+} from '../../../../components/common/Icons';
 
 interface ContactSupportSectionProps {
   tickets: SupportTicket[];

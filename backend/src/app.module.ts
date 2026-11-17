@@ -36,7 +36,7 @@ import { AnalyticsModule } from './crm/analytics/analytics.module';
 import { CustomFieldsModule } from './platform/custom-fields/custom-fields.module';
 import { TagsModule } from './crm/tags/tags.module';
 import { AuditLogsModule } from './platform/audit-logs/audit-logs.module';
-import { HelpSupportModule } from './help-support/help-support.module';
+import { HelpSupportModule } from './platform/help-support/help-support.module';
 import { AppController } from './app.controller';
 
 @Module({

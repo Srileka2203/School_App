@@ -7,7 +7,7 @@ import type {
   TicketCategory,
   TicketPriority,
   TicketStatus,
-} from '../../types/help-support.types';
+} from '../../../types/help-support.types';
 
 export interface HelpScreenMeta {
   slug: HelpScreenSlug;

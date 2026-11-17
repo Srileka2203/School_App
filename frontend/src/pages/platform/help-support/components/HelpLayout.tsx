@@ -1,10 +1,10 @@
 import React from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-import { Navbar } from '../../../components/common/Navbar';
-import { ErrorMessage } from '../../../components/auth/ErrorMessage';
-import { SuccessMessage } from '../../../components/auth/SuccessMessage';
+import { Navbar } from '../../../../components/common/Navbar';
+import { ErrorMessage } from '../../../../components/auth/ErrorMessage';
+import { SuccessMessage } from '../../../../components/auth/SuccessMessage';
 import { HELP_NAV_ITEMS, HELP_SCREENS_META } from '../helpSupportConstants';
-import type { HelpScreenSlug } from '../../../types/help-support.types';
+import type { HelpScreenSlug } from '../../../../types/help-support.types';
 import { HelpCircleIcon, LifeBuoyIcon } from '../helpIcons';
 
 interface HelpLayoutProps {

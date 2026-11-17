@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import type { DocCategory, DocPage } from '../../../types/help-support.types';
+import type { DocCategory, DocPage } from '../../../../types/help-support.types';
 import { BookOpenIcon, FileTextIcon } from '../helpIcons';
 import {
   ArrowLeftIcon,
   ArrowRightIcon,
   SearchIcon,
   XIcon,
-} from '../../../components/common/Icons';
+} from '../../../../components/common/Icons';
 
 interface DocumentationSectionProps {
   categories: DocCategory[];

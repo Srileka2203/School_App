@@ -41,10 +41,10 @@ import { TicketQueryDto } from './dto/ticket-query.dto';
 import { SubmitFeedbackDto } from './dto/submit-feedback.dto';
 import { UpdateFeedbackDto } from './dto/update-feedback.dto';
 import { FeedbackQueryDto } from './dto/feedback-query.dto';
-import { JwtAuthGuard } from '../platform/auth/guards/jwt-auth.guard';
-import { RolesGuard } from '../common/guards/roles.guard';
-import { Roles } from '../common/decorators/roles.decorator';
-import { CurrentUser } from '../common/decorators/current-user.decorator';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { RolesGuard } from '../../common/guards/roles.guard';
+import { Roles } from '../../common/decorators/roles.decorator';
+import { CurrentUser } from '../../common/decorators/current-user.decorator';
 
 @ApiTags('Help & Support')
 @ApiBearerAuth('JWT-auth')

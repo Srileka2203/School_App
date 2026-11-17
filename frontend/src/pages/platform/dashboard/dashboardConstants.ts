@@ -3,7 +3,7 @@ import type {
   AnalyticsTimeframe,
   CustomWidgetConfig,
   DashboardScreenSlug,
-} from '../../types/dashboard.types';
+} from '../../../types/dashboard.types';
 
 export interface DashboardScreenMeta {
   slug: DashboardScreenSlug;

@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { useWorkspace } from '../../context/useWorkspace';
-import { helpSupportService } from '../../services/help-support.service';
+import { useWorkspace } from '../../../context/useWorkspace';
+import { helpSupportService } from '../../../services/help-support.service';
 import type {
   CreateSupportTicketPayload,
   DocCategory,
@@ -13,7 +13,7 @@ import type {
   SubmitFeedbackPayload,
   SupportTicket,
   UserFeedback,
-} from '../../types/help-support.types';
+} from '../../../types/help-support.types';
 import { HelpLayout } from './components/HelpLayout';
 import { HelpCenterSection } from './components/HelpCenterSection';
 import { DocumentationSection } from './components/DocumentationSection';

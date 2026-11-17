@@ -9,3 +9,4 @@ export * from './notifications/notifications.module';
 export * from './files/files.module';
 export * from './audit-logs/audit-logs.module';
 export * from './custom-fields/custom-fields.module';
+export * from './help-support/help-support.module';

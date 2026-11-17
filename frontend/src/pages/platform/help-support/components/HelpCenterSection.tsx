@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import type { HelpArticle, HelpCategory } from '../../../types/help-support.types';
+import type { HelpArticle, HelpCategory } from '../../../../types/help-support.types';
 import {
   BookOpenIcon,
   FileTextIcon,
@@ -15,7 +15,7 @@ import {
   ClockIcon,
   SearchIcon,
   XIcon,
-} from '../../../components/common/Icons';
+} from '../../../../components/common/Icons';
 
 interface HelpCenterSectionProps {
   categories: HelpCategory[];

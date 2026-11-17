@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Button, type ButtonVariant } from '../../../components/ui';
-import { PlusIcon, TrendingUpIcon, AwardIcon } from '../../../components/common/Icons';
+import { Button, type ButtonVariant } from '../../../../components/ui';
+import { PlusIcon, TrendingUpIcon, AwardIcon } from '../../../../components/common/Icons';
 
 export interface DashboardHeroTickerItem {
   dotColor: string;
