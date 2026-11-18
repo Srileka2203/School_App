@@ -9,69 +9,69 @@ datasource db {
 }
 
 model User {
-  id                   String              @id @default(uuid())
-  email                String              @unique
+  id                   String        @id @default(uuid())
+  email                String        @unique
   passwordHash         String
   name                 String
   phone                String?
   avatar               String?
-  status               String              @default("ACTIVE") // ACTIVE, INACTIVE, SUSPENDED
+  status               String        @default("ACTIVE") // ACTIVE, INACTIVE, SUSPENDED
   roleId               String?
-  role                 Role?               @relation(fields: [roleId], references: [id], onDelete: SetNull)
+  role                 Role?         @relation(fields: [roleId], references: [id], onDelete: SetNull)
   organizationId       String?
-  organization         Organization?       @relation(fields: [organizationId], references: [id], onDelete: SetNull)
+  organization         Organization? @relation(fields: [organizationId], references: [id], onDelete: SetNull)
   refreshToken         String?
   resetPasswordToken   String?
   resetPasswordExpires DateTime?
-  createdAt            DateTime            @default(now())
-  updatedAt            DateTime            @updatedAt
+  createdAt            DateTime      @default(now())
+  updatedAt            DateTime      @updatedAt
 
-  contacts             Contact[]           @relation("ContactOwner")
-  leads                Lead[]              @relation("LeadOwner")
-  deals                Deal[]              @relation("DealOwner")
-  activitiesAssigned   Activity[]          @relation("AssignedActivities")
-  activitiesCreated    Activity[]          @relation("CreatedActivities")
-  tasksAssigned        Task[]              @relation("AssignedTasks")
-  tasksCreated         Task[]              @relation("CreatedTasks")
-  notes                Note[]
-  notifications        Notification[]
-  filesUploaded        FileRecord[]
-  profileSettings      UserProfileSetting?
-  activeWorkspaceId    String?
-  activeWorkspace      Workspace?          @relation("ActiveWorkspace", fields: [activeWorkspaceId], references: [id], onDelete: SetNull)
-  workspacesOwned      Workspace[]         @relation("WorkspaceOwner")
-  workspaceMembers     WorkspaceMember[]
-  teamsLed             Team[]              @relation("TeamOwner")
-  teamMemberships      TeamMember[]
-  sentEmails           EmailMessage[]      @relation("EmailSender")
-  emailTemplates       EmailTemplate[]
+  contacts              Contact[]              @relation("ContactOwner")
+  leads                 Lead[]                 @relation("LeadOwner")
+  deals                 Deal[]                 @relation("DealOwner")
+  activitiesAssigned    Activity[]             @relation("AssignedActivities")
+  activitiesCreated     Activity[]             @relation("CreatedActivities")
+  tasksAssigned         Task[]                 @relation("AssignedTasks")
+  tasksCreated          Task[]                 @relation("CreatedTasks")
+  notes                 Note[]
+  notifications         Notification[]
+  filesUploaded         FileRecord[]
+  profileSettings       UserProfileSetting?
+  activeWorkspaceId     String?
+  activeWorkspace       Workspace?             @relation("ActiveWorkspace", fields: [activeWorkspaceId], references: [id], onDelete: SetNull)
+  workspacesOwned       Workspace[]            @relation("WorkspaceOwner")
+  workspaceMembers      WorkspaceMember[]
+  teamsLed              Team[]                 @relation("TeamOwner")
+  teamMemberships       TeamMember[]
+  sentEmails            EmailMessage[]         @relation("EmailSender")
+  emailTemplates        EmailTemplate[]
   communicationComments CommunicationComment[]
-  emailIntegrations    EmailIntegration[]
-  searchHistory        SearchHistory[]
+  emailIntegrations     EmailIntegration[]
+  searchHistory         SearchHistory[]
 }
 
 model Role {
-  id          String           @id @default(uuid())
-  name        String           @unique
+  id          String   @id @default(uuid())
+  name        String   @unique
   description String?
-  isSystem    Boolean          @default(false)
-  createdAt   DateTime         @default(now())
-  updatedAt   DateTime         @updatedAt
+  isSystem    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
   users       User[]
   permissions RolePermission[]
 }
 
 model Permission {
-  id          String           @id @default(uuid())
-  name        String           @unique
-  action      String           // CREATE, READ, UPDATE, DELETE, MANAGE
-  resource    String           // USERS, CONTACTS, LEADS, DEALS, etc.
+  id          String   @id @default(uuid())
+  name        String   @unique
+  action      String // CREATE, READ, UPDATE, DELETE, MANAGE
+  resource    String // USERS, CONTACTS, LEADS, DEALS, etc.
   description String?
-  createdAt   DateTime         @default(now())
-  updatedAt   DateTime         @updatedAt
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
-  roles       RolePermission[]
+  roles RolePermission[]
 }
 
 model RolePermission {
@@ -85,25 +85,25 @@ model RolePermission {
 }
 
 model Organization {
-  id          String               @id @default(uuid())
-  name        String
-  domain      String?
-  industry    String?
-  website     String?
-  phone       String?
-  address     String?
-  city        String?
-  country     String?
-  status      String               @default("ACTIVE") // ACTIVE, INACTIVE
-  createdAt   DateTime             @default(now())
-  updatedAt   DateTime             @updatedAt
+  id        String   @id @default(uuid())
+  name      String
+  domain    String?
+  industry  String?
+  website   String?
+  phone     String?
+  address   String?
+  city      String?
+  country   String?
+  status    String   @default("ACTIVE") // ACTIVE, INACTIVE
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  users       User[]
-  contacts    Contact[]
-  deals       Deal[]
-  invites     OrganizationInvite[]
-  teams       Team[]
-  emails      EmailMessage[]
+  users    User[]
+  contacts Contact[]
+  deals    Deal[]
+  invites  OrganizationInvite[]
+  teams    Team[]
+  emails   EmailMessage[]
 }
 
 model OrganizationInvite {
@@ -119,15 +119,15 @@ model OrganizationInvite {
 }
 
 model Pipeline {
-  id          String          @id @default(uuid())
+  id          String   @id @default(uuid())
   name        String
   description String?
-  isDefault   Boolean         @default(false)
-  createdAt   DateTime        @default(now())
-  updatedAt   DateTime        @updatedAt
+  isDefault   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
-  stages      PipelineStage[]
-  deals       Deal[]
+  stages PipelineStage[]
+  deals  Deal[]
 }
 
 model PipelineStage {
@@ -141,122 +141,122 @@ model PipelineStage {
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
 
-  deals          Deal[]
+  deals Deal[]
 }
 
 model Contact {
-  id             String           @id @default(uuid())
+  id             String        @id @default(uuid())
   firstName      String
   lastName       String
-  email          String           @unique
+  email          String        @unique
   phone          String?
   jobTitle       String?
   department     String?
-  stage          String           @default("LEAD") // LEAD, OPPORTUNITY, CUSTOMER, CHURNED
+  stage          String        @default("LEAD") // LEAD, OPPORTUNITY, CUSTOMER, CHURNED
   organizationId String?
-  organization   Organization?    @relation(fields: [organizationId], references: [id], onDelete: SetNull)
+  organization   Organization? @relation(fields: [organizationId], references: [id], onDelete: SetNull)
   ownerId        String?
-  owner          User?            @relation("ContactOwner", fields: [ownerId], references: [id], onDelete: SetNull)
-  createdAt      DateTime         @default(now())
-  updatedAt      DateTime         @updatedAt
+  owner          User?         @relation("ContactOwner", fields: [ownerId], references: [id], onDelete: SetNull)
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
 
-  deals          Deal[]
-  activities     Activity[]
-  tasks          Task[]
-  notes          Note[]
-  attachments    FileAttachment[]
-  emails         EmailMessage[]
+  deals                 Deal[]
+  activities            Activity[]
+  tasks                 Task[]
+  notes                 Note[]
+  attachments           FileAttachment[]
+  emails                EmailMessage[]
   communicationComments CommunicationComment[]
 }
 
 model Lead {
-  id                 String           @id @default(uuid())
+  id                 String      @id @default(uuid())
   title              String
   firstName          String
   lastName           String
   email              String
   phone              String?
   companyName        String?
-  status             String           @default("NEW") // NEW, CONTACTED, QUALIFIED, UNQUALIFIED, CONVERTED
-  source             String           @default("WEBSITE") // WEBSITE, REFERRAL, COLD_OUTREACH, ADVERTISING, EVENT, OTHER
-  leadScore          Int              @default(0)
-  estimatedValue     Float?           @default(0.0)
+  status             String      @default("NEW") // NEW, CONTACTED, QUALIFIED, UNQUALIFIED, CONVERTED
+  source             String      @default("WEBSITE") // WEBSITE, REFERRAL, COLD_OUTREACH, ADVERTISING, EVENT, OTHER
+  leadScore          Int         @default(0)
+  estimatedValue     Float?      @default(0.0)
   ownerId            String?
-  owner              User?            @relation("LeadOwner", fields: [ownerId], references: [id], onDelete: SetNull)
+  owner              User?       @relation("LeadOwner", fields: [ownerId], references: [id], onDelete: SetNull)
   teamId             String?
-  team               Team?            @relation(fields: [teamId], references: [id], onDelete: SetNull)
+  team               Team?       @relation(fields: [teamId], references: [id], onDelete: SetNull)
   convertedContactId String?
   convertedDealId    String?
   workspaceId        String?
   leadSourceId       String?
-  leadSource         LeadSource?      @relation(fields: [leadSourceId], references: [id], onDelete: SetNull)
+  leadSource         LeadSource? @relation(fields: [leadSourceId], references: [id], onDelete: SetNull)
   webFormId          String?
-  webForm            WebForm?         @relation(fields: [webFormId], references: [id], onDelete: SetNull)
+  webForm            WebForm?    @relation(fields: [webFormId], references: [id], onDelete: SetNull)
   campaign           String?
   medium             String?
-  channel            String?          // WEBSITE, LANDING_PAGE, SOCIAL_MEDIA, CAMPAIGN, EMAIL, REFERRAL, MANUAL
-  attribution        Json?            @default("{}")
+  channel            String? // WEBSITE, LANDING_PAGE, SOCIAL_MEDIA, CAMPAIGN, EMAIL, REFERRAL, MANUAL
+  attribution        Json?       @default("{}")
   qualificationNotes String?
   routedToId         String?
-  scoringBreakdown   Json?            @default("[]")
-  createdAt          DateTime         @default(now())
-  updatedAt          DateTime         @updatedAt
+  scoringBreakdown   Json?       @default("[]")
+  createdAt          DateTime    @default(now())
+  updatedAt          DateTime    @updatedAt
 
-  activities         Activity[]
-  tasks              Task[]
-  notes              Note[]
-  attachments        FileAttachment[]
-  formSubmissions    FormSubmission[]
-  emails             EmailMessage[]
+  activities            Activity[]
+  tasks                 Task[]
+  notes                 Note[]
+  attachments           FileAttachment[]
+  formSubmissions       FormSubmission[]
+  emails                EmailMessage[]
   communicationComments CommunicationComment[]
 }
 
 model Deal {
-  id                String           @id @default(uuid())
+  id                String         @id @default(uuid())
   title             String
-  value             Float            @default(0.0)
-  currency          String           @default("USD")
+  value             Float          @default(0.0)
+  currency          String         @default("USD")
   stageId           String?
-  stage             PipelineStage?   @relation(fields: [stageId], references: [id], onDelete: SetNull)
+  stage             PipelineStage? @relation(fields: [stageId], references: [id], onDelete: SetNull)
   pipelineId        String?
-  pipeline          Pipeline?        @relation(fields: [pipelineId], references: [id], onDelete: SetNull)
-  status            String           @default("OPEN") // OPEN, WON, LOST
-  probability       Int              @default(20)
+  pipeline          Pipeline?      @relation(fields: [pipelineId], references: [id], onDelete: SetNull)
+  status            String         @default("OPEN") // OPEN, WON, LOST
+  probability       Int            @default(20)
   expectedCloseDate DateTime?
   closedAt          DateTime?
   organizationId    String?
-  organization      Organization?    @relation(fields: [organizationId], references: [id], onDelete: SetNull)
+  organization      Organization?  @relation(fields: [organizationId], references: [id], onDelete: SetNull)
   contactId         String?
-  contact           Contact?         @relation(fields: [contactId], references: [id], onDelete: SetNull)
+  contact           Contact?       @relation(fields: [contactId], references: [id], onDelete: SetNull)
   ownerId           String?
-  owner             User?            @relation("DealOwner", fields: [ownerId], references: [id], onDelete: SetNull)
+  owner             User?          @relation("DealOwner", fields: [ownerId], references: [id], onDelete: SetNull)
   teamId            String?
-  team              Team?            @relation(fields: [teamId], references: [id], onDelete: SetNull)
-  createdAt         DateTime         @default(now())
-  updatedAt         DateTime         @updatedAt
+  team              Team?          @relation(fields: [teamId], references: [id], onDelete: SetNull)
+  createdAt         DateTime       @default(now())
+  updatedAt         DateTime       @updatedAt
 
-  products          DealProduct[]
-  activities        Activity[]
-  tasks             Task[]
-  notes             Note[]
-  attachments       FileAttachment[]
-  emails            EmailMessage[]
+  products              DealProduct[]
+  activities            Activity[]
+  tasks                 Task[]
+  notes                 Note[]
+  attachments           FileAttachment[]
+  emails                EmailMessage[]
   communicationComments CommunicationComment[]
 }
 
 model Product {
-  id            String        @id @default(uuid())
+  id            String   @id @default(uuid())
   name          String
-  sku           String        @unique
+  sku           String   @unique
   description   String?
-  price         Float         @default(0.0)
-  currency      String        @default("USD")
-  isActive      Boolean       @default(true)
-  stockQuantity Int           @default(0)
-  createdAt     DateTime      @default(now())
-  updatedAt     DateTime      @updatedAt
+  price         Float    @default(0.0)
+  currency      String   @default("USD")
+  isActive      Boolean  @default(true)
+  stockQuantity Int      @default(0)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 
-  deals         DealProduct[]
+  deals DealProduct[]
 }
 
 model DealProduct {
@@ -274,7 +274,7 @@ model DealProduct {
 
 model Activity {
   id           String    @id @default(uuid())
-  type         String    // CALL, EMAIL, MEETING, WHATSAPP, FOLLOW_UP
+  type         String // CALL, EMAIL, MEETING, WHATSAPP, FOLLOW_UP
   subject      String
   description  String?
   scheduledAt  DateTime?
@@ -367,7 +367,7 @@ model FileAttachment {
   id         String     @id @default(uuid())
   fileId     String
   file       FileRecord @relation(fields: [fileId], references: [id], onDelete: Cascade)
-  entityType String     // CONTACT, LEAD, DEAL, ORGANIZATION
+  entityType String // CONTACT, LEAD, DEAL, ORGANIZATION
   entityId   String
   contactId  String?
   contact    Contact?   @relation(fields: [contactId], references: [id], onDelete: Cascade)
@@ -400,45 +400,45 @@ model UserProfileSetting {
 }
 
 model Workspace {
-  id          String            @id @default(uuid())
+  id          String   @id @default(uuid())
   name        String
-  slug        String            @unique
+  slug        String   @unique
   description String?
   avatar      String?
   website     String?
-  timezone    String            @default("UTC")
-  currency    String            @default("USD")
-  status      String            @default("ACTIVE") // ACTIVE, INACTIVE, ARCHIVED
-  plan        String            @default("FREE")   // FREE, PRO, ENTERPRISE
+  timezone    String   @default("UTC")
+  currency    String   @default("USD")
+  status      String   @default("ACTIVE") // ACTIVE, INACTIVE, ARCHIVED
+  plan        String   @default("FREE") // FREE, PRO, ENTERPRISE
   ownerId     String
-  owner       User              @relation("WorkspaceOwner", fields: [ownerId], references: [id], onDelete: Cascade)
-  createdAt   DateTime          @default(now())
-  updatedAt   DateTime          @updatedAt
+  owner       User     @relation("WorkspaceOwner", fields: [ownerId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
-  members     WorkspaceMember[]
-  invites     WorkspaceInvite[]
-  roles       WorkspaceRole[]
-  setting     WorkspaceSetting?
-  activeUsers User[]            @relation("ActiveWorkspace")
-  teams       Team[]
-  emails      EmailMessage[]
-  emailTemplates EmailTemplate[]
+  members           WorkspaceMember[]
+  invites           WorkspaceInvite[]
+  roles             WorkspaceRole[]
+  setting           WorkspaceSetting?
+  activeUsers       User[]             @relation("ActiveWorkspace")
+  teams             Team[]
+  emails            EmailMessage[]
+  emailTemplates    EmailTemplate[]
   emailIntegrations EmailIntegration[]
 }
 
 model WorkspaceRole {
-  id          String            @id @default(uuid())
+  id          String    @id @default(uuid())
   workspaceId String
-  workspace   Workspace         @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
   name        String
   description String?
-  isSystem    Boolean           @default(false)
-  permissions Json              @default("[]")
-  createdAt   DateTime          @default(now())
-  updatedAt   DateTime          @updatedAt
+  isSystem    Boolean   @default(false)
+  permissions Json      @default("[]")
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 
-  members     WorkspaceMember[]
-  invites     WorkspaceInvite[]
+  members WorkspaceMember[]
+  invites WorkspaceInvite[]
 
   @@unique([workspaceId, name])
 }
@@ -507,11 +507,11 @@ model Team {
   createdAt      DateTime      @default(now())
   updatedAt      DateTime      @updatedAt
 
-  members        TeamMember[]
-  leads          Lead[]
-  deals          Deal[]
-  activities     Activity[]
-  tasks          Task[]
+  members    TeamMember[]
+  leads      Lead[]
+  deals      Deal[]
+  activities Activity[]
+  tasks      Task[]
 }
 
 model TeamMember {
@@ -529,21 +529,21 @@ model TeamMember {
 }
 
 model LeadSource {
-  id          String           @id @default(uuid())
+  id          String   @id @default(uuid())
   name        String
-  code        String           @unique
-  type        String           @default("WEBSITE") // WEBSITE, LANDING_PAGE, CAMPAIGN, SOCIAL_MEDIA, EMAIL, REFERRAL, MANUAL, PAID_SEARCH, EVENT, OTHER
+  code        String   @unique
+  type        String   @default("WEBSITE") // WEBSITE, LANDING_PAGE, CAMPAIGN, SOCIAL_MEDIA, EMAIL, REFERRAL, MANUAL, PAID_SEARCH, EVENT, OTHER
   description String?
-  status      String           @default("ACTIVE") // ACTIVE, INACTIVE
-  cost        Float?           @default(0.0)
+  status      String   @default("ACTIVE") // ACTIVE, INACTIVE
+  cost        Float?   @default(0.0)
   utmSource   String?
   utmMedium   String?
   utmCampaign String?
-  isSystem    Boolean          @default(false)
-  metadata    Json?            @default("{}")
+  isSystem    Boolean  @default(false)
+  metadata    Json?    @default("{}")
   workspaceId String?
-  createdAt   DateTime         @default(now())
-  updatedAt   DateTime         @updatedAt
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
   leads       Lead[]
   submissions FormSubmission[]
@@ -551,31 +551,31 @@ model LeadSource {
 }
 
 model WebForm {
-  id               String           @id @default(uuid())
+  id               String      @id @default(uuid())
   name             String
-  slug             String           @unique
+  slug             String      @unique
   title            String
   description      String?
-  status           String           @default("DRAFT") // DRAFT, PUBLISHED, ARCHIVED
-  formType         String           @default("WEB_FORM") // WEB_FORM, LANDING_PAGE, POPUP, EMBEDDED
-  fields           Json             @default("[]")
-  styling          Json             @default("{}")
-  settings         Json             @default("{}")
+  status           String      @default("DRAFT") // DRAFT, PUBLISHED, ARCHIVED
+  formType         String      @default("WEB_FORM") // WEB_FORM, LANDING_PAGE, POPUP, EMBEDDED
+  fields           Json        @default("[]")
+  styling          Json        @default("{}")
+  settings         Json        @default("{}")
   defaultSourceId  String?
-  defaultSource    LeadSource?      @relation(fields: [defaultSourceId], references: [id], onDelete: SetNull)
+  defaultSource    LeadSource? @relation(fields: [defaultSourceId], references: [id], onDelete: SetNull)
   defaultOwnerId   String?
   campaignName     String?
-  viewsCount       Int              @default(0)
-  submissionsCount Int              @default(0)
-  conversionRate   Float            @default(0.0)
-  isPublished      Boolean          @default(false)
+  viewsCount       Int         @default(0)
+  submissionsCount Int         @default(0)
+  conversionRate   Float       @default(0.0)
+  isPublished      Boolean     @default(false)
   publishedAt      DateTime?
   workspaceId      String?
-  createdAt        DateTime         @default(now())
-  updatedAt        DateTime         @updatedAt
+  createdAt        DateTime    @default(now())
+  updatedAt        DateTime    @updatedAt
 
-  leads            Lead[]
-  submissions      FormSubmission[]
+  leads       Lead[]
+  submissions FormSubmission[]
 }
 
 model FormSubmission {
@@ -651,56 +651,56 @@ model LeadAssignmentRule {
 // ==========================================
 
 model EmailMessage {
-  id                String                 @id @default(uuid())
-  messageId         String?                @unique
+  id                String    @id @default(uuid())
+  messageId         String?   @unique
   threadId          String?
   inReplyToId       String?
-  folder            String                 @default("INBOX") // INBOX, SENT, DRAFTS, TRASH, ARCHIVE, SPAM
-  direction         String                 @default("OUTBOUND") // INBOUND, OUTBOUND
-  status            String                 @default("DRAFT") // DRAFT, QUEUED, SENT, DELIVERED, OPENED, CLICKED, BOUNCED, FAILED, RECEIVED
+  folder            String    @default("INBOX") // INBOX, SENT, DRAFTS, TRASH, ARCHIVE, SPAM
+  direction         String    @default("OUTBOUND") // INBOUND, OUTBOUND
+  status            String    @default("DRAFT") // DRAFT, QUEUED, SENT, DELIVERED, OPENED, CLICKED, BOUNCED, FAILED, RECEIVED
   sender            String
   senderName        String?
   senderUserId      String?
-  senderUser        User?                  @relation("EmailSender", fields: [senderUserId], references: [id], onDelete: SetNull)
-  recipients        Json                   // Array of recipient strings or objects
-  cc                Json                   @default("[]")
-  bcc               Json                   @default("[]")
+  senderUser        User?     @relation("EmailSender", fields: [senderUserId], references: [id], onDelete: SetNull)
+  recipients        Json // Array of recipient strings or objects
+  cc                Json      @default("[]")
+  bcc               Json      @default("[]")
   replyTo           String?
   subject           String
   body              String
   bodyText          String?
   snippet           String?
-  isRead            Boolean                @default(false)
+  isRead            Boolean   @default(false)
   readAt            DateTime?
-  isStarred         Boolean                @default(false)
-  isArchived        Boolean                @default(false)
-  isDraft           Boolean                @default(false)
+  isStarred         Boolean   @default(false)
+  isArchived        Boolean   @default(false)
+  isDraft           Boolean   @default(false)
   sentAt            DateTime?
   receivedAt        DateTime?
   scheduledAt       DateTime?
-  provider          String?                @default("SYSTEM") // SMTP, SENDGRID, RESEND, GMAIL, OUTLOOK, SYSTEM
+  provider          String?   @default("SYSTEM") // SMTP, SENDGRID, RESEND, GMAIL, OUTLOOK, SYSTEM
   providerMessageId String?
-  providerMetadata  Json?                  @default("{}")
+  providerMetadata  Json?     @default("{}")
   errorMessage      String?
-  openCount         Int                    @default(0)
-  clickCount        Int                    @default(0)
+  openCount         Int       @default(0)
+  clickCount        Int       @default(0)
 
-  contactId         String?
-  contact           Contact?               @relation(fields: [contactId], references: [id], onDelete: SetNull)
-  leadId            String?
-  lead              Lead?                  @relation(fields: [leadId], references: [id], onDelete: SetNull)
-  dealId            String?
-  deal              Deal?                  @relation(fields: [dealId], references: [id], onDelete: SetNull)
-  organizationId    String?
-  organization      Organization?          @relation(fields: [organizationId], references: [id], onDelete: SetNull)
-  workspaceId       String?
-  workspace         Workspace?             @relation(fields: [workspaceId], references: [id], onDelete: SetNull)
+  contactId      String?
+  contact        Contact?      @relation(fields: [contactId], references: [id], onDelete: SetNull)
+  leadId         String?
+  lead           Lead?         @relation(fields: [leadId], references: [id], onDelete: SetNull)
+  dealId         String?
+  deal           Deal?         @relation(fields: [dealId], references: [id], onDelete: SetNull)
+  organizationId String?
+  organization   Organization? @relation(fields: [organizationId], references: [id], onDelete: SetNull)
+  workspaceId    String?
+  workspace      Workspace?    @relation(fields: [workspaceId], references: [id], onDelete: SetNull)
 
-  attachments       EmailAttachment[]
-  comments          CommunicationComment[]
+  attachments EmailAttachment[]
+  comments    CommunicationComment[]
 
-  createdAt         DateTime               @default(now())
-  updatedAt         DateTime               @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([threadId])
   @@index([folder])
@@ -783,16 +783,16 @@ model CommunicationComment {
 
 model EmailIntegration {
   id                String     @id @default(uuid())
-  provider          String     // SMTP, SENDGRID, RESEND, GMAIL, OUTLOOK, SYSTEM
-  name              String     // e.g. "Primary SMTP", "SendGrid Outbound"
+  provider          String // SMTP, SENDGRID, RESEND, GMAIL, OUTLOOK, SYSTEM
+  name              String // e.g. "Primary SMTP", "SendGrid Outbound"
   fromEmail         String
   fromName          String?
   host              String?
   port              Int?
   secure            Boolean    @default(true)
   username          String?
-  encryptedPassword String?    // Stored securely, NEVER exposed in responses/DTOs
-  encryptedApiKey   String?    // Stored securely, NEVER exposed in responses/DTOs
+  encryptedPassword String? // Stored securely, NEVER exposed in responses/DTOs
+  encryptedApiKey   String? // Stored securely, NEVER exposed in responses/DTOs
   isDefault         Boolean    @default(false)
   isActive          Boolean    @default(true)
   workspaceId       String?
@@ -830,36 +830,36 @@ model SearchHistory {
 // ==========================================
 
 model CustomField {
-  id              String                   @id @default(uuid())
+  id              String   @id @default(uuid())
   name            String
   key             String
-  entityType      String                   // LEAD, CONTACT, COMPANY, DEAL, ACTIVITY
-  fieldType       String                   // TEXT, LONG_TEXT, NUMBER, CURRENCY, PERCENTAGE, DATE, DATETIME, CHECKBOX, DROPDOWN, MULTI_SELECT, RADIO, URL, EMAIL, PHONE, USER_SELECTOR
+  entityType      String // LEAD, CONTACT, COMPANY, DEAL, ACTIVITY
+  fieldType       String // TEXT, LONG_TEXT, NUMBER, CURRENCY, PERCENTAGE, DATE, DATETIME, CHECKBOX, DROPDOWN, MULTI_SELECT, RADIO, URL, EMAIL, PHONE, USER_SELECTOR
   description     String?
   placeholder     String?
   helpText        String?
   defaultValue    Json?
-  isRequired      Boolean                  @default(false)
-  isUnique        Boolean                  @default(false)
-  isVisible       Boolean                  @default(true)
-  isSearchable    Boolean                  @default(true)
-  isFilterable    Boolean                  @default(true)
-  isEditable      Boolean                  @default(true)
-  order           Int                      @default(0)
-  section         String                   @default("General Information")
-  gridWidth       Int                      @default(12) // 1 to 12 columns
-  validationRules Json?                    @default("{}")
-  readRoles       Json?                    @default("[]")
-  editRoles       Json?                    @default("[]")
+  isRequired      Boolean  @default(false)
+  isUnique        Boolean  @default(false)
+  isVisible       Boolean  @default(true)
+  isSearchable    Boolean  @default(true)
+  isFilterable    Boolean  @default(true)
+  isEditable      Boolean  @default(true)
+  order           Int      @default(0)
+  section         String   @default("General Information")
+  gridWidth       Int      @default(12) // 1 to 12 columns
+  validationRules Json?    @default("{}")
+  readRoles       Json?    @default("[]")
+  editRoles       Json?    @default("[]")
   workspaceId     String?
-  isActive        Boolean                  @default(true)
-  isArchived      Boolean                  @default(false)
-  createdAt       DateTime                 @default(now())
-  updatedAt       DateTime                 @updatedAt
+  isActive        Boolean  @default(true)
+  isArchived      Boolean  @default(false)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 
-  options         CustomFieldOption[]
-  values          CustomFieldValue[]
-  typeHistories   CustomFieldTypeHistory[]
+  options       CustomFieldOption[]
+  values        CustomFieldValue[]
+  typeHistories CustomFieldTypeHistory[]
 
   @@index([entityType, key])
   @@index([entityType, workspaceId])
@@ -887,9 +887,9 @@ model CustomFieldValue {
   id           String      @id @default(uuid())
   fieldId      String
   field        CustomField @relation(fields: [fieldId], references: [id], onDelete: Cascade)
-  entityType   String      // LEAD, CONTACT, COMPANY, DEAL, ACTIVITY
-  entityId     String      // Lead, Contact, Organization, Deal, or Activity UUID
-  value        Json        // Canonical JSON representation
+  entityType   String // LEAD, CONTACT, COMPANY, DEAL, ACTIVITY
+  entityId     String // Lead, Contact, Organization, Deal, or Activity UUID
+  value        Json // Canonical JSON representation
   textValue    String?
   numberValue  Float?
   dateValue    DateTime?
@@ -925,16 +925,16 @@ model CustomFieldTypeHistory {
 // ==========================================
 
 model Tag {
-  id          String          @id @default(uuid())
+  id          String   @id @default(uuid())
   name        String
-  color       String?         @default("#3b82f6")
+  color       String?  @default("#3b82f6")
   description String?
-  status      String          @default("ACTIVE") // ACTIVE, INACTIVE, ARCHIVED
-  isProtected Boolean         @default(false)
+  status      String   @default("ACTIVE") // ACTIVE, INACTIVE, ARCHIVED
+  isProtected Boolean  @default(false)
   workspaceId String?
   createdById String?
-  createdAt   DateTime        @default(now())
-  updatedAt   DateTime        @updatedAt
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
   assignments TagAssignment[]
 
@@ -948,7 +948,7 @@ model TagAssignment {
   id           String   @id @default(uuid())
   tagId        String
   tag          Tag      @relation(fields: [tagId], references: [id], onDelete: Cascade)
-  entityType   String   // LEAD, CONTACT, COMPANY, DEAL, ACTIVITY, DOCUMENT
+  entityType   String // LEAD, CONTACT, COMPANY, DEAL, ACTIVITY, DOCUMENT
   entityId     String
   workspaceId  String?
   assignedById String?
@@ -966,8 +966,8 @@ model TagAssignment {
 
 model AuditLog {
   id          String   @id @default(uuid())
-  action      String   // CREATE, UPDATE, DELETE, LOGIN, LOGOUT, EXPORT, IMPORT, STATUS_CHANGE, ASSIGN, RESTORE
-  entityType  String   // LEAD, CONTACT, COMPANY, DEAL, ACTIVITY, TASK, NOTE, DOCUMENT, USER, ROLE, WORKSPACE, TAG, CUSTOM_FIELD, SETTING, SYSTEM
+  action      String // CREATE, UPDATE, DELETE, LOGIN, LOGOUT, EXPORT, IMPORT, STATUS_CHANGE, ASSIGN, RESTORE
+  entityType  String // LEAD, CONTACT, COMPANY, DEAL, ACTIVITY, TASK, NOTE, DOCUMENT, USER, ROLE, WORKSPACE, TAG, CUSTOM_FIELD, SETTING, SYSTEM
   entityId    String?
   entityName  String?
   userId      String?
@@ -993,18 +993,18 @@ model AuditLog {
 // ==========================================
 
 model HelpCategory {
-  id          String        @id @default(uuid())
+  id          String   @id @default(uuid())
   name        String
   slug        String
   description String?
-  icon        String?       @default("help-circle")
-  order       Int           @default(0)
-  isPublished Boolean       @default(true)
+  icon        String?  @default("help-circle")
+  order       Int      @default(0)
+  isPublished Boolean  @default(true)
   workspaceId String?
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
-  articles    HelpArticle[]
+  articles HelpArticle[]
 
   @@unique([workspaceId, slug])
   @@index([workspaceId])
@@ -1038,18 +1038,18 @@ model HelpArticle {
 }
 
 model DocCategory {
-  id          String    @id @default(uuid())
+  id          String   @id @default(uuid())
   name        String
   slug        String
   description String?
-  order       Int       @default(0)
-  version     String    @default("1.0.0")
-  status      String    @default("PUBLISHED") // DRAFT, PUBLISHED, ARCHIVED
+  order       Int      @default(0)
+  version     String   @default("1.0.0")
+  status      String   @default("PUBLISHED") // DRAFT, PUBLISHED, ARCHIVED
   workspaceId String?
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
-  pages       DocPage[]
+  pages DocPage[]
 
   @@unique([workspaceId, slug])
   @@index([workspaceId])
@@ -1095,14 +1095,14 @@ model FaqItem {
 }
 
 model SupportTicket {
-  id           String                 @id @default(uuid())
-  ticketNumber String                 @unique
+  id           String    @id @default(uuid())
+  ticketNumber String    @unique
   subject      String
   description  String
-  category     String                 @default("TECHNICAL") // BILLING, TECHNICAL, GENERAL, FEATURE_REQUEST, BUG, ACCOUNT
-  priority     String                 @default("MEDIUM") // LOW, MEDIUM, HIGH, URGENT
-  status       String                 @default("OPEN") // OPEN, IN_PROGRESS, WAITING_FOR_USER, RESOLVED, CLOSED
-  attachments  Json?                  @default("[]")
+  category     String    @default("TECHNICAL") // BILLING, TECHNICAL, GENERAL, FEATURE_REQUEST, BUG, ACCOUNT
+  priority     String    @default("MEDIUM") // LOW, MEDIUM, HIGH, URGENT
+  status       String    @default("OPEN") // OPEN, IN_PROGRESS, WAITING_FOR_USER, RESOLVED, CLOSED
+  attachments  Json?     @default("[]")
   userId       String
   userEmail    String?
   userName     String?
@@ -1110,11 +1110,11 @@ model SupportTicket {
   workspaceId  String?
   resolvedAt   DateTime?
   closedAt     DateTime?
-  createdAt    DateTime               @default(now())
-  updatedAt    DateTime               @updatedAt
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
 
-  messages     SupportTicketMessage[]
-  history      SupportTicketHistory[]
+  messages SupportTicketMessage[]
+  history  SupportTicketHistory[]
 
   @@index([workspaceId])
   @@index([userId])
@@ -1130,7 +1130,7 @@ model SupportTicketMessage {
   ticket         SupportTicket @relation(fields: [ticketId], references: [id], onDelete: Cascade)
   senderId       String?
   senderName     String?
-  senderRole     String?       // USER, SUPPORT, ADMIN
+  senderRole     String? // USER, SUPPORT, ADMIN
   message        String
   attachments    Json?         @default("[]")
   isInternalNote Boolean       @default(false)
@@ -1146,7 +1146,7 @@ model SupportTicketHistory {
   ticket        SupportTicket @relation(fields: [ticketId], references: [id], onDelete: Cascade)
   changedById   String?
   changedByName String?
-  action        String        // CREATED, STATUS_CHANGED, ASSIGNED, PRIORITY_CHANGED, MESSAGE_ADDED, NOTE_ADDED
+  action        String // CREATED, STATUS_CHANGED, ASSIGNED, PRIORITY_CHANGED, MESSAGE_ADDED, NOTE_ADDED
   details       Json?         @default("{}")
   isInternal    Boolean       @default(false)
   createdAt     DateTime      @default(now())
@@ -1158,9 +1158,9 @@ model SupportTicketHistory {
 model UserFeedback {
   id          String   @id @default(uuid())
   type        String   @default("GENERAL") // BUG_REPORT, FEATURE_REQUEST, GENERAL, IMPROVEMENT, PRAISE
-  rating      Int?     // 1 to 5
+  rating      Int? // 1 to 5
   description String
-  module      String?  // LEADS, DEALS, CONTACTS, REPORTS, SETTINGS, CUSTOM_FIELDS, TAGS, GENERAL
+  module      String? // LEADS, DEALS, CONTACTS, REPORTS, SETTINGS, CUSTOM_FIELDS, TAGS, GENERAL
   pageUrl     String?
   status      String   @default("NEW") // NEW, UNDER_REVIEW, PLANNED, IN_PROGRESS, RESOLVED, DECLINED
   userId      String?
@@ -1177,4 +1177,389 @@ model UserFeedback {
   @@index([createdAt])
 }
 
+// ============================================================================
+// ERP MODULES (Enterprise Resource Planning)
+// ============================================================================
 
+// 1. BUSINESS WORKFLOWS MODULE
+model BusinessWorkflow {
+  id             String    @id @default(uuid())
+  name           String
+  category       String    @default("General")
+  status         String    @default("ACTIVE") // ACTIVE, DRAFT, PAUSED, ARCHIVED
+  trigger        String    @default("Manual Trigger")
+  stepsCount     Int       @default(1)
+  definition     Json?     @default("{}")
+  workspaceId    String?
+  lastExecutedAt DateTime?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  executions WorkflowExecution[]
+
+  @@index([workspaceId])
+  @@index([status])
+  @@index([category])
+  @@index([createdAt])
+}
+
+model WorkflowExecution {
+  id          String           @id @default(uuid())
+  workflowId  String
+  workflow    BusinessWorkflow @relation(fields: [workflowId], references: [id], onDelete: Cascade)
+  status      String           @default("SUCCESS") // SUCCESS, FAILED, RUNNING
+  triggeredBy String?
+  logs        Json?            @default("[]")
+  startedAt   DateTime         @default(now())
+  completedAt DateTime?
+
+  @@index([workflowId])
+  @@index([status])
+  @@index([startedAt])
+}
+
+// 2. APPROVALS MODULE
+model ApprovalRequest {
+  id           String    @id @default(uuid())
+  title        String
+  module       String    @default("General")
+  requester    String
+  requesterId  String?
+  approverRole String    @default("Manager")
+  approverId   String?
+  amount       Float?
+  status       String    @default("PENDING") // PENDING, APPROVED, REJECTED
+  priority     String    @default("MEDIUM") // LOW, MEDIUM, HIGH, URGENT
+  comment      String?
+  details      Json?     @default("{}")
+  workspaceId  String?
+  submittedAt  DateTime  @default(now())
+  decidedAt    DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  @@index([workspaceId])
+  @@index([status])
+  @@index([priority])
+  @@index([module])
+  @@index([submittedAt])
+}
+
+// 3. PROCUREMENT MODULE
+model PurchaseOrder {
+  id               String    @id @default(uuid())
+  poNumber         String    @unique
+  vendorName       String
+  vendorId         String?
+  vendor           Vendor?   @relation(fields: [vendorId], references: [id], onDelete: SetNull)
+  totalAmount      Float     @default(0)
+  currency         String    @default("USD")
+  status           String    @default("DRAFT") // DRAFT, SUBMITTED, APPROVED, RECEIVED, CANCELLED
+  orderDate        DateTime  @default(now())
+  expectedDelivery DateTime?
+  lineItemsCount   Int       @default(1)
+  notes            String?
+  workspaceId      String?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  items PurchaseOrderItem[]
+
+  @@index([workspaceId])
+  @@index([status])
+  @@index([vendorId])
+  @@index([orderDate])
+}
+
+model PurchaseOrderItem {
+  id              String        @id @default(uuid())
+  purchaseOrderId String
+  purchaseOrder   PurchaseOrder @relation(fields: [purchaseOrderId], references: [id], onDelete: Cascade)
+  itemName        String
+  sku             String?
+  quantity        Float         @default(1)
+  unitPrice       Float         @default(0)
+  totalPrice      Float         @default(0)
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  @@index([purchaseOrderId])
+}
+
+model Vendor {
+  id              String   @id @default(uuid())
+  name            String
+  email           String?
+  phone           String?
+  address         String?
+  rating          Float    @default(5.0)
+  activeContracts Int      @default(1)
+  status          String   @default("ACTIVE") // ACTIVE, INACTIVE, BLOCKED
+  workspaceId     String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  purchaseOrders PurchaseOrder[]
+
+  @@index([workspaceId])
+  @@index([status])
+  @@index([name])
+}
+
+// 4. ORDER MANAGEMENT MODULE
+model ErpSalesOrder {
+  id              String   @id @default(uuid())
+  orderNumber     String   @unique
+  customerName    String
+  customerId      String?
+  orderTotal      Float    @default(0)
+  currency        String   @default("USD")
+  status          String   @default("CONFIRMED") // PENDING, CONFIRMED, PROCESSING, SHIPPED, FULFILLED, CANCELLED
+  paymentStatus   String   @default("UNPAID") // PAID, UNPAID, PARTIAL
+  orderDate       DateTime @default(now())
+  lineItemsCount  Int      @default(1)
+  shippingAddress String?
+  billingAddress  String?
+  workspaceId     String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  items ErpSalesOrderItem[]
+
+  @@index([workspaceId])
+  @@index([status])
+  @@index([customerId])
+  @@index([orderDate])
+}
+
+model ErpSalesOrderItem {
+  id           String        @id @default(uuid())
+  salesOrderId String
+  salesOrder   ErpSalesOrder @relation(fields: [salesOrderId], references: [id], onDelete: Cascade)
+  productName  String
+  sku          String?
+  quantity     Float         @default(1)
+  unitPrice    Float         @default(0)
+  totalPrice   Float         @default(0)
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  @@index([salesOrderId])
+}
+
+// 5. SUPPLY CHAIN MODULE
+model InventoryItem {
+  id                String   @id @default(uuid())
+  sku               String   @unique
+  name              String
+  description       String?
+  warehouseLocation String   @default("Main Warehouse")
+  quantityOnHand    Float    @default(0)
+  reorderLevel      Float    @default(10)
+  unitPrice         Float    @default(0)
+  unitOfMeasure     String   @default("units")
+  status            String   @default("OPTIMAL") // OPTIMAL, LOW_STOCK, CRITICAL, OVERSTOCK
+  workspaceId       String?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@index([workspaceId])
+  @@index([status])
+  @@index([warehouseLocation])
+  @@index([name])
+}
+
+model LogisticsShipment {
+  id               String    @id @default(uuid())
+  trackingNumber   String    @unique
+  carrier          String    @default("DHL")
+  origin           String
+  destination      String
+  status           String    @default("PENDING") // PENDING, IN_TRANSIT, OUT_FOR_DELIVERY, DELIVERED
+  estimatedArrival DateTime?
+  actualArrival    DateTime?
+  notes            String?
+  workspaceId      String?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  @@index([workspaceId])
+  @@index([status])
+  @@index([trackingNumber])
+}
+
+// 6. PROJECT MANAGEMENT MODULE
+model ErpProject {
+  id              String    @id @default(uuid())
+  projectCode     String    @unique
+  name            String
+  description     String?
+  client          String    @default("Internal")
+  status          String    @default("PLANNING") // PLANNING, IN_PROGRESS, ON_HOLD, COMPLETED
+  budgetTotal     Float     @default(0)
+  spentTotal      Float     @default(0)
+  startDate       DateTime  @default(now())
+  targetEndDate   DateTime?
+  milestonesCount Int       @default(0)
+  workspaceId     String?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  milestones ErpProjectMilestone[]
+
+  @@index([workspaceId])
+  @@index([status])
+  @@index([projectCode])
+}
+
+model ErpProjectMilestone {
+  id          String     @id @default(uuid())
+  projectId   String
+  project     ErpProject @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  title       String
+  status      String     @default("PENDING") // PENDING, IN_PROGRESS, COMPLETED
+  dueDate     DateTime?
+  completedAt DateTime?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+
+  @@index([projectId])
+  @@index([status])
+}
+
+// 7. MANUFACTURING MODULE
+model ManufacturingWorkOrder {
+  id                String    @id @default(uuid())
+  orderNumber       String    @unique
+  productName       String
+  quantityTarget    Float     @default(1)
+  quantityCompleted Float     @default(0)
+  status            String    @default("SCHEDULED") // SCHEDULED, IN_PRODUCTION, QUALITY_REVIEW, COMPLETED, HALTED
+  startDate         DateTime  @default(now())
+  dueDate           DateTime?
+  productionLine    String    @default("Assembly Line 1")
+  notes             String?
+  workspaceId       String?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  @@index([workspaceId])
+  @@index([status])
+  @@index([orderNumber])
+}
+
+model BillOfMaterial {
+  id           String   @id @default(uuid())
+  bomCode      String   @unique
+  assemblyName String
+  version      String   @default("1.0")
+  status       String   @default("ACTIVE") // ACTIVE, DRAFT, OBSOLETE
+  workspaceId  String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  components BomComponent[]
+
+  @@index([workspaceId])
+  @@index([status])
+  @@index([bomCode])
+}
+
+model BomComponent {
+  id            String         @id @default(uuid())
+  bomId         String
+  bom           BillOfMaterial @relation(fields: [bomId], references: [id], onDelete: Cascade)
+  sku           String
+  componentName String
+  qtyPerUnit    Float          @default(1)
+  unit          String         @default("pcs")
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+
+  @@index([bomId])
+}
+
+// 8. QUALITY MANAGEMENT MODULE
+model QualityInspection {
+  id             String   @id @default(uuid())
+  inspectionCode String   @unique
+  targetBatch    String
+  inspector      String
+  sampleSize     Int      @default(1)
+  defectsCount   Int      @default(0)
+  result         String   @default("PASS") // PASS, FAIL, CONDITIONAL_PASS
+  inspectionDate DateTime @default(now())
+  notes          String?
+  workspaceId    String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@index([workspaceId])
+  @@index([result])
+  @@index([inspectionCode])
+}
+
+model QualityAudit {
+  id          String   @id @default(uuid())
+  title       String
+  standard    String   @default("ISO 9001") // ISO 9001, OSHA, GMP
+  score       Float?
+  status      String   @default("COMPLIANT") // COMPLIANT, NON_COMPLIANT, IN_PROGRESS
+  auditDate   DateTime @default(now())
+  auditor     String?
+  workspaceId String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([workspaceId])
+  @@index([status])
+}
+
+// 9. INTEGRATIONS MODULE
+model ErpConnector {
+  id                 String    @id @default(uuid())
+  name               String
+  type               String // ACCOUNTING, EDI, LOGISTICS, BANKING, CUSTOM_WEBHOOK
+  status             String    @default("CONNECTED") // CONNECTED, DISCONNECTED, ERROR
+  config             Json?     @default("{}")
+  lastSyncAt         DateTime?
+  recordsSyncedToday Int       @default(0)
+  workspaceId        String?
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+
+  logs ErpIntegrationLog[]
+
+  @@index([workspaceId])
+  @@index([status])
+  @@index([type])
+}
+
+model ErpIntegrationLog {
+  id          String        @id @default(uuid())
+  connectorId String?
+  connector   ErpConnector? @relation(fields: [connectorId], references: [id], onDelete: Cascade)
+  level       String        @default("INFO") // INFO, WARN, ERROR
+  message     String
+  payload     Json?         @default("{}")
+  timestamp   DateTime      @default(now())
+
+  @@index([connectorId])
+  @@index([level])
+  @@index([timestamp])
+}
+
+// 10. DASHBOARD & REPORTS ANALYTICS SNAPSHOTS
+model ErpAnalyticsSnapshot {
+  id           String   @id @default(uuid())
+  snapshotType String // DASHBOARD_OVERVIEW, FINANCIAL_REPORT, PROCUREMENT_REPORT, PRODUCTION_REPORT
+  period       String   @default("CURRENT")
+  data         Json
+  workspaceId  String?
+  generatedAt  DateTime @default(now())
+  createdAt    DateTime @default(now())
+
+  @@index([workspaceId])
+  @@index([snapshotType])
+  @@index([generatedAt])
+}
