@@ -37,6 +37,7 @@ import { CustomFieldsModule } from './platform/custom-fields/custom-fields.modul
 import { TagsModule } from './crm/tags/tags.module';
 import { AuditLogsModule } from './platform/audit-logs/audit-logs.module';
 import { HelpSupportModule } from './platform/help-support/help-support.module';
+import { ErpModule } from './erp/erp.module';
 import { AppController } from './app.controller';
 
 @Module({
@@ -74,6 +75,7 @@ import { AppController } from './app.controller';
     TagsModule,
     AuditLogsModule,
     HelpSupportModule,
+    ErpModule,
   ],
   providers: [
     {
