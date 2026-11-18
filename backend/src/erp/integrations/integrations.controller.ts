@@ -3,9 +3,10 @@ import {
   Get,
   Post,
   Param,
+  Query,
   UseGuards,
 } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiParam } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiParam, ApiQuery } from '@nestjs/swagger';
 import { IntegrationsService } from './integrations.service';
 import { JwtAuthGuard } from '../../platform/auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../../common/guards/roles.guard';
@@ -19,9 +20,10 @@ export class IntegrationsController {
 
   @Get()
   @ApiOperation({ summary: 'List all ERP connectors and enterprise integrations' })
+  @ApiQuery({ name: 'workspaceId', required: false })
   @ApiResponse({ status: 200, description: 'List of connectors' })
-  async getConnectors() {
-    return this.integrationsService.getConnectors();
+  async getConnectors(@Query('workspaceId') workspaceId?: string) {
+    return this.integrationsService.getConnectors(workspaceId);
   }
 
   @Post(':id/sync')
@@ -33,7 +35,8 @@ export class IntegrationsController {
 
   @Get('logs')
   @ApiOperation({ summary: 'List integration synchronization transaction logs' })
-  async getLogs() {
-    return this.integrationsService.getLogs();
+  @ApiQuery({ name: 'connectorId', required: false })
+  async getLogs(@Query('connectorId') connectorId?: string) {
+    return this.integrationsService.getLogs(connectorId);
   }
 }

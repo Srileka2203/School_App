@@ -1,88 +1,87 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../../database/prisma.service';
 
-export interface InventoryItem {
-  id: string;
+export interface InventoryItemDto {
+  id?: string;
   sku: string;
   name: string;
-  warehouseLocation: string;
-  quantityOnHand: number;
-  reorderLevel: number;
-  status: 'OPTIMAL' | 'LOW_STOCK' | 'CRITICAL' | 'OVERSTOCK';
+  description?: string;
+  warehouseLocation?: string;
+  quantityOnHand?: number;
+  reorderLevel?: number;
+  unitPrice?: number;
+  unitOfMeasure?: string;
+  status?: string;
+  workspaceId?: string;
 }
 
-export interface ShipmentItem {
-  id: string;
-  trackingNumber: string;
-  carrier: string;
+export interface ShipmentItemDto {
+  id?: string;
+  trackingNumber?: string;
+  carrier?: string;
   origin: string;
   destination: string;
-  status: 'PENDING' | 'IN_TRANSIT' | 'OUT_FOR_DELIVERY' | 'DELIVERED';
-  estimatedArrival: string;
+  status?: string;
+  estimatedArrival?: Date | string;
+  actualArrival?: Date | string;
+  notes?: string;
+  workspaceId?: string;
 }
 
 @Injectable()
 export class SupplyChainService {
   constructor(private readonly prisma: PrismaService) {}
 
-  private inventory: InventoryItem[] = [
-    {
-      id: 'inv-1',
-      sku: 'SKU-IND-409',
-      name: 'Precision Aluminum Enclosure',
-      warehouseLocation: 'Warehouse A - Bay 14',
-      quantityOnHand: 450,
-      reorderLevel: 100,
-      status: 'OPTIMAL',
-    },
-    {
-      id: 'inv-2',
-      sku: 'SKU-ELEC-112',
-      name: 'Optocoupler Micro Controller',
-      warehouseLocation: 'Warehouse B - Bin 3',
-      quantityOnHand: 35,
-      reorderLevel: 100,
-      status: 'CRITICAL',
-    },
-  ];
+  async getInventory(workspaceId?: string) {
+    const where = workspaceId ? { workspaceId } : {};
+    const [data, total] = await Promise.all([
+      this.prisma.inventoryItem.findMany({
+        where,
+        orderBy: { name: 'asc' },
+      }),
+      this.prisma.inventoryItem.count({ where }),
+    ]);
 
-  private shipments: ShipmentItem[] = [
-    {
-      id: 'shp-1',
-      trackingNumber: 'TRK-98421045',
-      carrier: 'FedEx Freight',
-      origin: 'Chicago Distribution Hub',
-      destination: 'Dallas Assembly Facility',
-      status: 'IN_TRANSIT',
-      estimatedArrival: new Date(Date.now() + 2 * 86400000).toISOString(),
-    },
-  ];
-
-  async getInventory() {
     return {
-      data: this.inventory,
-      meta: { total: this.inventory.length },
+      data,
+      meta: { total },
     };
   }
 
-  async getShipments() {
+  async getShipments(workspaceId?: string) {
+    const where = workspaceId ? { workspaceId } : {};
+    const [data, total] = await Promise.all([
+      this.prisma.logisticsShipment.findMany({
+        where,
+        orderBy: { createdAt: 'desc' },
+      }),
+      this.prisma.logisticsShipment.count({ where }),
+    ]);
+
     return {
-      data: this.shipments,
-      meta: { total: this.shipments.length },
+      data,
+      meta: { total },
     };
   }
 
-  async createShipment(data: Partial<ShipmentItem>) {
-    const newShipment: ShipmentItem = {
-      id: `shp-${Date.now()}`,
-      trackingNumber: `TRK-${Math.floor(10000000 + Math.random() * 90000000)}`,
-      carrier: data.carrier || 'DHL Express',
-      origin: data.origin || 'Main Depot',
-      destination: data.destination || 'Customer Location',
-      status: 'PENDING',
-      estimatedArrival: data.estimatedArrival || new Date(Date.now() + 3 * 86400000).toISOString(),
-    };
-    this.shipments.unshift(newShipment);
-    return newShipment;
+  async createShipment(data: Partial<ShipmentItemDto>) {
+    const trackingNumber =
+      data.trackingNumber ||
+      `TRK-${Math.floor(10000000 + Math.random() * 90000000)}`;
+
+    return this.prisma.logisticsShipment.create({
+      data: {
+        trackingNumber,
+        carrier: data.carrier || 'DHL Express',
+        origin: data.origin || 'Main Depot',
+        destination: data.destination || 'Customer Location',
+        status: data.status || 'PENDING',
+        estimatedArrival: data.estimatedArrival
+          ? new Date(data.estimatedArrival)
+          : new Date(Date.now() + 3 * 86400000),
+        notes: data.notes,
+        workspaceId: data.workspaceId,
+      },
+    });
   }
 }

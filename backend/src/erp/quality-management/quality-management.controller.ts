@@ -3,9 +3,10 @@ import {
   Get,
   Post,
   Body,
+  Query,
   UseGuards,
 } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiQuery } from '@nestjs/swagger';
 import { QualityManagementService } from './quality-management.service';
 import { JwtAuthGuard } from '../../platform/auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../../common/guards/roles.guard';
@@ -19,9 +20,10 @@ export class QualityManagementController {
 
   @Get('inspections')
   @ApiOperation({ summary: 'List QA and batch release inspections' })
+  @ApiQuery({ name: 'workspaceId', required: false })
   @ApiResponse({ status: 200, description: 'Inspection list' })
-  async getInspections() {
-    return this.qualityService.getInspections();
+  async getInspections(@Query('workspaceId') workspaceId?: string) {
+    return this.qualityService.getInspections(workspaceId);
   }
 
   @Post('inspections')
@@ -32,7 +34,8 @@ export class QualityManagementController {
 
   @Get('audits')
   @ApiOperation({ summary: 'List quality audits and compliance certifications' })
-  async getAudits() {
-    return this.qualityService.getAudits();
+  @ApiQuery({ name: 'workspaceId', required: false })
+  async getAudits(@Query('workspaceId') workspaceId?: string) {
+    return this.qualityService.getAudits(workspaceId);
   }
 }

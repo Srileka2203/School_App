@@ -6,9 +6,10 @@ import {
   Delete,
   Param,
   Body,
+  Query,
   UseGuards,
 } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiParam } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiParam, ApiQuery } from '@nestjs/swagger';
 import { BusinessWorkflowsService } from './business-workflows.service';
 import { JwtAuthGuard } from '../../platform/auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../../common/guards/roles.guard';
@@ -22,9 +23,10 @@ export class BusinessWorkflowsController {
 
   @Get()
   @ApiOperation({ summary: 'List all ERP business workflows' })
+  @ApiQuery({ name: 'workspaceId', required: false })
   @ApiResponse({ status: 200, description: 'List of business workflows' })
-  async findAll() {
-    return this.workflowsService.findAll();
+  async findAll(@Query('workspaceId') workspaceId?: string) {
+    return this.workflowsService.findAll(workspaceId);
   }
 
   @Get(':id')

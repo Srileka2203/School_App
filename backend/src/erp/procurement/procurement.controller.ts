@@ -4,9 +4,10 @@ import {
   Post,
   Param,
   Body,
+  Query,
   UseGuards,
 } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiParam } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiParam, ApiQuery } from '@nestjs/swagger';
 import { ProcurementService } from './procurement.service';
 import { JwtAuthGuard } from '../../platform/auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../../common/guards/roles.guard';
@@ -20,9 +21,10 @@ export class ProcurementController {
 
   @Get('orders')
   @ApiOperation({ summary: 'List all procurement purchase orders' })
+  @ApiQuery({ name: 'workspaceId', required: false })
   @ApiResponse({ status: 200, description: 'List of purchase orders' })
-  async findAll() {
-    return this.procurementService.findAll();
+  async findAll(@Query('workspaceId') workspaceId?: string) {
+    return this.procurementService.findAll(workspaceId);
   }
 
   @Get('orders/:id')
@@ -40,7 +42,8 @@ export class ProcurementController {
 
   @Get('vendors')
   @ApiOperation({ summary: 'List approved suppliers and vendors' })
-  async getVendors() {
-    return this.procurementService.getVendors();
+  @ApiQuery({ name: 'workspaceId', required: false })
+  async getVendors(@Query('workspaceId') workspaceId?: string) {
+    return this.procurementService.getVendors(workspaceId);
   }
 }

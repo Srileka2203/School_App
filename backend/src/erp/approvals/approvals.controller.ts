@@ -4,9 +4,10 @@ import {
   Post,
   Param,
   Body,
+  Query,
   UseGuards,
 } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiParam } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiParam, ApiQuery } from '@nestjs/swagger';
 import { ApprovalsService } from './approvals.service';
 import { JwtAuthGuard } from '../../platform/auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../../common/guards/roles.guard';
@@ -20,9 +21,10 @@ export class ApprovalsController {
 
   @Get()
   @ApiOperation({ summary: 'List all ERP approval workflows' })
+  @ApiQuery({ name: 'workspaceId', required: false })
   @ApiResponse({ status: 200, description: 'List of approvals' })
-  async findAll() {
-    return this.approvalsService.findAll();
+  async findAll(@Query('workspaceId') workspaceId?: string) {
+    return this.approvalsService.findAll(workspaceId);
   }
 
   @Get(':id')

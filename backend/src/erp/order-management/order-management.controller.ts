@@ -5,9 +5,10 @@ import {
   Patch,
   Param,
   Body,
+  Query,
   UseGuards,
 } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiParam } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiParam, ApiQuery } from '@nestjs/swagger';
 import { OrderManagementService, ErpSalesOrderItem } from './order-management.service';
 import { JwtAuthGuard } from '../../platform/auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../../common/guards/roles.guard';
@@ -21,9 +22,10 @@ export class OrderManagementController {
 
   @Get('orders')
   @ApiOperation({ summary: 'List all ERP sales/customer orders' })
+  @ApiQuery({ name: 'workspaceId', required: false })
   @ApiResponse({ status: 200, description: 'List of sales orders' })
-  async findAll() {
-    return this.orderService.findAll();
+  async findAll(@Query('workspaceId') workspaceId?: string) {
+    return this.orderService.findAll(workspaceId);
   }
 
   @Get('orders/:id')

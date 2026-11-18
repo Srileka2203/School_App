@@ -1,92 +1,114 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../../database/prisma.service';
 
-export interface BusinessWorkflowItem {
-  id: string;
+export interface CreateBusinessWorkflowDto {
   name: string;
-  category: string;
-  status: 'ACTIVE' | 'DRAFT' | 'PAUSED' | 'ARCHIVED';
-  trigger: string;
-  stepsCount: number;
-  lastExecutedAt?: string;
-  createdAt: string;
+  category?: string;
+  status?: string;
+  trigger?: string;
+  stepsCount?: number;
+  definition?: any;
+  workspaceId?: string;
+}
+
+export interface UpdateBusinessWorkflowDto {
+  name?: string;
+  category?: string;
+  status?: string;
+  trigger?: string;
+  stepsCount?: number;
+  definition?: any;
+  workspaceId?: string;
+  lastExecutedAt?: Date | string;
 }
 
 @Injectable()
 export class BusinessWorkflowsService {
   constructor(private readonly prisma: PrismaService) {}
 
-  private workflows: BusinessWorkflowItem[] = [
-    {
-      id: 'wf-1',
-      name: 'Procurement Approval Chain',
-      category: 'Procurement',
-      status: 'ACTIVE',
-      trigger: 'Purchase Order Submitted',
-      stepsCount: 4,
-      lastExecutedAt: new Date().toISOString(),
-      createdAt: new Date().toISOString(),
-    },
-    {
-      id: 'wf-2',
-      name: 'Manufacturing Quality Gate',
-      category: 'Manufacturing',
-      status: 'ACTIVE',
-      trigger: 'Batch Inspection Complete',
-      stepsCount: 3,
-      lastExecutedAt: new Date().toISOString(),
-      createdAt: new Date().toISOString(),
-    },
-    {
-      id: 'wf-3',
-      name: 'Customer Fulfillment Dispatch',
-      category: 'Order Management',
-      status: 'ACTIVE',
-      trigger: 'Order Payment Confirmed',
-      stepsCount: 5,
-      lastExecutedAt: new Date().toISOString(),
-      createdAt: new Date().toISOString(),
-    },
-  ];
+  async findAll(workspaceId?: string) {
+    const where = workspaceId ? { workspaceId } : {};
+    const [data, total] = await Promise.all([
+      this.prisma.businessWorkflow.findMany({
+        where,
+        include: {
+          executions: {
+            take: 5,
+            orderBy: { startedAt: 'desc' },
+          },
+        },
+        orderBy: { createdAt: 'desc' },
+      }),
+      this.prisma.businessWorkflow.count({ where }),
+    ]);
 
-  async findAll() {
     return {
-      data: this.workflows,
-      meta: { total: this.workflows.length },
+      data,
+      meta: { total },
     };
   }
 
   async findOne(id: string) {
-    const item = this.workflows.find((w) => w.id === id);
+    const item = await this.prisma.businessWorkflow.findUnique({
+      where: { id },
+      include: {
+        executions: {
+          orderBy: { startedAt: 'desc' },
+        },
+      },
+    });
+
     if (!item) {
       throw new NotFoundException(`Workflow with ID ${id} not found`);
     }
     return item;
   }
 
-  async create(data: Partial<BusinessWorkflowItem>) {
-    const newWorkflow: BusinessWorkflowItem = {
-      id: `wf-${Date.now()}`,
-      name: data.name || 'Untitled Workflow',
-      category: data.category || 'General',
-      status: data.status || 'ACTIVE',
-      trigger: data.trigger || 'Manual Trigger',
-      stepsCount: data.stepsCount || 1,
-      createdAt: new Date().toISOString(),
-    };
-    this.workflows.push(newWorkflow);
-    return newWorkflow;
+  async create(data: CreateBusinessWorkflowDto) {
+    return this.prisma.businessWorkflow.create({
+      data: {
+        name: data.name || 'Untitled Workflow',
+        category: data.category || 'General',
+        status: data.status || 'ACTIVE',
+        trigger: data.trigger || 'Manual Trigger',
+        stepsCount: typeof data.stepsCount === 'number' ? data.stepsCount : 1,
+        definition: data.definition ?? {},
+        workspaceId: data.workspaceId,
+      },
+      include: {
+        executions: true,
+      },
+    });
   }
 
-  async update(id: string, data: Partial<BusinessWorkflowItem>) {
-    const item = await this.findOne(id);
-    Object.assign(item, data);
-    return item;
+  async update(id: string, data: UpdateBusinessWorkflowDto) {
+    await this.findOne(id);
+
+    return this.prisma.businessWorkflow.update({
+      where: { id },
+      data: {
+        ...(data.name !== undefined && { name: data.name }),
+        ...(data.category !== undefined && { category: data.category }),
+        ...(data.status !== undefined && { status: data.status }),
+        ...(data.trigger !== undefined && { trigger: data.trigger }),
+        ...(data.stepsCount !== undefined && { stepsCount: Number(data.stepsCount) }),
+        ...(data.definition !== undefined && { definition: data.definition }),
+        ...(data.workspaceId !== undefined && { workspaceId: data.workspaceId }),
+        ...(data.lastExecutedAt !== undefined && {
+          lastExecutedAt: new Date(data.lastExecutedAt),
+        }),
+      },
+      include: {
+        executions: true,
+      },
+    });
   }
 
   async remove(id: string) {
     await this.findOne(id);
-    this.workflows = this.workflows.filter((w) => w.id !== id);
+    await this.prisma.businessWorkflow.delete({
+      where: { id },
+    });
     return { message: `Workflow ${id} successfully removed` };
   }
 }

@@ -2,58 +2,47 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../../database/prisma.service';
 
 export interface ApprovalRequestItem {
-  id: string;
+  id?: string;
   title: string;
-  module: string;
-  requester: string;
-  approverRole: string;
+  module?: string;
+  requester?: string;
+  requesterId?: string;
+  approverRole?: string;
+  approverId?: string;
   amount?: number;
-  status: 'PENDING' | 'APPROVED' | 'REJECTED';
-  priority: 'LOW' | 'MEDIUM' | 'HIGH' | 'URGENT';
-  submittedAt: string;
-  decidedAt?: string;
+  status?: string;
+  priority?: string;
+  submittedAt?: Date | string;
+  decidedAt?: Date | string;
   comment?: string;
+  details?: any;
+  workspaceId?: string;
 }
 
 @Injectable()
 export class ApprovalsService {
   constructor(private readonly prisma: PrismaService) {}
 
-  private approvals: ApprovalRequestItem[] = [
-    {
-      id: 'appr-1',
-      title: 'PO #1042 - Industrial Steel Raw Materials',
-      module: 'Procurement',
-      requester: 'John Miller',
-      approverRole: 'Finance Director',
-      amount: 42500,
-      status: 'PENDING',
-      priority: 'HIGH',
-      submittedAt: new Date().toISOString(),
-    },
-    {
-      id: 'appr-2',
-      title: 'Batch Q-991 Exception Release',
-      module: 'Quality',
-      requester: 'Sarah Jenkins',
-      approverRole: 'VP Operations',
-      status: 'APPROVED',
-      priority: 'MEDIUM',
-      submittedAt: new Date(Date.now() - 86400000).toISOString(),
-      decidedAt: new Date().toISOString(),
-      comment: 'Approved after secondary lab assay confirmed specs.',
-    },
-  ];
+  async findAll(workspaceId?: string) {
+    const where = workspaceId ? { workspaceId } : {};
+    const [data, total] = await Promise.all([
+      this.prisma.approvalRequest.findMany({
+        where,
+        orderBy: { submittedAt: 'desc' },
+      }),
+      this.prisma.approvalRequest.count({ where }),
+    ]);
 
-  async findAll() {
     return {
-      data: this.approvals,
-      meta: { total: this.approvals.length },
+      data,
+      meta: { total },
     };
   }
 
   async findOne(id: string) {
-    const item = this.approvals.find((a) => a.id === id);
+    const item = await this.prisma.approvalRequest.findUnique({
+      where: { id },
+    });
     if (!item) {
       throw new NotFoundException(`Approval request ${id} not found`);
     }
@@ -61,34 +50,45 @@ export class ApprovalsService {
   }
 
   async create(data: Partial<ApprovalRequestItem>) {
-    const newApproval: ApprovalRequestItem = {
-      id: `appr-${Date.now()}`,
-      title: data.title || 'Untitled Approval Request',
-      module: data.module || 'General',
-      requester: data.requester || 'Current User',
-      approverRole: data.approverRole || 'Manager',
-      amount: data.amount,
-      status: 'PENDING',
-      priority: data.priority || 'MEDIUM',
-      submittedAt: new Date().toISOString(),
-    };
-    this.approvals.unshift(newApproval);
-    return newApproval;
+    return this.prisma.approvalRequest.create({
+      data: {
+        title: data.title || 'Untitled Approval Request',
+        module: data.module || 'General',
+        requester: data.requester || 'Current User',
+        requesterId: data.requesterId,
+        approverRole: data.approverRole || 'Manager',
+        approverId: data.approverId,
+        amount: data.amount ? Number(data.amount) : null,
+        status: data.status || 'PENDING',
+        priority: data.priority || 'MEDIUM',
+        comment: data.comment,
+        details: data.details ?? {},
+        workspaceId: data.workspaceId,
+      },
+    });
   }
 
   async approve(id: string, comment?: string) {
-    const item = await this.findOne(id);
-    item.status = 'APPROVED';
-    item.decidedAt = new Date().toISOString();
-    if (comment) item.comment = comment;
-    return item;
+    await this.findOne(id);
+    return this.prisma.approvalRequest.update({
+      where: { id },
+      data: {
+        status: 'APPROVED',
+        decidedAt: new Date(),
+        ...(comment && { comment }),
+      },
+    });
   }
 
   async reject(id: string, reason?: string) {
-    const item = await this.findOne(id);
-    item.status = 'REJECTED';
-    item.decidedAt = new Date().toISOString();
-    if (reason) item.comment = reason;
-    return item;
+    await this.findOne(id);
+    return this.prisma.approvalRequest.update({
+      where: { id },
+      data: {
+        status: 'REJECTED',
+        decidedAt: new Date(),
+        ...(reason && { comment: reason }),
+      },
+    });
   }
 }

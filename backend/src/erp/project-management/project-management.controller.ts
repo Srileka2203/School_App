@@ -4,9 +4,10 @@ import {
   Post,
   Param,
   Body,
+  Query,
   UseGuards,
 } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiParam } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiParam, ApiQuery } from '@nestjs/swagger';
 import { ProjectManagementService } from './project-management.service';
 import { JwtAuthGuard } from '../../platform/auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../../common/guards/roles.guard';
@@ -20,9 +21,10 @@ export class ProjectManagementController {
 
   @Get('projects')
   @ApiOperation({ summary: 'List all ERP capital/client projects' })
+  @ApiQuery({ name: 'workspaceId', required: false })
   @ApiResponse({ status: 200, description: 'List of projects' })
-  async findAll() {
-    return this.projectService.findAll();
+  async findAll(@Query('workspaceId') workspaceId?: string) {
+    return this.projectService.findAll(workspaceId);
   }
 
   @Get('projects/:id')

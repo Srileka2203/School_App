@@ -2,69 +2,80 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../../database/prisma.service';
 
 export interface ErpIntegrationConnector {
-  id: string;
+  id?: string;
   name: string;
-  type: 'ACCOUNTING' | 'EDI' | 'LOGISTICS' | 'BANKING' | 'CUSTOM_WEBHOOK';
-  status: 'CONNECTED' | 'DISCONNECTED' | 'ERROR';
-  lastSyncAt: string;
-  recordsSyncedToday: number;
+  type: string;
+  status?: string;
+  config?: any;
+  lastSyncAt?: Date | string;
+  recordsSyncedToday?: number;
+  workspaceId?: string;
 }
 
 @Injectable()
 export class IntegrationsService {
   constructor(private readonly prisma: PrismaService) {}
 
-  private connectors: ErpIntegrationConnector[] = [
-    {
-      id: 'int-1',
-      name: 'QuickBooks Enterprise Gateway',
-      type: 'ACCOUNTING',
-      status: 'CONNECTED',
-      lastSyncAt: new Date().toISOString(),
-      recordsSyncedToday: 142,
-    },
-    {
-      id: 'int-2',
-      name: 'EDI 850 / 856 Supply Chain Portal',
-      type: 'EDI',
-      status: 'CONNECTED',
-      lastSyncAt: new Date().toISOString(),
-      recordsSyncedToday: 58,
-    },
-    {
-      id: 'int-3',
-      name: 'FreightWise Automated TMS',
-      type: 'LOGISTICS',
-      status: 'CONNECTED',
-      lastSyncAt: new Date(Date.now() - 3600000).toISOString(),
-      recordsSyncedToday: 24,
-    },
-  ];
+  async getConnectors(workspaceId?: string) {
+    const where = workspaceId ? { workspaceId } : {};
+    const [data, total] = await Promise.all([
+      this.prisma.erpConnector.findMany({
+        where,
+        include: {
+          logs: {
+            take: 5,
+            orderBy: { timestamp: 'desc' },
+          },
+        },
+        orderBy: { name: 'asc' },
+      }),
+      this.prisma.erpConnector.count({ where }),
+    ]);
 
-  async getConnectors() {
     return {
-      data: this.connectors,
-      meta: { total: this.connectors.length },
+      data,
+      meta: { total },
     };
   }
 
   async triggerSync(id: string) {
-    const item = this.connectors.find((c) => c.id === id);
-    if (!item) {
+    const connector = await this.prisma.erpConnector.findUnique({
+      where: { id },
+    });
+
+    if (!connector) {
       throw new NotFoundException(`Connector ${id} not found`);
     }
-    item.lastSyncAt = new Date().toISOString();
-    item.recordsSyncedToday += 10;
+
+    const updated = await this.prisma.erpConnector.update({
+      where: { id },
+      data: {
+        lastSyncAt: new Date(),
+        recordsSyncedToday: { increment: 10 },
+      },
+    });
+
+    await this.prisma.erpIntegrationLog.create({
+      data: {
+        connectorId: id,
+        level: 'INFO',
+        message: `Sync completed successfully for ${connector.name}`,
+        payload: { recordsProcessed: 10 },
+      },
+    });
+
     return {
-      message: `Sync triggered successfully for ${item.name}`,
-      connector: item,
+      message: `Sync triggered successfully for ${connector.name}`,
+      connector: updated,
     };
   }
 
-  async getLogs() {
-    return [
-      { id: 'log-1', timestamp: new Date().toISOString(), level: 'INFO', message: 'EDI 850 Purchase Order payload ingested successfully.' },
-      { id: 'log-2', timestamp: new Date(Date.now() - 1800000).toISOString(), level: 'INFO', message: 'QuickBooks general ledger transaction batch posted.' },
-    ];
+  async getLogs(connectorId?: string) {
+    const where = connectorId ? { connectorId } : {};
+    return this.prisma.erpIntegrationLog.findMany({
+      where,
+      orderBy: { timestamp: 'desc' },
+      take: 50,
+    });
   }
 }

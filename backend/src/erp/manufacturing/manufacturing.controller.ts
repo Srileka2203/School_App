@@ -3,9 +3,10 @@ import {
   Get,
   Post,
   Body,
+  Query,
   UseGuards,
 } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiQuery } from '@nestjs/swagger';
 import { ManufacturingService } from './manufacturing.service';
 import { JwtAuthGuard } from '../../platform/auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../../common/guards/roles.guard';
@@ -19,9 +20,10 @@ export class ManufacturingController {
 
   @Get('work-orders')
   @ApiOperation({ summary: 'List shop-floor manufacturing work orders' })
+  @ApiQuery({ name: 'workspaceId', required: false })
   @ApiResponse({ status: 200, description: 'List of work orders' })
-  async getWorkOrders() {
-    return this.manufacturingService.getWorkOrders();
+  async getWorkOrders(@Query('workspaceId') workspaceId?: string) {
+    return this.manufacturingService.getWorkOrders(workspaceId);
   }
 
   @Post('work-orders')
@@ -32,7 +34,8 @@ export class ManufacturingController {
 
   @Get('bom')
   @ApiOperation({ summary: 'List active Bills of Materials (BOM)' })
-  async getBOM() {
-    return this.manufacturingService.getBillOfMaterials();
+  @ApiQuery({ name: 'workspaceId', required: false })
+  async getBOM(@Query('workspaceId') workspaceId?: string) {
+    return this.manufacturingService.getBillOfMaterials(workspaceId);
   }
 }

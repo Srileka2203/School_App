@@ -1,5 +1,5 @@
-import { Controller, Get, UseGuards } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
+import { Controller, Get, Query, UseGuards } from '@nestjs/common';
+import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiQuery } from '@nestjs/swagger';
 import { ErpDashboardService } from './dashboard.service';
 import { JwtAuthGuard } from '../../platform/auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../../common/guards/roles.guard';
@@ -13,15 +13,17 @@ export class ErpDashboardController {
 
   @Get('overview')
   @ApiOperation({ summary: 'Get complete ERP dashboard overview metrics' })
+  @ApiQuery({ name: 'workspaceId', required: false })
   @ApiResponse({ status: 200, description: 'ERP overview metrics' })
-  async getOverview() {
-    return this.dashboardService.getOverview();
+  async getOverview(@Query('workspaceId') workspaceId?: string) {
+    return this.dashboardService.getOverview(workspaceId);
   }
 
   @Get('stats')
   @ApiOperation({ summary: 'Get core ERP operational statistics' })
+  @ApiQuery({ name: 'workspaceId', required: false })
   @ApiResponse({ status: 200, description: 'Core ERP statistics' })
-  async getStats() {
-    return this.dashboardService.getStats();
+  async getStats(@Query('workspaceId') workspaceId?: string) {
+    return this.dashboardService.getStats(workspaceId);
   }
 }
