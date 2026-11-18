@@ -719,8 +719,18 @@ export const Navbar: React.FC = () => {
                   className="ws-pill-icon"
                   style={
                     currentWorkspace?.avatar && currentWorkspace.avatar.startsWith('#')
-                      ? { backgroundColor: currentWorkspace.avatar, background: currentWorkspace.avatar }
-                      : { backgroundColor: '#30a46c', background: '#30a46c' }
+                      ? ({
+                          '--ws-avatar-bg': currentWorkspace.avatar,
+                          '--ws-avatar-color': currentWorkspace.avatar,
+                          backgroundColor: currentWorkspace.avatar,
+                          background: currentWorkspace.avatar,
+                        } as React.CSSProperties)
+                      : ({
+                          '--ws-avatar-bg': 'linear-gradient(135deg, #10B981 0%, #059669 100%)',
+                          '--ws-avatar-color': '#10B981',
+                          backgroundColor: '#10B981',
+                          background: 'linear-gradient(135deg, #10B981 0%, #059669 100%)',
+                        } as React.CSSProperties)
                   }
                 >
                   {currentWorkspace?.avatar && !currentWorkspace.avatar.startsWith('#') ? (

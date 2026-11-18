@@ -3492,9 +3492,9 @@ body.dark .crm-arch-door {
 }
 
 /* 14.17 UNIVERSAL ERADICATION OF INNER BORDERS & OUTLINES ON ALL BUTTON AND BADGE CHILDREN */
-button *,
-button *::before,
-button *::after,
+button:not(.navbar-workspace-pill) *,
+button:not(.navbar-workspace-pill) *::before,
+button:not(.navbar-workspace-pill) *::after,
 .btn *,
 .btn *::before,
 .btn *::after,
@@ -3545,9 +3545,9 @@ a.lg-btn *,
 .count-pill span,
 .identity-badges-row *,
 .identity-badges-row span,
-html.dark button *,
-html.dark button *::before,
-html.dark button *::after,
+html.dark button:not(.navbar-workspace-pill) *,
+html.dark button:not(.navbar-workspace-pill) *::before,
+html.dark button:not(.navbar-workspace-pill) *::after,
 html.dark .btn *,
 html.dark .crm-btn *,
 html.dark .crm-btn-primary *,
@@ -3564,9 +3564,9 @@ html.dark .crm-badge *,
 html.dark .crm-badge span,
 html.dark .identity-badges-row *,
 html.dark .identity-badges-row span,
-[data-theme="dark"] button *,
-[data-theme="dark"] button *::before,
-[data-theme="dark"] button *::after,
+[data-theme="dark"] button:not(.navbar-workspace-pill) *,
+[data-theme="dark"] button:not(.navbar-workspace-pill) *::before,
+[data-theme="dark"] button:not(.navbar-workspace-pill) *::after,
 [data-theme="dark"] .btn *,
 [data-theme="dark"] .crm-btn *,
 [data-theme="dark"] .crm-btn-primary *,
@@ -3583,9 +3583,9 @@ html.dark .identity-badges-row span,
 [data-theme="dark"] .crm-badge span,
 [data-theme="dark"] .identity-badges-row *,
 [data-theme="dark"] .identity-badges-row span,
-body.dark button *,
-body.dark button *::before,
-body.dark button *::after,
+body.dark button:not(.navbar-workspace-pill) *,
+body.dark button:not(.navbar-workspace-pill) *::before,
+body.dark button:not(.navbar-workspace-pill) *::after,
 body.dark .btn *,
 body.dark .crm-btn *,
 body.dark .crm-btn-primary *,
@@ -3607,6 +3607,46 @@ body.dark .identity-badges-row span {
   outline: none !important;
   box-shadow: none !important;
   background-color: transparent !important;
+}
+
+/* 14.18 Workspace Avatar Green Box inside Navbar Workspace Pill */
+.navbar-workspace-pill .ws-pill-icon,
+button.navbar-workspace-pill .ws-pill-icon,
+button .ws-pill-icon,
+.ws-pill-icon {
+  width: 26px !important;
+  height: 26px !important;
+  min-width: 26px !important;
+  border-radius: 7px !important;
+  background: var(--ws-avatar-bg, linear-gradient(135deg, #10B981 0%, #059669 100%)) !important;
+  background-color: var(--ws-avatar-color, #10B981) !important;
+  color: #000000 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
+  overflow: hidden !important;
+  font-weight: 800 !important;
+  font-size: 13px !important;
+  line-height: 1 !important;
+  box-shadow: 0 1px 3px rgba(16, 185, 129, 0.3) !important;
+}
+
+.navbar-workspace-pill .ws-pill-icon span,
+button.navbar-workspace-pill .ws-pill-icon span,
+button .ws-pill-icon span,
+.ws-pill-icon span {
+  color: #000000 !important;
+  font-weight: 800 !important;
+  font-size: 13px !important;
+  line-height: 1 !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  outline: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
 }
 
 
