@@ -73,8 +73,34 @@ async function bootstrap() {
   SwaggerModule.setup('api/docs', app, document, swaggerCustomOptions);
   SwaggerModule.setup('swagger', app, document, swaggerCustomOptions);
 
-  const port = process.env.PORT || 3000;
-  await app.listen(port);
+  const defaultPort = parseInt(String(process.env.PORT || 3000), 10);
+
+  const listenWithRetry = async (portToTry: number, maxPortAttempts = 5): Promise<number> => {
+    for (let attempt = 0; attempt < maxPortAttempts; attempt++) {
+      const currentPort = portToTry + attempt;
+      for (let retry = 0; retry < 3; retry++) {
+        try {
+          await app.listen(currentPort, '0.0.0.0');
+          return currentPort;
+        } catch (err: any) {
+          if (err.code === 'EADDRINUSE') {
+            if (retry < 2) {
+              await new Promise((resolve) => setTimeout(resolve, 600));
+              continue;
+            }
+            if (attempt < maxPortAttempts - 1) {
+              console.warn(`⚠️ Port ${currentPort} is busy (EADDRINUSE). Trying port ${currentPort + 1}...`);
+            }
+            break;
+          }
+          throw err;
+        }
+      }
+    }
+    throw new Error(`Unable to bind server: all ports from ${portToTry} to ${portToTry + maxPortAttempts - 1} are in use.`);
+  };
+
+  const port = await listenWithRetry(defaultPort);
   console.log(`🚀 CRM Backend Server running at: http://localhost:${port}`);
   console.log(`📚 Swagger Documentation available at: http://localhost:${port}/docs, http://localhost:${port}/api/docs, and http://localhost:${port}/swagger`);
 }
