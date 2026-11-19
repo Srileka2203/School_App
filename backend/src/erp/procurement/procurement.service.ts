@@ -27,7 +27,7 @@ export class ProcurementService {
         where,
         include: {
           vendor: true,
-          lineItems: true,
+          items: true,
         },
         orderBy: { orderDate: 'desc' },
       }),
@@ -47,7 +47,7 @@ export class ProcurementService {
       },
       include: {
         vendor: true,
-        lineItems: true,
+        items: true,
       },
     });
 
@@ -80,7 +80,7 @@ export class ProcurementService {
       },
       include: {
         vendor: true,
-        lineItems: true,
+        items: true,
       },
     });
   }
