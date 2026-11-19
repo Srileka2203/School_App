@@ -76,4 +76,80 @@ export class ErpDashboardService {
       complianceScorePercent: 98.4,
     };
   }
+
+  async getActivityFeed(workspaceId?: string) {
+    const where = workspaceId ? { workspaceId } : {};
+
+    const [pos, wos, shipments, orders, approvals] = await Promise.all([
+      this.prisma.purchaseOrder.findMany({
+        where,
+        take: 5,
+        orderBy: { createdAt: 'desc' },
+      }).catch(() => []),
+      this.prisma.manufacturingWorkOrder.findMany({
+        where,
+        take: 5,
+        orderBy: { createdAt: 'desc' },
+      }).catch(() => []),
+      this.prisma.logisticsShipment.findMany({
+        where,
+        take: 5,
+        orderBy: { createdAt: 'desc' },
+      }).catch(() => []),
+      this.prisma.erpSalesOrder.findMany({
+        where,
+        take: 5,
+        orderBy: { createdAt: 'desc' },
+      }).catch(() => []),
+      this.prisma.approvalRequest.findMany({
+        where,
+        take: 5,
+        orderBy: { createdAt: 'desc' },
+      }).catch(() => []),
+    ]);
+
+    const feed = [
+      ...pos.map((p) => ({
+        type: 'PROCUREMENT',
+        title: `PO ${p.poNumber} created for ${p.vendorName}`,
+        amount: p.totalAmount,
+        status: p.status,
+        timestamp: p.createdAt,
+      })),
+      ...wos.map((w) => ({
+        type: 'MANUFACTURING',
+        title: `Work Order ${w.orderNumber} (${w.productName})`,
+        progress: `${w.quantityCompleted}/${w.quantityTarget}`,
+        status: w.status,
+        timestamp: w.createdAt,
+      })),
+      ...shipments.map((s) => ({
+        type: 'LOGISTICS',
+        title: `Shipment ${s.trackingNumber} via ${s.carrier}`,
+        destination: s.destination,
+        status: s.status,
+        timestamp: s.createdAt,
+      })),
+      ...orders.map((o) => ({
+        type: 'SALES_ORDER',
+        title: `Sales Order ${o.orderNumber} (${o.customerName})`,
+        amount: o.orderTotal,
+        status: o.status,
+        timestamp: o.createdAt,
+      })),
+      ...approvals.map((a) => ({
+        type: 'APPROVAL',
+        title: `Approval Request: ${a.title}`,
+        requester: a.requester,
+        status: a.status,
+        timestamp: a.createdAt,
+      })),
+    ].sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime());
+
+    return {
+      feed: feed.slice(0, 20),
+      totalCount: feed.length,
+      lastUpdated: new Date().toISOString(),
+    };
+  }
 }

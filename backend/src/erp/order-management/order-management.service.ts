@@ -82,11 +82,75 @@ export class OrderManagementService {
     });
   }
 
+  async updateOrder(id: string, data: any) {
+    const item = await this.findOne(id);
+    return this.prisma.erpSalesOrder.update({
+      where: { id: item.id },
+      data: {
+        ...(data.customerName !== undefined && { customerName: data.customerName }),
+        ...(data.customerId !== undefined && { customerId: data.customerId }),
+        ...(data.orderTotal !== undefined && { orderTotal: Number(data.orderTotal) }),
+        ...(data.currency !== undefined && { currency: data.currency }),
+        ...(data.status !== undefined && { status: data.status }),
+        ...(data.paymentStatus !== undefined && { paymentStatus: data.paymentStatus }),
+        ...(data.shippingAddress !== undefined && { shippingAddress: data.shippingAddress }),
+        ...(data.billingAddress !== undefined && { billingAddress: data.billingAddress }),
+      },
+      include: { items: true },
+    });
+  }
+
   async updateStatus(id: string, status: string) {
     const item = await this.findOne(id);
     return this.prisma.erpSalesOrder.update({
       where: { id: item.id },
       data: { status },
+      include: { items: true },
+    });
+  }
+
+  async removeOrder(id: string) {
+    const item = await this.findOne(id);
+    await this.prisma.erpSalesOrder.delete({
+      where: { id: item.id },
+    });
+    return { message: `Sales Order ${item.orderNumber} successfully removed` };
+  }
+
+  async addOrderItem(orderId: string, item: any) {
+    const order = await this.findOne(orderId);
+    const quantity = item.quantity ? Number(item.quantity) : 1;
+    const unitPrice = item.unitPrice ? Number(item.unitPrice) : 0;
+    const totalPrice = item.totalPrice ? Number(item.totalPrice) : quantity * unitPrice;
+
+    const createdItem = await this.prisma.erpSalesOrderItem.create({
+      data: {
+        salesOrderId: order.id,
+        productName: item.productName || 'Order Product Item',
+        sku: item.sku,
+        quantity,
+        unitPrice,
+        totalPrice,
+      },
+    });
+
+    // Update Order totals
+    await this.prisma.erpSalesOrder.update({
+      where: { id: order.id },
+      data: {
+        orderTotal: { increment: totalPrice },
+        lineItemsCount: { increment: 1 },
+      },
+    });
+
+    return createdItem;
+  }
+
+  async recordPayment(id: string, paymentStatus: string) {
+    const item = await this.findOne(id);
+    return this.prisma.erpSalesOrder.update({
+      where: { id: item.id },
+      data: { paymentStatus },
       include: { items: true },
     });
   }

@@ -26,7 +26,9 @@ export class ProjectManagementService {
       this.prisma.erpProject.findMany({
         where,
         include: {
-          milestones: true,
+          milestones: {
+            orderBy: { createdAt: 'asc' },
+          },
         },
         orderBy: { createdAt: 'desc' },
       }),
@@ -45,7 +47,9 @@ export class ProjectManagementService {
         OR: [{ id }, { projectCode: id }],
       },
       include: {
-        milestones: true,
+        milestones: {
+          orderBy: { createdAt: 'asc' },
+        },
       },
     });
 
@@ -80,5 +84,94 @@ export class ProjectManagementService {
         milestones: true,
       },
     });
+  }
+
+  async update(id: string, data: any) {
+    const project = await this.findOne(id);
+    return this.prisma.erpProject.update({
+      where: { id: project.id },
+      data: {
+        ...(data.name !== undefined && { name: data.name }),
+        ...(data.description !== undefined && { description: data.description }),
+        ...(data.client !== undefined && { client: data.client }),
+        ...(data.status !== undefined && { status: data.status }),
+        ...(data.budgetTotal !== undefined && { budgetTotal: Number(data.budgetTotal) }),
+        ...(data.spentTotal !== undefined && { spentTotal: Number(data.spentTotal) }),
+        ...(data.targetEndDate !== undefined && { targetEndDate: new Date(data.targetEndDate) }),
+      },
+      include: {
+        milestones: true,
+      },
+    });
+  }
+
+  async remove(id: string) {
+    const project = await this.findOne(id);
+    await this.prisma.erpProject.delete({
+      where: { id: project.id },
+    });
+    return { message: `Project ${project.projectCode} successfully removed` };
+  }
+
+  async addMilestone(projectId: string, milestone: any) {
+    const project = await this.findOne(projectId);
+    const created = await this.prisma.erpProjectMilestone.create({
+      data: {
+        projectId: project.id,
+        title: milestone.title || 'Key Milestone Deliverable',
+        status: milestone.status || 'PENDING',
+        dueDate: milestone.dueDate ? new Date(milestone.dueDate) : null,
+      },
+    });
+
+    await this.prisma.erpProject.update({
+      where: { id: project.id },
+      data: { milestonesCount: { increment: 1 } },
+    });
+
+    return created;
+  }
+
+  async updateMilestone(milestoneId: string, data: any) {
+    const milestone = await this.prisma.erpProjectMilestone.findUnique({
+      where: { id: milestoneId },
+    });
+
+    if (!milestone) {
+      throw new NotFoundException(`Milestone ${milestoneId} not found`);
+    }
+
+    return this.prisma.erpProjectMilestone.update({
+      where: { id: milestoneId },
+      data: {
+        ...(data.title !== undefined && { title: data.title }),
+        ...(data.status !== undefined && { status: data.status }),
+        ...(data.dueDate !== undefined && { dueDate: new Date(data.dueDate) }),
+        ...(data.completedAt !== undefined && {
+          completedAt: data.completedAt ? new Date(data.completedAt) : null,
+        }),
+      },
+    });
+  }
+
+  async removeMilestone(milestoneId: string) {
+    const milestone = await this.prisma.erpProjectMilestone.findUnique({
+      where: { id: milestoneId },
+    });
+
+    if (!milestone) {
+      throw new NotFoundException(`Milestone ${milestoneId} not found`);
+    }
+
+    await this.prisma.erpProjectMilestone.delete({
+      where: { id: milestoneId },
+    });
+
+    await this.prisma.erpProject.update({
+      where: { id: milestone.projectId },
+      data: { milestonesCount: { decrement: 1 } },
+    });
+
+    return { message: `Milestone ${milestoneId} removed` };
   }
 }

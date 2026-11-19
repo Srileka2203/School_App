@@ -1,9 +1,10 @@
 import {
   Controller,
   Get,
+  Query,
   UseGuards,
 } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiResponse, ApiBearerAuth, ApiQuery } from '@nestjs/swagger';
 import { ErpReportsService } from './reports.service';
 import { JwtAuthGuard } from '../../platform/auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../../common/guards/roles.guard';
@@ -17,22 +18,49 @@ export class ErpReportsController {
 
   @Get('financial')
   @ApiOperation({ summary: 'Get enterprise financial summary report' })
+  @ApiQuery({ name: 'workspaceId', required: false })
   @ApiResponse({ status: 200, description: 'Financial report' })
-  async getFinancialReport() {
-    return this.reportsService.getFinancialReport();
+  async getFinancialReport(@Query('workspaceId') workspaceId?: string) {
+    return this.reportsService.getFinancialReport(workspaceId);
   }
 
   @Get('procurement')
   @ApiOperation({ summary: 'Get procurement and vendor spend analytics' })
+  @ApiQuery({ name: 'workspaceId', required: false })
   @ApiResponse({ status: 200, description: 'Procurement report' })
-  async getProcurementReport() {
-    return this.reportsService.getProcurementReport();
+  async getProcurementReport(@Query('workspaceId') workspaceId?: string) {
+    return this.reportsService.getProcurementReport(workspaceId);
   }
 
   @Get('production')
   @ApiOperation({ summary: 'Get manufacturing and OEE efficiency metrics' })
+  @ApiQuery({ name: 'workspaceId', required: false })
   @ApiResponse({ status: 200, description: 'Production efficiency report' })
-  async getProductionEfficiencyReport() {
-    return this.reportsService.getProductionEfficiencyReport();
+  async getProductionEfficiencyReport(@Query('workspaceId') workspaceId?: string) {
+    return this.reportsService.getProductionEfficiencyReport(workspaceId);
+  }
+
+  @Get('inventory')
+  @ApiOperation({ summary: 'Get inventory valuation and stock health report' })
+  @ApiQuery({ name: 'workspaceId', required: false })
+  @ApiResponse({ status: 200, description: 'Inventory valuation report' })
+  async getInventoryReport(@Query('workspaceId') workspaceId?: string) {
+    return this.reportsService.getInventoryReport(workspaceId);
+  }
+
+  @Get('quality')
+  @ApiOperation({ summary: 'Get QA pass rates and defect analysis report' })
+  @ApiQuery({ name: 'workspaceId', required: false })
+  @ApiResponse({ status: 200, description: 'Quality report' })
+  async getQualityReport(@Query('workspaceId') workspaceId?: string) {
+    return this.reportsService.getQualityReport(workspaceId);
+  }
+
+  @Get('summary')
+  @ApiOperation({ summary: 'Get executive consolidated ERP summary report' })
+  @ApiQuery({ name: 'workspaceId', required: false })
+  @ApiResponse({ status: 200, description: 'Executive summary report' })
+  async getExecutiveSummary(@Query('workspaceId') workspaceId?: string) {
+    return this.reportsService.getExecutiveSummary(workspaceId);
   }
 }

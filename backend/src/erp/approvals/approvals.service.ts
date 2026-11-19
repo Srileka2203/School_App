@@ -39,6 +39,25 @@ export class ApprovalsService {
     };
   }
 
+  async getPending(workspaceId?: string) {
+    const where = {
+      ...(workspaceId ? { workspaceId } : {}),
+      status: 'PENDING',
+    };
+    const [data, total] = await Promise.all([
+      this.prisma.approvalRequest.findMany({
+        where,
+        orderBy: { submittedAt: 'desc' },
+      }),
+      this.prisma.approvalRequest.count({ where }),
+    ]);
+
+    return {
+      data,
+      meta: { total },
+    };
+  }
+
   async findOne(id: string) {
     const item = await this.prisma.approvalRequest.findUnique({
       where: { id },
@@ -66,6 +85,32 @@ export class ApprovalsService {
         workspaceId: data.workspaceId,
       },
     });
+  }
+
+  async update(id: string, data: Partial<ApprovalRequestItem>) {
+    await this.findOne(id);
+    return this.prisma.approvalRequest.update({
+      where: { id },
+      data: {
+        ...(data.title !== undefined && { title: data.title }),
+        ...(data.module !== undefined && { module: data.module }),
+        ...(data.requester !== undefined && { requester: data.requester }),
+        ...(data.approverRole !== undefined && { approverRole: data.approverRole }),
+        ...(data.amount !== undefined && { amount: data.amount !== null ? Number(data.amount) : null }),
+        ...(data.priority !== undefined && { priority: data.priority }),
+        ...(data.status !== undefined && { status: data.status }),
+        ...(data.comment !== undefined && { comment: data.comment }),
+        ...(data.details !== undefined && { details: data.details }),
+      },
+    });
+  }
+
+  async remove(id: string) {
+    await this.findOne(id);
+    await this.prisma.approvalRequest.delete({
+      where: { id },
+    });
+    return { message: `Approval request ${id} successfully removed` };
   }
 
   async approve(id: string, comment?: string) {

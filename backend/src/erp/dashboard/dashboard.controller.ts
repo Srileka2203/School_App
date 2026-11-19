@@ -26,4 +26,12 @@ export class ErpDashboardController {
   async getStats(@Query('workspaceId') workspaceId?: string) {
     return this.dashboardService.getStats(workspaceId);
   }
+
+  @Get('activity-feed')
+  @ApiOperation({ summary: 'Get real-time consolidated ERP activity stream' })
+  @ApiQuery({ name: 'workspaceId', required: false })
+  @ApiResponse({ status: 200, description: 'ERP activity feed' })
+  async getActivityFeed(@Query('workspaceId') workspaceId?: string) {
+    return this.dashboardService.getActivityFeed(workspaceId);
+  }
 }
