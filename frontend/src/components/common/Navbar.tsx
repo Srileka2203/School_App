@@ -9,6 +9,7 @@ import { CreateWorkspaceModal } from '../workspace/CreateWorkspaceModal';
 import {
   ActivityIcon,
   BarChart2Icon,
+  BuildingIcon,
   UserIcon,
   UsersIcon,
   LogOutIcon,
@@ -103,6 +104,12 @@ const MAIN_MODULES: NavModuleItem[] = [
     label: 'Lead Generation',
     icon: <ZapIcon size={18} />,
     basePath: '/lead-generation',
+  },
+  {
+    id: 'erp',
+    label: 'ERP Suite',
+    icon: <BuildingIcon size={18} />,
+    basePath: '/erp',
   },
 ];
 
@@ -235,6 +242,15 @@ const SEARCHABLE_ITEMS: SearchableModuleItem[] = [
     keywords: ['lead generation', 'capture', 'forms', 'generation', 'inbound', 'automation'],
     description: 'Automated capture workflows, routing rules, and inbound engines',
     icon: <ZapIcon size={16} />,
+  },
+  {
+    id: 'erp',
+    title: 'ERP Suite',
+    category: 'Enterprise Operations',
+    path: '/erp',
+    keywords: ['erp', 'enterprise', 'procurement', 'workflows', 'approvals', 'supply chain', 'inventory', 'manufacturing', 'bom', 'quality', 'integrations'],
+    description: 'Enterprise resource planning: procurement, work orders, logistics, and workflows',
+    icon: <BuildingIcon size={16} />,
   },
 
   // 2. Settings & Operations

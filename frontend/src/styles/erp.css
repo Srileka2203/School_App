@@ -1,0 +1,567 @@
+/* ==========================================================================
+   ERP ENTERPRISE SUITE STYLES (Modern ClickUp / Linear Design System)
+   ========================================================================== */
+
+.erp-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-bg, #f8fafc);
+  color: var(--color-text, #0f172a);
+}
+
+.erp-container {
+  max-width: 1560px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 24px 24px 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* --- Top Header & Breadcrumbs --- */
+.erp-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-bottom: 8px;
+}
+
+.erp-header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.erp-title {
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--color-text, #0f172a);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.erp-subtitle {
+  font-size: 14px;
+  color: var(--color-text-muted, #64748b);
+  margin: 0;
+}
+
+.erp-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* --- Navigation Pill Tabs --- */
+.erp-nav-scroll-wrapper {
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scrollbar-width: thin;
+}
+
+.erp-nav-tabs {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--color-surface, #ffffff);
+  border: 1px solid var(--color-border, #e2e8f0);
+  border-radius: 12px;
+  padding: 6px 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.erp-nav-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--color-text-muted, #64748b);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+}
+
+.erp-nav-item:hover {
+  color: var(--color-text, #0f172a);
+  background-color: var(--color-bg-hover, #f1f5f9);
+}
+
+.erp-nav-item.is-active {
+  color: #ffffff;
+  background-color: #065f46; /* ERP Emerald tone */
+  box-shadow: 0 2px 6px rgba(6, 95, 70, 0.25);
+}
+
+.erp-badge-pill {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.08);
+  color: inherit;
+}
+
+.erp-nav-item.is-active .erp-badge-pill {
+  background-color: rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+}
+
+/* --- Stats Cards Grid --- */
+.erp-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.erp-stat-card {
+  background: var(--color-surface, #ffffff);
+  border: 1px solid var(--color-border, #e2e8f0);
+  border-radius: 12px;
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.erp-stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+}
+
+.erp-stat-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--color-text-muted, #64748b);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.erp-stat-value {
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--color-text, #0f172a);
+  letter-spacing: -0.02em;
+}
+
+.erp-stat-footer {
+  font-size: 12px;
+  color: var(--color-text-muted, #94a3b8);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* --- Content Cards & Panels --- */
+.erp-card {
+  background: var(--color-surface, #ffffff);
+  border: 1px solid var(--color-border, #e2e8f0);
+  border-radius: 14px;
+  padding: 20px 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+.erp-card-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--color-border, #f1f5f9);
+}
+
+.erp-card-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--color-text, #0f172a);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* --- Search & Filter Bar --- */
+.erp-filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.erp-search-wrapper {
+  position: relative;
+  min-width: 260px;
+  flex: 1;
+  max-width: 420px;
+}
+
+.erp-search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-text-muted, #94a3b8);
+  pointer-events: none;
+}
+
+.erp-search-input {
+  width: 100%;
+  padding: 9px 12px 9px 38px;
+  background: var(--color-surface, #ffffff);
+  border: 1px solid var(--color-border, #cbd5e1);
+  border-radius: 8px;
+  font-size: 13.5px;
+  color: var(--color-text, #0f172a);
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.erp-search-input:focus {
+  border-color: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.12);
+}
+
+/* --- Enterprise Data Tables --- */
+.erp-table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: 10px;
+  border: 1px solid var(--color-border, #e2e8f0);
+}
+
+.erp-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 13.5px;
+}
+
+.erp-table th {
+  background-color: var(--color-table-header, #f8fafc);
+  color: var(--color-text-muted, #64748b);
+  font-weight: 600;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--color-border, #e2e8f0);
+  white-space: nowrap;
+}
+
+.erp-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--color-border, #f1f5f9);
+  color: var(--color-text, #1e293b);
+  vertical-align: middle;
+}
+
+.erp-table tbody tr:hover {
+  background-color: var(--color-table-hover, #f8fafc);
+}
+
+.erp-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* --- Status Pills & Badges --- */
+.erp-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 9px;
+  border-radius: 12px;
+  font-size: 11.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.erp-pill-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: currentColor;
+}
+
+.erp-pill-active,
+.erp-pill-approved,
+.erp-pill-success,
+.erp-pill-pass,
+.erp-pill-fulfilled {
+  background-color: #ecfdf5;
+  color: #059669;
+}
+
+.erp-pill-pending,
+.erp-pill-draft,
+.erp-pill-scheduled,
+.erp-pill-planning {
+  background-color: #eff6ff;
+  color: #2563eb;
+}
+
+.erp-pill-urgent,
+.erp-pill-critical,
+.erp-pill-rejected,
+.erp-pill-fail {
+  background-color: #fef2f2;
+  color: #dc2626;
+}
+
+.erp-pill-medium,
+.erp-pill-warning,
+.erp-pill-in-transit,
+.erp-pill-low-stock,
+.erp-pill-in-production {
+  background-color: #fffbeb;
+  color: #d97706;
+}
+
+/* --- Modal Overlays & Forms --- */
+.erp-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(15, 23, 42, 0.55);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.erp-modal {
+  background: var(--color-surface, #ffffff);
+  border: 1px solid var(--color-border, #e2e8f0);
+  border-radius: 16px;
+  max-width: 580px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 24px 28px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.18);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.erp-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--color-border, #f1f5f9);
+  padding-bottom: 12px;
+}
+
+.erp-modal-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0;
+  color: var(--color-text, #0f172a);
+}
+
+.erp-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.erp-form-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text, #334155);
+}
+
+.erp-form-input,
+.erp-form-select,
+.erp-form-textarea {
+  width: 100%;
+  padding: 10px 14px;
+  background: var(--color-surface, #ffffff);
+  border: 1px solid var(--color-border, #cbd5e1);
+  border-radius: 8px;
+  font-size: 14px;
+  color: var(--color-text, #0f172a);
+  outline: none;
+  font-family: inherit;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.erp-form-input:focus,
+.erp-form-select:focus,
+.erp-form-textarea:focus {
+  border-color: #10b981;
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.12);
+}
+
+.erp-modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 10px;
+  padding-top: 16px;
+  border-top: 1px solid var(--color-border, #f1f5f9);
+}
+
+/* --- Quick Launch Grid --- */
+.erp-modules-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.erp-module-launch-card {
+  background: var(--color-surface, #ffffff);
+  border: 1px solid var(--color-border, #e2e8f0);
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  text-decoration: none;
+  color: inherit;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+  transition: all 0.2s ease;
+}
+
+.erp-module-launch-card:hover {
+  transform: translateY(-3px);
+  border-color: #10b981;
+  box-shadow: 0 8px 20px rgba(16, 185, 129, 0.08);
+}
+
+.erp-module-icon-box {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: #ecfdf5;
+  color: #059669;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.erp-module-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.erp-module-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--color-text, #0f172a);
+}
+
+.erp-module-desc {
+  font-size: 12.5px;
+  color: var(--color-text-muted, #64748b);
+  line-height: 1.4;
+}
+
+/* --- Empty / Loading States --- */
+.erp-empty-state {
+  padding: 48px 24px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: var(--color-text-muted, #64748b);
+}
+
+.erp-empty-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--color-bg, #f1f5f9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-muted, #94a3b8);
+  margin-bottom: 4px;
+}
+
+/* --- Dark Theme Overrides --- */
+html.dark .erp-shell,
+[data-theme="dark"] .erp-shell {
+  background-color: #0b0f19;
+  color: #f1f5f9;
+}
+
+html.dark .erp-nav-tabs,
+[data-theme="dark"] .erp-nav-tabs,
+html.dark .erp-stat-card,
+[data-theme="dark"] .erp-stat-card,
+html.dark .erp-card,
+[data-theme="dark"] .erp-card,
+html.dark .erp-module-launch-card,
+[data-theme="dark"] .erp-module-launch-card,
+html.dark .erp-modal,
+[data-theme="dark"] .erp-modal {
+  background-color: #111827;
+  border-color: #1f2937;
+  color: #f1f5f9;
+}
+
+html.dark .erp-search-input,
+[data-theme="dark"] .erp-search-input,
+html.dark .erp-form-input,
+[data-theme="dark"] .erp-form-input,
+html.dark .erp-form-select,
+[data-theme="dark"] .erp-form-select,
+html.dark .erp-form-textarea,
+[data-theme="dark"] .erp-form-textarea {
+  background-color: #1e293b;
+  border-color: #374151;
+  color: #f1f5f9;
+}
+
+html.dark .erp-table th,
+[data-theme="dark"] .erp-table th {
+  background-color: #1a2234;
+  border-color: #2d3748;
+  color: #94a3b8;
+}
+
+html.dark .erp-table td,
+[data-theme="dark"] .erp-table td {
+  border-color: #1f2937;
+  color: #e2e8f0;
+}
+
+html.dark .erp-table tbody tr:hover,
+[data-theme="dark"] .erp-table tbody tr:hover {
+  background-color: #192231;
+}
+
+html.dark .erp-pill-active,
+html.dark .erp-pill-approved,
+html.dark .erp-pill-success,
+html.dark .erp-pill-pass,
+html.dark .erp-pill-fulfilled,
+[data-theme="dark"] .erp-pill-active,
+[data-theme="dark"] .erp-pill-approved,
+[data-theme="dark"] .erp-pill-success,
+[data-theme="dark"] .erp-pill-pass,
+[data-theme="dark"] .erp-pill-fulfilled {
+  background-color: rgba(5, 150, 105, 0.2);
+  color: #34d399;
+}

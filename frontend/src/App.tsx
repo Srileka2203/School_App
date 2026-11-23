@@ -130,6 +130,19 @@ import { AnalyticsExplorerPage } from './pages/crm/analytics';
 import { SettingsExplorerPage } from './pages/platform/settings';
 import { AuditLogsExplorerPage } from './pages/platform/audit-logs';
 import { HelpSupportExplorerPage } from './pages/platform/help-support';
+import {
+  ErpDashboardPage,
+  ErpWorkflowsPage,
+  ErpApprovalsPage,
+  ErpProcurementPage,
+  ErpOrdersPage,
+  ErpSupplyChainPage,
+  ErpProjectsPage,
+  ErpManufacturingPage,
+  ErpQualityPage,
+  ErpIntegrationsPage,
+  ErpReportsPage,
+} from './pages/erp';
 import { NotFoundPage } from './pages/NotFoundPage';
 import { ApiConfigBanner } from './components/common/ApiConfigBanner';
 
@@ -412,6 +425,20 @@ export function App() {
         <Route path="/help/support" element={<HelpSupportExplorerPage screen="support" />} />
         <Route path="/help/contact" element={<HelpSupportExplorerPage screen="support" />} />
         <Route path="/help/feedback" element={<HelpSupportExplorerPage screen="feedback" />} />
+
+        {/* ERP Enterprise Module Routes */}
+        <Route path="/erp" element={<ErpDashboardPage />} />
+        <Route path="/erp/dashboard" element={<ErpDashboardPage />} />
+        <Route path="/erp/workflows" element={<ErpWorkflowsPage />} />
+        <Route path="/erp/approvals" element={<ErpApprovalsPage />} />
+        <Route path="/erp/procurement" element={<ErpProcurementPage />} />
+        <Route path="/erp/orders" element={<ErpOrdersPage />} />
+        <Route path="/erp/supply-chain" element={<ErpSupplyChainPage />} />
+        <Route path="/erp/projects" element={<ErpProjectsPage />} />
+        <Route path="/erp/manufacturing" element={<ErpManufacturingPage />} />
+        <Route path="/erp/quality" element={<ErpQualityPage />} />
+        <Route path="/erp/integrations" element={<ErpIntegrationsPage />} />
+        <Route path="/erp/reports" element={<ErpReportsPage />} />
 
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/change-password" element={<ChangePasswordPage />} />
