@@ -68,10 +68,15 @@ export const ErpDashboardPage: React.FC = () => {
       }
     >
       {/* 1. Core Operational KPI Summary */}
-      <section>
+      <section className="erp-section">
         <div className="erp-section-header">
-          <h2 className="erp-section-title">Core Operations Summary</h2>
-          {lastRefreshed && <span className="erp-stat-footer">Updated at {lastRefreshed}</span>}
+          <div className="erp-section-header-left">
+            <h2 className="erp-section-title">Core Operations Summary</h2>
+            <p className="erp-section-subtitle">Real-time throughput metrics across operational pipelines</p>
+          </div>
+          {lastRefreshed && (
+            <span className="erp-section-timestamp">Updated at {lastRefreshed}</span>
+          )}
         </div>
 
         <div className="erp-stats-grid">
@@ -155,16 +160,16 @@ export const ErpDashboardPage: React.FC = () => {
 
       {/* 2. Financial & Efficiency KPIs */}
       {stats && (
-        <section className="erp-card">
-          <div className="erp-card-header">
-            <div>
-              <h3 className="erp-card-title">Executive Performance Indicators</h3>
-              <p className="erp-subtitle" style={{ marginTop: 4 }}>High-level operational throughput and financial metrics</p>
+        <section className="erp-section">
+          <div className="erp-section-header">
+            <div className="erp-section-header-left">
+              <h2 className="erp-section-title">Executive Performance Indicators</h2>
+              <p className="erp-section-subtitle">High-level operational throughput and financial metrics</p>
             </div>
             <span className="erp-badge erp-badge-emerald">Enterprise Telemetry</span>
           </div>
           <div className="erp-stats-grid">
-            <div className="erp-stat-card erp-stat-card-tinted">
+            <div className="erp-stat-card">
               <div className="erp-stat-header">
                 <span>Procurement Spend (YTD)</span>
                 <span className="erp-badge erp-badge-emerald">Finance</span>
@@ -172,7 +177,7 @@ export const ErpDashboardPage: React.FC = () => {
               <div className="erp-stat-value">${stats.totalProcurementSpend.toLocaleString()}</div>
               <div className="erp-stat-footer">Across verified vendor orders</div>
             </div>
-            <div className="erp-stat-card erp-stat-card-tinted">
+            <div className="erp-stat-card">
               <div className="erp-stat-header">
                 <span>Orders Fulfilled</span>
                 <span className="erp-badge erp-badge-blue">Fulfillment</span>
@@ -180,7 +185,7 @@ export const ErpDashboardPage: React.FC = () => {
               <div className="erp-stat-value">{stats.fulfilledOrders.toLocaleString()}</div>
               <div className="erp-stat-footer">100% on-time delivery metric</div>
             </div>
-            <div className="erp-stat-card erp-stat-card-tinted">
+            <div className="erp-stat-card">
               <div className="erp-stat-header">
                 <span>Avg Production Cycle</span>
                 <span className="erp-badge erp-badge-amber">Efficiency</span>
@@ -188,7 +193,7 @@ export const ErpDashboardPage: React.FC = () => {
               <div className="erp-stat-value">{stats.averageProductionCycleHours} hrs</div>
               <div className="erp-stat-footer">Manufacturing turnaround time</div>
             </div>
-            <div className="erp-stat-card erp-stat-card-tinted">
+            <div className="erp-stat-card">
               <div className="erp-stat-header">
                 <span>Compliance Score</span>
                 <span className="erp-badge erp-badge-emerald">Audit</span>
@@ -203,9 +208,12 @@ export const ErpDashboardPage: React.FC = () => {
       )}
 
       {/* 3. ERP Sub-Modules Directory */}
-      <section>
+      <section className="erp-section">
         <div className="erp-section-header">
-          <h2 className="erp-section-title">ERP Sub-Modules Directory</h2>
+          <div className="erp-section-header-left">
+            <h2 className="erp-section-title">ERP Sub-Modules Directory</h2>
+            <p className="erp-section-subtitle">Direct access to all 10 specialized enterprise operational modules</p>
+          </div>
         </div>
         <div className="erp-module-grid">
           {moduleShortcuts.map((item) => (
