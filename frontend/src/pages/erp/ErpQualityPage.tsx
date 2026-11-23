@@ -35,8 +35,10 @@ export const ErpQualityPage: React.FC = () => {
         erpService.getInspections(),
         erpService.getAudits(),
       ]);
-      setInspections(inspRes.data || []);
-      setAudits(auditRes || []);
+      const inspList = (inspRes as any)?.data || (Array.isArray(inspRes) ? inspRes : []);
+      const auditList = (auditRes as any)?.data || (Array.isArray(auditRes) ? auditRes : []);
+      setInspections(inspList);
+      setAudits(auditList);
     } catch (err: any) {
       setError(err?.response?.data?.message || err?.message || 'Failed to load quality assurance data');
     } finally {
@@ -51,17 +53,17 @@ export const ErpQualityPage: React.FC = () => {
   const filteredInspections = useMemo(() => {
     return inspections.filter(
       (i) =>
-        i.inspectionCode.toLowerCase().includes(search.toLowerCase()) ||
-        i.targetBatch.toLowerCase().includes(search.toLowerCase()) ||
-        i.inspector.toLowerCase().includes(search.toLowerCase())
+        (i.inspectionCode || '').toLowerCase().includes(search.toLowerCase()) ||
+        (i.targetBatch || '').toLowerCase().includes(search.toLowerCase()) ||
+        (i.inspector || '').toLowerCase().includes(search.toLowerCase())
     );
   }, [inspections, search]);
 
   const filteredAudits = useMemo(() => {
     return audits.filter(
       (a) =>
-        a.auditTitle.toLowerCase().includes(search.toLowerCase()) ||
-        a.auditor.toLowerCase().includes(search.toLowerCase())
+        (a.title || a.auditTitle || '').toLowerCase().includes(search.toLowerCase()) ||
+        (a.auditor || '').toLowerCase().includes(search.toLowerCase())
     );
   }, [audits, search]);
 
@@ -265,7 +267,7 @@ export const ErpQualityPage: React.FC = () => {
                   filteredAudits.map((a) => (
                     <tr key={a.id}>
                       <td>
-                        <strong>{a.auditTitle}</strong>
+                        <strong>{a.title || a.auditTitle || 'Quality Audit'}</strong>
                         {a.notes && (
                           <div style={{ fontSize: 12, color: 'var(--color-text-muted)' }}>{a.notes}</div>
                         )}

@@ -21,8 +21,10 @@ export const ErpIntegrationsPage: React.FC = () => {
         erpService.getConnectors(),
         erpService.getIntegrationLogs(),
       ]);
-      setConnectors(connRes.data || []);
-      setLogs(logsRes || []);
+      const connList = (connRes as any)?.data || (Array.isArray(connRes) ? connRes : []);
+      const logList = (logsRes as any)?.data || (Array.isArray(logsRes) ? logsRes : []);
+      setConnectors(connList);
+      setLogs(logList);
     } catch (err: any) {
       setError(err?.response?.data?.message || err?.message || 'Failed to load integrations');
     } finally {

@@ -99,9 +99,9 @@ export const erpService = {
     return api.post<PurchaseOrder>('/erp/procurement/orders', payload);
   },
 
-  async getVendors(workspaceId?: string): Promise<Vendor[]> {
+  async getVendors(workspaceId?: string): Promise<{ data: Vendor[]; meta: { total: number } }> {
     const query = workspaceId ? `?workspaceId=${encodeURIComponent(workspaceId)}` : '';
-    return api.get<Vendor[]>(`/erp/procurement/vendors${query}`);
+    return api.get<{ data: Vendor[]; meta: { total: number } }>(`/erp/procurement/vendors${query}`);
   },
 
   // 5. Order Management
@@ -161,9 +161,9 @@ export const erpService = {
     return api.post<ManufacturingWorkOrder>('/erp/manufacturing/work-orders', payload);
   },
 
-  async getBillOfMaterials(workspaceId?: string): Promise<BillOfMaterial[]> {
+  async getBillOfMaterials(workspaceId?: string): Promise<{ data: BillOfMaterial[]; meta: { total: number } }> {
     const query = workspaceId ? `?workspaceId=${encodeURIComponent(workspaceId)}` : '';
-    return api.get<BillOfMaterial[]>(`/erp/manufacturing/bom${query}`);
+    return api.get<{ data: BillOfMaterial[]; meta: { total: number } }>(`/erp/manufacturing/bom${query}`);
   },
 
   // 9. Quality Management
@@ -176,9 +176,9 @@ export const erpService = {
     return api.post<QualityInspection>('/erp/quality-management/inspections', payload);
   },
 
-  async getAudits(workspaceId?: string): Promise<QualityAudit[]> {
+  async getAudits(workspaceId?: string): Promise<{ data: QualityAudit[]; meta: { total: number } }> {
     const query = workspaceId ? `?workspaceId=${encodeURIComponent(workspaceId)}` : '';
-    return api.get<QualityAudit[]>(`/erp/quality-management/audits${query}`);
+    return api.get<{ data: QualityAudit[]; meta: { total: number } }>(`/erp/quality-management/audits${query}`);
   },
 
   // 10. Integrations

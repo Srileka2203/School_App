@@ -28,7 +28,7 @@ export const ErpWorkflowsPage: React.FC = () => {
       setLoading(true);
       setError(null);
       const res = await erpService.getWorkflows();
-      setWorkflows(res.data || []);
+      setWorkflows((res as any)?.data || (Array.isArray(res) ? res : []));
     } catch (err: any) {
       setError(err?.response?.data?.message || err?.message || 'Failed to fetch business workflows');
     } finally {

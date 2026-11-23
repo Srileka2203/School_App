@@ -34,7 +34,7 @@ export const ErpApprovalsPage: React.FC = () => {
       setLoading(true);
       setError(null);
       const res = await erpService.getApprovals();
-      setApprovals(res.data || []);
+      setApprovals((res as any)?.data || (Array.isArray(res) ? res : []));
     } catch (err: any) {
       setError(err?.response?.data?.message || err?.message || 'Failed to fetch approval requests');
     } finally {

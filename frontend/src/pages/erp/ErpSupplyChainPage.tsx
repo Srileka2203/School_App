@@ -34,8 +34,10 @@ export const ErpSupplyChainPage: React.FC = () => {
         erpService.getInventory(),
         erpService.getShipments(),
       ]);
-      setInventory(invRes.data || []);
-      setShipments(shipRes.data || []);
+      const invList = (invRes as any)?.data || (Array.isArray(invRes) ? invRes : []);
+      const shipList = (shipRes as any)?.data || (Array.isArray(shipRes) ? shipRes : []);
+      setInventory(invList);
+      setShipments(shipList);
     } catch (err: any) {
       setError(err?.response?.data?.message || err?.message || 'Failed to load supply chain data');
     } finally {

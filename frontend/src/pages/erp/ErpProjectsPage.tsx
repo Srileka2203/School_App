@@ -32,7 +32,7 @@ export const ErpProjectsPage: React.FC = () => {
       setLoading(true);
       setError(null);
       const res = await erpService.getProjects();
-      setProjects(res.data || []);
+      setProjects((res as any)?.data || (Array.isArray(res) ? res : []));
     } catch (err: any) {
       setError(err?.response?.data?.message || err?.message || 'Failed to fetch projects');
     } finally {

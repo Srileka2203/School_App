@@ -300,19 +300,24 @@ export interface ManufacturingWorkOrder {
 }
 
 export interface BomComponent {
-  id: string;
-  bomId: string;
+  id?: string;
+  bomId?: string;
   componentName: string;
+  sku?: string;
   partNumber?: string;
-  quantityRequired: number;
+  qtyPerUnit?: number;
+  quantityRequired?: number;
   unit: string;
+  costPerUnit?: number;
 }
 
 export interface BillOfMaterial {
   id: string;
   bomCode: string;
-  productName: string;
-  revision: string;
+  assemblyName?: string;
+  productName?: string;
+  version?: string;
+  revision?: string;
   status: string;
   components?: BomComponent[];
   createdAt: string;
@@ -348,9 +353,11 @@ export interface QualityInspection {
 
 export interface QualityAudit {
   id: string;
-  auditTitle: string;
-  auditor: string;
-  status: 'SCHEDULED' | 'IN_PROGRESS' | 'PASSED' | 'ACTION_REQUIRED';
+  title?: string;
+  auditTitle?: string;
+  auditor?: string;
+  standard?: string;
+  status: 'SCHEDULED' | 'IN_PROGRESS' | 'PASSED' | 'ACTION_REQUIRED' | 'COMPLIANT' | 'NON_COMPLIANT';
   score?: number;
   auditDate: string;
   notes?: string;

@@ -36,8 +36,10 @@ export const ErpProcurementPage: React.FC = () => {
         erpService.getPurchaseOrders(),
         erpService.getVendors(),
       ]);
-      setOrders(ordersRes.data || []);
-      setVendors(vendorsRes || []);
+      const ordersList = (ordersRes as any)?.data || (Array.isArray(ordersRes) ? ordersRes : []);
+      const vendorsList = (vendorsRes as any)?.data || (Array.isArray(vendorsRes) ? vendorsRes : []);
+      setOrders(ordersList);
+      setVendors(vendorsList);
     } catch (err: any) {
       setError(err?.response?.data?.message || err?.message || 'Failed to load procurement data');
     } finally {
@@ -51,9 +53,11 @@ export const ErpProcurementPage: React.FC = () => {
 
   const filteredOrders = useMemo(() => {
     return orders.filter((po) => {
+      const poNum = po.poNumber || '';
+      const vName = po.vendorName || (po.vendor as any)?.name || '';
       const matchSearch =
-        po.poNumber.toLowerCase().includes(search.toLowerCase()) ||
-        po.vendorName.toLowerCase().includes(search.toLowerCase());
+        poNum.toLowerCase().includes(search.toLowerCase()) ||
+        vName.toLowerCase().includes(search.toLowerCase());
       const matchStatus = statusFilter === 'ALL' || po.status === statusFilter;
       return matchSearch && matchStatus;
     });
@@ -61,7 +65,7 @@ export const ErpProcurementPage: React.FC = () => {
 
   const filteredVendors = useMemo(() => {
     return vendors.filter((v) =>
-      v.name.toLowerCase().includes(search.toLowerCase()) ||
+      (v.name || '').toLowerCase().includes(search.toLowerCase()) ||
       v.email?.toLowerCase().includes(search.toLowerCase()) ||
       v.phone?.toLowerCase().includes(search.toLowerCase())
     );

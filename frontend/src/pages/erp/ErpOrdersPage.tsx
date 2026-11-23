@@ -31,7 +31,7 @@ export const ErpOrdersPage: React.FC = () => {
       setLoading(true);
       setError(null);
       const res = await erpService.getSalesOrders();
-      setOrders(res.data || []);
+      setOrders((res as any)?.data || (Array.isArray(res) ? res : []));
     } catch (err: any) {
       setError(err?.response?.data?.message || err?.message || 'Failed to fetch sales orders');
     } finally {

@@ -36,8 +36,10 @@ export const ErpManufacturingPage: React.FC = () => {
         erpService.getWorkOrders(),
         erpService.getBillOfMaterials(),
       ]);
-      setWorkOrders(woRes.data || []);
-      setBomList(bomRes || []);
+      const woList = (woRes as any)?.data || (Array.isArray(woRes) ? woRes : []);
+      const boms = (bomRes as any)?.data || (Array.isArray(bomRes) ? bomRes : []);
+      setWorkOrders(woList);
+      setBomList(boms);
     } catch (err: any) {
       setError(err?.response?.data?.message || err?.message || 'Failed to load manufacturing data');
     } finally {
@@ -52,17 +54,17 @@ export const ErpManufacturingPage: React.FC = () => {
   const filteredWorkOrders = useMemo(() => {
     return workOrders.filter(
       (wo) =>
-        wo.orderNumber.toLowerCase().includes(search.toLowerCase()) ||
-        wo.productName.toLowerCase().includes(search.toLowerCase()) ||
-        wo.productionLine.toLowerCase().includes(search.toLowerCase())
+        (wo.orderNumber || '').toLowerCase().includes(search.toLowerCase()) ||
+        (wo.productName || '').toLowerCase().includes(search.toLowerCase()) ||
+        (wo.productionLine || '').toLowerCase().includes(search.toLowerCase())
     );
   }, [workOrders, search]);
 
   const filteredBoms = useMemo(() => {
     return bomList.filter(
       (b) =>
-        b.bomCode.toLowerCase().includes(search.toLowerCase()) ||
-        b.productName.toLowerCase().includes(search.toLowerCase())
+        (b.bomCode || '').toLowerCase().includes(search.toLowerCase()) ||
+        (b.assemblyName || b.productName || '').toLowerCase().includes(search.toLowerCase())
     );
   }, [bomList, search]);
 
@@ -283,15 +285,15 @@ export const ErpManufacturingPage: React.FC = () => {
                         <code>{b.bomCode}</code>
                       </td>
                       <td>
-                        <strong>{b.productName}</strong>
+                        <strong>{b.assemblyName || b.productName || 'Subassembly'}</strong>
                       </td>
                       <td>
-                        <span className="erp-badge erp-badge-neutral">{b.revision}</span>
+                        <span className="erp-badge erp-badge-neutral">{b.version || b.revision || 'v1.0'}</span>
                       </td>
                       <td>
                         {b.components && b.components.length > 0 ? (
                           <div style={{ fontSize: 12.5 }}>
-                            {b.components.map((c) => `${c.componentName} (${c.quantityRequired} ${c.unit})`).join(', ')}
+                            {b.components.map((c) => `${c.componentName} (${c.qtyPerUnit ?? c.quantityRequired ?? 1} ${c.unit || 'pcs'})`).join(', ')}
                           </div>
                         ) : (
                           'Components configured'
