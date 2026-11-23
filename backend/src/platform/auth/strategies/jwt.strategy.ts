@@ -4,6 +4,14 @@ import { ExtractJwt, Strategy } from 'passport-jwt';
 import { ConfigService } from '@nestjs/config';
 import { PrismaService } from '../../../database/prisma.service';
 
+interface CachedUserRecord {
+  user: any;
+  cachedAt: number;
+}
+
+const userAuthCache = new Map<string, CachedUserRecord>();
+const CACHE_TTL_MS = 15000; // 15 seconds cache to collapse concurrent request bursts
+
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
   constructor(
@@ -18,21 +26,46 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
   }
 
   async validate(payload: { sub: string; email: string; role?: string }) {
-    const user = await this.prisma.user.findUnique({
-      where: { id: payload.sub },
-      include: {
-        role: {
+    const cached = userAuthCache.get(payload.sub);
+    const now = Date.now();
+    if (cached && now - cached.cachedAt < CACHE_TTL_MS) {
+      return cached.user;
+    }
+
+    let user: any = null;
+    const maxAttempts = 2;
+
+    for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+      try {
+        user = await this.prisma.user.findUnique({
+          where: { id: payload.sub },
           include: {
-            permissions: {
+            role: {
               include: {
-                permission: true,
+                permissions: {
+                  include: {
+                    permission: true,
+                  },
+                },
               },
             },
+            organization: true,
           },
-        },
-        organization: true,
-      },
-    });
+        });
+        break;
+      } catch (err: any) {
+        const isConnectionError =
+          err?.message?.includes('connection pool') ||
+          err?.message?.includes('pool_timeout') ||
+          err?.message?.includes('Can\'t reach database');
+
+        if (attempt < maxAttempts && isConnectionError) {
+          await new Promise((resolve) => setTimeout(resolve, 500));
+          continue;
+        }
+        throw err;
+      }
+    }
 
     if (!user) {
       throw new UnauthorizedException('User not found or token invalid');
@@ -43,6 +76,7 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
     }
 
     const { passwordHash, refreshToken, ...userWithoutSecrets } = user;
+    userAuthCache.set(payload.sub, { user: userWithoutSecrets, cachedAt: now });
     return userWithoutSecrets;
   }
 }
