@@ -78,6 +78,7 @@ export const ErpDashboardPage: React.FC = () => {
           <div className="erp-stat-card">
             <div className="erp-stat-header">
               <span>Active Workflows</span>
+              <span className="erp-badge erp-badge-blue">Pipelines</span>
             </div>
             <div className="erp-stat-value">{metrics ? metrics.activeWorkflows : '—'}</div>
             <div className="erp-stat-footer">Automated operational pipelines</div>
@@ -86,6 +87,7 @@ export const ErpDashboardPage: React.FC = () => {
           <div className="erp-stat-card">
             <div className="erp-stat-header">
               <span>Pending Approvals</span>
+              <span className="erp-badge erp-badge-amber">Sign-Offs</span>
             </div>
             <div className="erp-stat-value" style={{ color: (metrics?.pendingApprovals ?? 0) > 0 ? '#b45309' : undefined }}>
               {metrics ? metrics.pendingApprovals : '—'}
@@ -96,6 +98,7 @@ export const ErpDashboardPage: React.FC = () => {
           <div className="erp-stat-card">
             <div className="erp-stat-header">
               <span>Open POs</span>
+              <span className="erp-badge erp-badge-cyan">Procurement</span>
             </div>
             <div className="erp-stat-value">{metrics ? metrics.openProcurementOrders : '—'}</div>
             <div className="erp-stat-footer">Procurement orders in transit</div>
@@ -104,6 +107,7 @@ export const ErpDashboardPage: React.FC = () => {
           <div className="erp-stat-card">
             <div className="erp-stat-header">
               <span>Active Orders</span>
+              <span className="erp-badge erp-badge-emerald">Sales</span>
             </div>
             <div className="erp-stat-value">{metrics ? metrics.activeOrders : '—'}</div>
             <div className="erp-stat-footer">Sales orders processing</div>
@@ -112,6 +116,7 @@ export const ErpDashboardPage: React.FC = () => {
           <div className="erp-stat-card">
             <div className="erp-stat-header">
               <span>Supply Chain Alerts</span>
+              <span className="erp-badge erp-badge-rose">Logistics</span>
             </div>
             <div className="erp-stat-value" style={{ color: (metrics?.supplyChainAlerts ?? 0) > 0 ? '#b91c1c' : undefined }}>
               {metrics ? metrics.supplyChainAlerts : '—'}
@@ -122,6 +127,7 @@ export const ErpDashboardPage: React.FC = () => {
           <div className="erp-stat-card">
             <div className="erp-stat-header">
               <span>Active Projects</span>
+              <span className="erp-badge erp-badge-violet">Projects</span>
             </div>
             <div className="erp-stat-value">{metrics ? metrics.activeProjects : '—'}</div>
             <div className="erp-stat-footer">Client projects underway</div>
@@ -130,6 +136,7 @@ export const ErpDashboardPage: React.FC = () => {
           <div className="erp-stat-card">
             <div className="erp-stat-header">
               <span>Manufacturing Runs</span>
+              <span className="erp-badge erp-badge-orange">Shop Floor</span>
             </div>
             <div className="erp-stat-value">{metrics ? metrics.manufacturingRuns : '—'}</div>
             <div className="erp-stat-footer">Active production lines</div>
@@ -138,6 +145,7 @@ export const ErpDashboardPage: React.FC = () => {
           <div className="erp-stat-card">
             <div className="erp-stat-header">
               <span>Quality Queue</span>
+              <span className="erp-badge erp-badge-teal">QA & Audits</span>
             </div>
             <div className="erp-stat-value">{metrics ? metrics.qualityInspectionsPending : '—'}</div>
             <div className="erp-stat-footer">Pending inspection batches</div>
@@ -149,26 +157,42 @@ export const ErpDashboardPage: React.FC = () => {
       {stats && (
         <section className="erp-card">
           <div className="erp-card-header">
-            <h3 className="erp-card-title">Executive Performance Indicators</h3>
+            <div>
+              <h3 className="erp-card-title">Executive Performance Indicators</h3>
+              <p className="erp-subtitle" style={{ marginTop: 4 }}>High-level operational throughput and financial metrics</p>
+            </div>
+            <span className="erp-badge erp-badge-emerald">Enterprise Telemetry</span>
           </div>
           <div className="erp-stats-grid">
-            <div className="erp-stat-card" style={{ background: 'var(--color-bg, #f8fafc)' }}>
-              <div className="erp-stat-header">Procurement Spend (YTD)</div>
+            <div className="erp-stat-card erp-stat-card-tinted">
+              <div className="erp-stat-header">
+                <span>Procurement Spend (YTD)</span>
+                <span className="erp-badge erp-badge-emerald">Finance</span>
+              </div>
               <div className="erp-stat-value">${stats.totalProcurementSpend.toLocaleString()}</div>
               <div className="erp-stat-footer">Across verified vendor orders</div>
             </div>
-            <div className="erp-stat-card" style={{ background: 'var(--color-bg, #f8fafc)' }}>
-              <div className="erp-stat-header">Orders Fulfilled</div>
+            <div className="erp-stat-card erp-stat-card-tinted">
+              <div className="erp-stat-header">
+                <span>Orders Fulfilled</span>
+                <span className="erp-badge erp-badge-blue">Fulfillment</span>
+              </div>
               <div className="erp-stat-value">{stats.fulfilledOrders.toLocaleString()}</div>
               <div className="erp-stat-footer">100% on-time delivery metric</div>
             </div>
-            <div className="erp-stat-card" style={{ background: 'var(--color-bg, #f8fafc)' }}>
-              <div className="erp-stat-header">Avg Production Cycle</div>
+            <div className="erp-stat-card erp-stat-card-tinted">
+              <div className="erp-stat-header">
+                <span>Avg Production Cycle</span>
+                <span className="erp-badge erp-badge-amber">Efficiency</span>
+              </div>
               <div className="erp-stat-value">{stats.averageProductionCycleHours} hrs</div>
               <div className="erp-stat-footer">Manufacturing turnaround time</div>
             </div>
-            <div className="erp-stat-card" style={{ background: 'var(--color-bg, #f8fafc)' }}>
-              <div className="erp-stat-header">Compliance Score</div>
+            <div className="erp-stat-card erp-stat-card-tinted">
+              <div className="erp-stat-header">
+                <span>Compliance Score</span>
+                <span className="erp-badge erp-badge-emerald">Audit</span>
+              </div>
               <div className="erp-stat-value" style={{ color: stats.complianceScorePercent >= 90 ? '#047857' : '#d97706' }}>
                 {stats.complianceScorePercent}%
               </div>
