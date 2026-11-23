@@ -26,11 +26,11 @@ export const Logo: React.FC<LogoProps> = ({
           <defs>
             <linearGradient id="onseclickLogoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
               <stop offset="0%" stopColor="#10b981" />
-              <stop offset="100%" stopColor="#7c3aed" />
+              <stop offset="100%" stopColor="#059669" />
             </linearGradient>
             <linearGradient id="glowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
               <stop offset="0%" stopColor="#10b981" stopOpacity="0.8" />
-              <stop offset="100%" stopColor="#7c3aed" stopOpacity="0.2" />
+              <stop offset="100%" stopColor="#059669" stopOpacity="0.2" />
             </linearGradient>
           </defs>
           <rect width="40" height="40" rx="10" fill="url(#onseclickLogoGrad)" />

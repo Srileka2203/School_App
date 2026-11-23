@@ -1799,15 +1799,21 @@ input.sidebar-search-inline-input::placeholder {
   width: 28px;
   height: 28px;
   border-radius: 6px;
-  background: linear-gradient(135deg, #10B981 0%, #7C3AED 100%);
+  background: linear-gradient(135deg, #10B981 0%, #059669 100%);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 0.75rem;
   font-weight: 800;
-  color: #FFFFFF;
+  color: #000000;
   flex-shrink: 0;
   letter-spacing: -0.02em;
+  box-shadow: 0 1px 3px rgba(16, 185, 129, 0.25);
+}
+
+.sidebar-avatar-pill span {
+  color: #000000;
+  font-weight: 800;
 }
 
 .sidebar-user-details {

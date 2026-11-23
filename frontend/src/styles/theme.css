@@ -68,7 +68,7 @@ html.dark #app-logo .brand-name,
 html.dark .brand-badge,
 html.dark .auth-logo-title .brand-badge,
 [data-theme="dark"] .brand-badge {
-  background: #10B981 !important;
+  background: linear-gradient(135deg, #10B981 0%, #059669 100%) !important;
   color: #042102 !important;
   font-weight: 800 !important;
 }
@@ -396,6 +396,18 @@ html.dark .sidebar-profile-card,
 [data-theme="dark"] .sidebar-profile-card {
   background: #122217 !important;
   border: 1px solid rgba(16, 185, 129, 0.28) !important;
+}
+
+html.dark .sidebar-avatar-pill,
+[data-theme="dark"] .sidebar-avatar-pill {
+  background: linear-gradient(135deg, #10B981 0%, #059669 100%) !important;
+  box-shadow: 0 1px 3px rgba(16, 185, 129, 0.3) !important;
+}
+
+html.dark .sidebar-avatar-pill span,
+[data-theme="dark"] .sidebar-avatar-pill span {
+  color: #042102 !important;
+  font-weight: 800 !important;
 }
 
 html.dark .sidebar-user-name,

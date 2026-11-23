@@ -373,14 +373,10 @@
 
 .brand-badge {
   font-size: 0.6875rem;
-  font-weight: 700;
-  background: #A7F3D0;
-  border: 1px solid #10B981;
-  color: #000000 !important;
-  padding: 2px 6px;
   font-weight: 800;
-  background: linear-gradient(135deg, #10B981 0%, #7C3AED 100%);
-  color: #ffffff;
+  background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+  color: #000000 !important;
+  border: 1px solid rgba(16, 185, 129, 0.4);
   padding: 3px 8px;
   border-radius: 9999px;
   letter-spacing: 0.05em;
@@ -388,6 +384,7 @@
   align-items: center;
   justify-content: center;
   line-height: 1;
+  box-shadow: 0 1px 3px rgba(16, 185, 129, 0.25);
 }
 
 .auth-brand-logo.size-small .brand-name {
