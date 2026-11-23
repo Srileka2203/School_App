@@ -196,7 +196,11 @@ export class SupplyChainService {
       { sku: 'SKU-PKG-088', name: 'Corrugated Heavy Duty Crates', warehouseLocation: 'Warehouse C - Staging', quantityOnHand: 800, reorderLevel: 200, unitPrice: 8, unitOfMeasure: 'boxes', status: 'OPTIMAL', workspaceId },
     ];
     for (const d of defaults) {
-      await this.prisma.inventoryItem.create({ data: d });
+      await this.prisma.inventoryItem.upsert({
+        where: { sku: d.sku },
+        update: {},
+        create: d,
+      });
     }
   }
 }

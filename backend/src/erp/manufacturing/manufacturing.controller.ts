@@ -26,8 +26,16 @@ export class ManufacturingController {
   @ApiOperation({ summary: 'List shop-floor manufacturing work orders' })
   @ApiQuery({ name: 'workspaceId', required: false })
   @ApiResponse({ status: 200, description: 'List of work orders' })
-  async getWorkOrders(@Query('workspaceId') workspaceId?: string) {
-    return this.manufacturingService.getWorkOrders(workspaceId);
+  async getWorkOrders(
+    @Query('workspaceId') workspaceId?: string,
+    @Query() allQueries?: Record<string, any>,
+  ) {
+    const rawKey = Object.keys(allQueries || {}).find(
+      (k) => k.trim() === 'workspaceId',
+    );
+    const resolvedWorkspaceId =
+      workspaceId || (rawKey ? allQueries![rawKey] : undefined);
+    return this.manufacturingService.getWorkOrders(resolvedWorkspaceId);
   }
 
   @Get('work-orders/:id')
@@ -62,8 +70,16 @@ export class ManufacturingController {
   @Get('bom')
   @ApiOperation({ summary: 'List active Bills of Materials (BOM)' })
   @ApiQuery({ name: 'workspaceId', required: false })
-  async getBOM(@Query('workspaceId') workspaceId?: string) {
-    return this.manufacturingService.getBillOfMaterials(workspaceId);
+  async getBOM(
+    @Query('workspaceId') workspaceId?: string,
+    @Query() allQueries?: Record<string, any>,
+  ) {
+    const rawKey = Object.keys(allQueries || {}).find(
+      (k) => k.trim() === 'workspaceId',
+    );
+    const resolvedWorkspaceId =
+      workspaceId || (rawKey ? allQueries![rawKey] : undefined);
+    return this.manufacturingService.getBillOfMaterials(resolvedWorkspaceId);
   }
 
   @Get('bom/:id')
@@ -75,7 +91,29 @@ export class ManufacturingController {
 
   @Post('bom')
   @ApiOperation({ summary: 'Create a new Bill of Materials' })
-  @ApiBody({ schema: { type: 'object', properties: { assemblyName: { type: 'string', example: 'Hydraulic Actuator Pump Subsystem' }, version: { type: 'string', example: '2.0' }, components: { type: 'array', items: { type: 'object', properties: { componentName: { type: 'string' }, sku: { type: 'string' }, quantity: { type: 'number' }, unitOfMeasure: { type: 'string' }, costPerUnit: { type: 'number' } } } } } } })
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        bomCode: { type: 'string', example: 'BOM-2026-X2' },
+        assemblyName: { type: 'string', example: 'Hydraulic Actuator Pump Subsystem' },
+        version: { type: 'string', example: '2.0' },
+        workspaceId: { type: 'string' },
+        components: {
+          type: 'array',
+          items: {
+            type: 'object',
+            properties: {
+              componentName: { type: 'string', example: 'Titanium Cast Bracket' },
+              sku: { type: 'string', example: 'TIT-991' },
+              qtyPerUnit: { type: 'number', example: 4 },
+              unit: { type: 'string', example: 'pcs' },
+            },
+          },
+        },
+      },
+    },
+  })
   async createBOM(@Body() body: any) {
     return this.manufacturingService.createBOM(body);
   }

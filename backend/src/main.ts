@@ -1,9 +1,65 @@
+import * as net from 'net';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import { createValidationPipe } from './common/pipes/validation.pipe';
 
+async function selectReachableDatabaseUrl(): Promise<void> {
+  const directUrl = process.env.DIRECT_URL;
+  const poolerUrl = process.env.SUPABASE_POOLER_URL;
+
+  if (!directUrl && !poolerUrl) return;
+
+  const parseHostPort = (urlStr?: string, defaultPort = 5432) => {
+    if (!urlStr) return null;
+    try {
+      const match = urlStr.match(/@([^:/]+)(?::(\d+))?/);
+      if (match) {
+        return { host: match[1], port: match[2] ? parseInt(match[2], 10) : defaultPort };
+      }
+    } catch {}
+    return null;
+  };
+
+  const direct = parseHostPort(directUrl, 5432);
+  const pooler = parseHostPort(poolerUrl, 6543);
+
+  const checkSocket = (target: { host: string; port: number } | null, timeoutMs = 1200): Promise<boolean> => {
+    if (!target) return Promise.resolve(false);
+    return new Promise((resolve) => {
+      const s = new net.Socket();
+      s.setTimeout(timeoutMs);
+      s.on('connect', () => {
+        s.destroy();
+        resolve(true);
+      });
+      s.on('timeout', () => {
+        s.destroy();
+        resolve(false);
+      });
+      s.on('error', () => {
+        resolve(false);
+      });
+      s.connect(target.port, target.host);
+    });
+  };
+
+  const [directOk, poolerOk] = await Promise.all([
+    checkSocket(direct),
+    checkSocket(pooler),
+  ]);
+
+  if (directOk && directUrl) {
+    console.log(`📡 Database route: direct connection [${direct?.host}:${direct?.port}] is reachable.`);
+    process.env.DATABASE_URL = directUrl;
+  } else if (poolerOk && poolerUrl) {
+    console.log(`📡 Database route: pooler connection [${pooler?.host}:${pooler?.port}] is reachable.`);
+    process.env.DATABASE_URL = poolerUrl;
+  }
+}
+
 async function bootstrap() {
+  await selectReachableDatabaseUrl();
   const app = await NestFactory.create(AppModule);
 
   // Enable CORS
