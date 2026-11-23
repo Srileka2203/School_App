@@ -155,7 +155,7 @@ export const ErpIntegrationsPage: React.FC = () => {
                     </td>
                     <td>{getStatusBadge(c.status)}</td>
                     <td>
-                      <strong>{c.recordsSyncedToday.toLocaleString()}</strong> records
+                      <strong>{(c.recordsSyncedToday ?? 0).toLocaleString()}</strong> records
                     </td>
                     <td>{c.lastSyncAt ? new Date(c.lastSyncAt).toLocaleString() : 'Never'}</td>
                     <td style={{ textAlign: 'right' }}>

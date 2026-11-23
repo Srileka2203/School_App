@@ -174,7 +174,7 @@ export const ErpDashboardPage: React.FC = () => {
                 <span>Procurement Spend (YTD)</span>
                 <span className="erp-badge erp-badge-emerald">Finance</span>
               </div>
-              <div className="erp-stat-value">${stats.totalProcurementSpend.toLocaleString()}</div>
+              <div className="erp-stat-value">${(stats.totalProcurementSpend ?? 0).toLocaleString()}</div>
               <div className="erp-stat-footer">Across verified vendor orders</div>
             </div>
             <div className="erp-stat-card">
@@ -182,7 +182,7 @@ export const ErpDashboardPage: React.FC = () => {
                 <span>Orders Fulfilled</span>
                 <span className="erp-badge erp-badge-blue">Fulfillment</span>
               </div>
-              <div className="erp-stat-value">{stats.fulfilledOrders.toLocaleString()}</div>
+              <div className="erp-stat-value">{(stats.fulfilledOrders ?? 0).toLocaleString()}</div>
               <div className="erp-stat-footer">100% on-time delivery metric</div>
             </div>
             <div className="erp-stat-card">

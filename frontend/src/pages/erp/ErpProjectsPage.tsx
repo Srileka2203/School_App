@@ -205,8 +205,8 @@ export const ErpProjectsPage: React.FC = () => {
                       <td>
                         <div style={{ minWidth: 160 }}>
                           <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, marginBottom: 4 }}>
-                            <span>${p.spentTotal.toLocaleString()} spent</span>
-                            <span>${p.budgetTotal.toLocaleString()}</span>
+                            <span>${(p.spentTotal ?? 0).toLocaleString()} spent</span>
+                            <span>${(p.budgetTotal ?? 0).toLocaleString()}</span>
                           </div>
                           <div className="erp-progress-track">
                             <div

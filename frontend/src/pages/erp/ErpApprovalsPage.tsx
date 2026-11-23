@@ -49,9 +49,9 @@ export const ErpApprovalsPage: React.FC = () => {
   const filteredApprovals = useMemo(() => {
     return approvals.filter((item) => {
       const matchSearch =
-        item.title.toLowerCase().includes(search.toLowerCase()) ||
-        item.requester.toLowerCase().includes(search.toLowerCase()) ||
-        item.module.toLowerCase().includes(search.toLowerCase());
+        (item.title || '').toLowerCase().includes(search.toLowerCase()) ||
+        (item.requester || '').toLowerCase().includes(search.toLowerCase()) ||
+        (item.module || '').toLowerCase().includes(search.toLowerCase());
       const matchStatus = statusFilter === 'ALL' || item.status === statusFilter;
       const matchPriority = priorityFilter === 'ALL' || item.priority === priorityFilter;
       return matchSearch && matchStatus && matchPriority;
@@ -249,11 +249,11 @@ export const ErpApprovalsPage: React.FC = () => {
                       <span className="erp-badge erp-badge-info">{item.approverRole}</span>
                     </td>
                     <td>
-                      <strong>{item.amount !== undefined ? `$${item.amount.toLocaleString()}` : '—'}</strong>
+                      <strong>{item.amount != null ? `$${Number(item.amount).toLocaleString()}` : '—'}</strong>
                     </td>
                     <td>{getPriorityBadge(item.priority)}</td>
                     <td>{getStatusBadge(item.status)}</td>
-                    <td>{new Date(item.submittedAt).toLocaleDateString()}</td>
+                    <td>{item.submittedAt ? new Date(item.submittedAt).toLocaleDateString() : '—'}</td>
                     <td style={{ textAlign: 'right' }}>
                       {item.status === 'PENDING' ? (
                         <div style={{ display: 'inline-flex', gap: 6 }}>

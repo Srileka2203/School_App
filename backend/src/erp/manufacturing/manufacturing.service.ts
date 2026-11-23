@@ -142,37 +142,49 @@ export class ManufacturingService {
 
   // --- BILL OF MATERIALS (BOM) ---
   async getBillOfMaterials(workspaceId?: string) {
-    const cleanWorkspaceId = workspaceId?.trim();
-    const where = cleanWorkspaceId ? { workspaceId: cleanWorkspaceId } : {};
-    let data = await this.prisma.billOfMaterial.findMany({
-      where,
-      include: {
-        components: true,
-      },
-      orderBy: { createdAt: 'desc' },
-    });
-
-    if (data.length === 0) {
-      await this.seedDefaultBOM(cleanWorkspaceId);
-      data = await this.prisma.billOfMaterial.findMany({
+    try {
+      const cleanWorkspaceId = workspaceId?.trim();
+      const where = cleanWorkspaceId ? { workspaceId: cleanWorkspaceId } : {};
+      let data = await this.prisma.billOfMaterial.findMany({
         where,
-        include: { components: true },
+        include: {
+          components: true,
+        },
         orderBy: { createdAt: 'desc' },
       });
 
-      // Fallback: if workspace-specific BOM was not found, return any existing BOMs
       if (data.length === 0) {
+        try {
+          await this.seedDefaultBOM(cleanWorkspaceId);
+        } catch (seedErr) {
+          console.warn('BOM seeding warning:', seedErr);
+        }
         data = await this.prisma.billOfMaterial.findMany({
+          where,
           include: { components: true },
           orderBy: { createdAt: 'desc' },
         });
-      }
-    }
 
-    return {
-      data,
-      meta: { total: data.length },
-    };
+        // Fallback: if workspace-specific BOM was not found, return any existing BOMs
+        if (data.length === 0) {
+          data = await this.prisma.billOfMaterial.findMany({
+            include: { components: true },
+            orderBy: { createdAt: 'desc' },
+          });
+        }
+      }
+
+      return {
+        data: data || [],
+        meta: { total: data ? data.length : 0 },
+      };
+    } catch (err: any) {
+      console.error('getBillOfMaterials error:', err);
+      return {
+        data: [],
+        meta: { total: 0 },
+      };
+    }
   }
 
   async getBOM(id: string) {

@@ -239,7 +239,7 @@ export const ErpProcurementPage: React.FC = () => {
                       </td>
                       <td>{po.vendorName}</td>
                       <td>
-                        <strong>${po.totalAmount.toLocaleString()}</strong> <span style={{ fontSize: 11, color: 'var(--color-text-muted)' }}>{po.currency}</span>
+                        <strong>${(po.totalAmount ?? 0).toLocaleString()}</strong> <span style={{ fontSize: 11, color: 'var(--color-text-muted)' }}>{po.currency}</span>
                       </td>
                       <td>{po.lineItemsCount} items</td>
                       <td>{getPoStatusBadge(po.status)}</td>

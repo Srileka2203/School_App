@@ -197,7 +197,7 @@ export const ErpOrdersPage: React.FC = () => {
                     </td>
                     <td>{o.customerName}</td>
                     <td>
-                      <strong>${o.orderTotal.toLocaleString()}</strong> <span style={{ fontSize: 11, color: 'var(--color-text-muted)' }}>{o.currency}</span>
+                      <strong>${(o.orderTotal ?? 0).toLocaleString()}</strong> <span style={{ fontSize: 11, color: 'var(--color-text-muted)' }}>{o.currency}</span>
                     </td>
                     <td>{getPaymentBadge(o.paymentStatus)}</td>
                     <td>

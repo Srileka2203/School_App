@@ -101,34 +101,34 @@ export const ErpReportsPage: React.FC = () => {
                 <div className="erp-stats-grid">
                   <div className="erp-stat-card">
                     <div className="erp-stat-header">Total Revenue</div>
-                    <div className="erp-stat-value">${financial.totalRevenue.toLocaleString()}</div>
+                    <div className="erp-stat-value">${(financial.totalRevenue ?? 0).toLocaleString()}</div>
                     <div className="erp-stat-footer">Gross invoiced billings</div>
                   </div>
 
                   <div className="erp-stat-card">
                     <div className="erp-stat-header">Cost of Goods Sold (COGS)</div>
-                    <div className="erp-stat-value">${financial.costOfGoodsSold.toLocaleString()}</div>
+                    <div className="erp-stat-value">${(financial.costOfGoodsSold ?? 0).toLocaleString()}</div>
                     <div className="erp-stat-footer">Direct material & labor cost</div>
                   </div>
 
                   <div className="erp-stat-card">
                     <div className="erp-stat-header">Gross Margin</div>
                     <div className="erp-stat-value" style={{ color: '#10b981' }}>
-                      {financial.grossMarginPercent}%
+                      {financial.grossMarginPercent ?? 0}%
                     </div>
                     <div className="erp-stat-footer">Operating profitability</div>
                   </div>
 
                   <div className="erp-stat-card">
                     <div className="erp-stat-header">Operating Expenses (OPEX)</div>
-                    <div className="erp-stat-value">${financial.operatingExpenses.toLocaleString()}</div>
+                    <div className="erp-stat-value">${(financial.operatingExpenses ?? 0).toLocaleString()}</div>
                     <div className="erp-stat-footer">Overhead & administrative</div>
                   </div>
 
                   <div className="erp-stat-card" style={{ gridColumn: 'span 2' }}>
                     <div className="erp-stat-header">Net Net Income</div>
                     <div className="erp-stat-value" style={{ color: '#047857' }}>
-                      ${financial.netIncome.toLocaleString()}
+                      ${(financial.netIncome ?? 0).toLocaleString()}
                     </div>
                     <div className="erp-stat-footer">Final retained bottom line earnings</div>
                   </div>
@@ -144,7 +144,7 @@ export const ErpReportsPage: React.FC = () => {
                     Vendor Spend Distribution ({procurement.period})
                   </h4>
                   <span style={{ fontSize: 12, color: 'var(--color-text-muted)' }}>
-                    Total PO Spend: <strong>${procurement.totalPoSpend.toLocaleString()}</strong>
+                    Total PO Spend: <strong>${(procurement.totalPoSpend ?? 0).toLocaleString()}</strong>
                   </span>
                 </div>
 
@@ -169,7 +169,7 @@ export const ErpReportsPage: React.FC = () => {
                             <td>
                               <strong>{s.supplier}</strong>
                             </td>
-                            <td>${s.spend.toLocaleString()}</td>
+                            <td>${(s.spend ?? 0).toLocaleString()}</td>
                             <td>
                               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                                 <div className="erp-progress-track" style={{ width: 100 }}>
@@ -213,7 +213,7 @@ export const ErpReportsPage: React.FC = () => {
 
                   <div className="erp-stat-card">
                     <div className="erp-stat-header">Total Units Produced</div>
-                    <div className="erp-stat-value">{production.totalUnitsProduced.toLocaleString()}</div>
+                    <div className="erp-stat-value">{(production.totalUnitsProduced ?? 0).toLocaleString()}</div>
                     <div className="erp-stat-footer">Net accepted finished goods</div>
                   </div>
 
