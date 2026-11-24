@@ -112,6 +112,7 @@ async function bootstrap() {
     .addTag('Tags', 'Module 24: Reusable tagging system for Leads, Contacts, Companies, Deals, Activities, and Documents with workspace isolation and usage statistics')
     .addTag('Audit Logs', 'Module 25: Comprehensive audit trail, entity change history, compliance export, and data governance')
     .addTag('Help & Support', 'Module 28: Help center, documentation, FAQs, contact support tickets, and user feedback')
+    .addTag('HRM - Human Resource Management', 'Enterprise HRM Suite: employee lifecycle, payroll, attendance, shifts, leave, expenses, and talent')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
