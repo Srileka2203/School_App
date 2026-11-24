@@ -313,8 +313,16 @@ export const ErpManufacturingPage: React.FC = () => {
 
       {/* Schedule Work Order Modal */}
       {showModal && (
-        <div className="erp-modal-overlay">
-          <div className="erp-modal">
+        <div
+          className="erp-modal-overlay"
+          onClick={() => setShowModal(false)}
+        >
+          <div
+            className="erp-modal"
+            role="dialog"
+            aria-modal="true"
+            onClick={(e) => e.stopPropagation()}
+          >
             <div className="erp-modal-header">
               <h3 className="erp-modal-title">Schedule Manufacturing Work Order</h3>
               <button

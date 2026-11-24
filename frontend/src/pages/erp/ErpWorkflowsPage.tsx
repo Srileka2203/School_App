@@ -40,6 +40,16 @@ export const ErpWorkflowsPage: React.FC = () => {
     loadWorkflows();
   }, [loadWorkflows]);
 
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && showModal) {
+        setShowModal(false);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [showModal]);
+
   const categories = useMemo(() => {
     const set = new Set<string>();
     workflows.forEach((w) => {
@@ -232,10 +242,19 @@ export const ErpWorkflowsPage: React.FC = () => {
 
       {/* Create Workflow Modal */}
       {showModal && (
-        <div className="erp-modal-overlay">
-          <div className="erp-modal">
+        <div
+          className="erp-modal-overlay"
+          onClick={() => setShowModal(false)}
+        >
+          <div
+            className="erp-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="modal-workflow-title"
+            onClick={(e) => e.stopPropagation()}
+          >
             <div className="erp-modal-header">
-              <h3 className="erp-modal-title">New Business Workflow</h3>
+              <h3 className="erp-modal-title" id="modal-workflow-title">New Business Workflow</h3>
               <button
                 type="button"
                 className="erp-modal-close"

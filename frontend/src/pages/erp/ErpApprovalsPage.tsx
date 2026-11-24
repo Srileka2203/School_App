@@ -298,8 +298,16 @@ export const ErpApprovalsPage: React.FC = () => {
 
       {/* Decision Comment Modal */}
       {actionItem && (
-        <div className="erp-modal-overlay">
-          <div className="erp-modal">
+        <div
+          className="erp-modal-overlay"
+          onClick={() => setActionItem(null)}
+        >
+          <div
+            className="erp-modal"
+            role="dialog"
+            aria-modal="true"
+            onClick={(e) => e.stopPropagation()}
+          >
             <div className="erp-modal-header">
               <h3 className="erp-modal-title">
                 {actionItem.type === 'APPROVE' ? 'Approve Request' : 'Reject Request'}
@@ -352,8 +360,16 @@ export const ErpApprovalsPage: React.FC = () => {
 
       {/* Create Approval Request Modal */}
       {showCreateModal && (
-        <div className="erp-modal-overlay">
-          <div className="erp-modal">
+        <div
+          className="erp-modal-overlay"
+          onClick={() => setShowCreateModal(false)}
+        >
+          <div
+            className="erp-modal"
+            role="dialog"
+            aria-modal="true"
+            onClick={(e) => e.stopPropagation()}
+          >
             <div className="erp-modal-header">
               <h3 className="erp-modal-title">Submit Approval Request</h3>
               <button
