@@ -1563,3 +1563,526 @@ model ErpAnalyticsSnapshot {
   @@index([snapshotType])
   @@index([generatedAt])
 }
+
+// ============================================================================
+// HRM (HUMAN RESOURCE MANAGEMENT) ENTERPRISE SUITE MODELS
+// ============================================================================
+
+// 1. ORGANIZATIONAL STRUCTURE
+model HrmDepartment {
+  id                 String   @id @default(uuid())
+  name               String
+  code               String?
+  headOfDepartment   String?
+  parentDepartmentId String?
+  description        String?
+  status             String   @default("ACTIVE") // ACTIVE, INACTIVE
+  workspaceId        String?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  employees    HrmEmployee[]
+  designations HrmDesignation[]
+  jobPostings  HrmJobPosting[]
+
+  @@index([workspaceId])
+  @@index([status])
+  @@index([name])
+}
+
+model HrmDesignation {
+  id           String         @id @default(uuid())
+  title        String
+  code         String?
+  departmentId String?
+  department   HrmDepartment? @relation(fields: [departmentId], references: [id], onDelete: SetNull)
+  jobGrade     String?
+  description  String?
+  status       String         @default("ACTIVE") // ACTIVE, INACTIVE
+  workspaceId  String?
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+
+  employees HrmEmployee[]
+
+  @@index([workspaceId])
+  @@index([departmentId])
+  @@index([status])
+}
+
+model HrmLocation {
+  id             String   @id @default(uuid())
+  name           String
+  code           String?
+  address        String?
+  city           String?
+  state          String?
+  country        String?
+  isHeadquarters Boolean  @default(false)
+  status         String   @default("ACTIVE") // ACTIVE, INACTIVE
+  workspaceId    String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  employees HrmEmployee[]
+
+  @@index([workspaceId])
+  @@index([status])
+}
+
+model HrmJobGrade {
+  id          String   @id @default(uuid())
+  gradeName   String
+  gradeLevel  String?
+  minSalary   Float?
+  maxSalary   Float?
+  currency    String   @default("USD")
+  description String?
+  workspaceId String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  employees HrmEmployee[]
+
+  @@index([workspaceId])
+}
+
+model HrmEmploymentType {
+  id          String   @id @default(uuid())
+  name        String
+  code        String?
+  description String?
+  isPermanent Boolean  @default(true)
+  workspaceId String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  employees HrmEmployee[]
+
+  @@index([workspaceId])
+}
+
+// 2. EMPLOYEE CORE & LIFECYCLE
+model HrmEmployee {
+  id               String             @id @default(uuid())
+  employeeNumber   String             @unique
+  firstName        String
+  lastName         String
+  email            String
+  phone            String?
+  avatar           String?
+  gender           String?
+  dateOfBirth      DateTime?
+  departmentId     String?
+  department       HrmDepartment?     @relation(fields: [departmentId], references: [id], onDelete: SetNull)
+  designationId    String?
+  designation      HrmDesignation?    @relation(fields: [designationId], references: [id], onDelete: SetNull)
+  locationId       String?
+  location         HrmLocation?       @relation(fields: [locationId], references: [id], onDelete: SetNull)
+  jobGradeId       String?
+  jobGrade         HrmJobGrade?       @relation(fields: [jobGradeId], references: [id], onDelete: SetNull)
+  employmentTypeId String?
+  employmentType   HrmEmploymentType? @relation(fields: [employmentTypeId], references: [id], onDelete: SetNull)
+  status           String             @default("ACTIVE") // ACTIVE, INACTIVE, TERMINATED, ON_LEAVE
+  joiningDate      DateTime?
+  confirmationDate DateTime?
+  exitDate         DateTime?
+  salary           Float?
+  currency         String             @default("USD")
+  workspaceId      String?
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+
+  attendances        HrmAttendance[]
+  leaveRequests      HrmLeaveRequest[]
+  payslips           HrmPayslip[]
+  skills             HrmEmployeeSkill[]
+  documents          HrmEmployeeDocument[]
+  experience         HrmEmployeeExperience[]
+  education          HrmEmployeeEducation[]
+  certifications     HrmEmployeeCertification[]
+  assetAssignments   HrmAssetAssignment[]
+  expenses           HrmExpense[]
+  performanceReviews HrmPerformanceReview[]
+  shiftAssignments   HrmShiftAssignment[]
+
+  @@index([workspaceId])
+  @@index([departmentId])
+  @@index([designationId])
+  @@index([status])
+  @@index([email])
+}
+
+// 3. EMPLOYEE SUB-PROFILES
+model HrmEmployeeSkill {
+  id                String      @id @default(uuid())
+  employeeId        String
+  employee          HrmEmployee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  skillName         String
+  proficiencyLevel  String      @default("INTERMEDIATE") // BEGINNER, INTERMEDIATE, ADVANCED, EXPERT
+  yearsOfExperience Float?
+  workspaceId       String?
+  createdAt         DateTime    @default(now())
+  updatedAt         DateTime    @updatedAt
+
+  @@index([employeeId])
+  @@index([workspaceId])
+}
+
+model HrmEmployeeDocument {
+  id             String      @id @default(uuid())
+  employeeId     String
+  employee       HrmEmployee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  documentType   String // PASSPORT, ID_CARD, CONTRACT, CERTIFICATE, TAX_FORM, OTHER
+  documentNumber String?
+  fileUrl        String
+  issueDate      DateTime?
+  expiryDate     DateTime?
+  workspaceId    String?
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+
+  @@index([employeeId])
+  @@index([workspaceId])
+}
+
+model HrmEmployeeExperience {
+  id          String      @id @default(uuid())
+  employeeId  String
+  employee    HrmEmployee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  companyName String
+  jobTitle    String
+  startDate   DateTime?
+  endDate     DateTime?
+  isCurrent   Boolean     @default(false)
+  description String?
+  workspaceId String?
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  @@index([employeeId])
+  @@index([workspaceId])
+}
+
+model HrmEmployeeEducation {
+  id              String      @id @default(uuid())
+  employeeId      String
+  employee        HrmEmployee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  institutionName String
+  degree          String
+  fieldOfStudy    String?
+  startDate       DateTime?
+  endDate         DateTime?
+  grade           String?
+  workspaceId     String?
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+
+  @@index([employeeId])
+  @@index([workspaceId])
+}
+
+model HrmEmployeeCertification {
+  id                  String      @id @default(uuid())
+  employeeId          String
+  employee            HrmEmployee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  certificationName   String
+  issuingOrganization String
+  issueDate           DateTime?
+  expiryDate          DateTime?
+  credentialId        String?
+  credentialUrl       String?
+  workspaceId         String?
+  createdAt           DateTime    @default(now())
+  updatedAt           DateTime    @updatedAt
+
+  @@index([employeeId])
+  @@index([workspaceId])
+}
+
+// 4. ATTENDANCE & TIME TRACKING
+model HrmAttendance {
+  id          String      @id @default(uuid())
+  employeeId  String
+  employee    HrmEmployee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  date        DateTime    @default(now())
+  clockIn     DateTime?
+  clockOut    DateTime?
+  totalHours  Float?
+  status      String      @default("PRESENT") // PRESENT, ABSENT, HALF_DAY, LATE, ON_LEAVE
+  method      String      @default("WEB_PORTAL") // BIOMETRIC, WEB_PORTAL, MOBILE_APP, MANUAL
+  notes       String?
+  workspaceId String?
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  @@index([employeeId])
+  @@index([date])
+  @@index([status])
+  @@index([workspaceId])
+}
+
+// 5. LEAVE MANAGEMENT
+model HrmLeaveRequest {
+  id              String      @id @default(uuid())
+  employeeId      String
+  employee        HrmEmployee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  leaveType       String // ANNUAL, SICK, CASUAL, MATERNITY, PATERNITY, UNPAID
+  startDate       DateTime
+  endDate         DateTime
+  totalDays       Float
+  reason          String?
+  status          String      @default("PENDING") // PENDING, APPROVED, REJECTED, CANCELLED
+  approvedBy      String?
+  rejectionReason String?
+  workspaceId     String?
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+
+  @@index([employeeId])
+  @@index([status])
+  @@index([leaveType])
+  @@index([workspaceId])
+}
+
+// 6. PAYROLL MANAGEMENT
+model HrmPayrollRun {
+  id              String    @id @default(uuid())
+  month           String // e.g. "November 2026"
+  year            Int?
+  totalGross      Float     @default(0)
+  totalDeductions Float     @default(0)
+  totalNet        Float     @default(0)
+  employeeCount   Int       @default(0)
+  status          String    @default("DRAFT") // DRAFT, PROCESSING, PROCESSED, PAID
+  executedDate    DateTime?
+  workspaceId     String?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  payslips HrmPayslip[]
+
+  @@index([workspaceId])
+  @@index([status])
+  @@index([month])
+}
+
+model HrmPayslip {
+  id            String         @id @default(uuid())
+  payrollRunId  String?
+  payrollRun    HrmPayrollRun? @relation(fields: [payrollRunId], references: [id], onDelete: SetNull)
+  employeeId    String
+  employee      HrmEmployee    @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  payPeriod     String
+  baseSalary    Float          @default(0)
+  allowances    Float          @default(0)
+  taxDeductions Float          @default(0)
+  insurance     Float          @default(0)
+  netSalary     Float          @default(0)
+  status        String         @default("ISSUED") // DRAFT, ISSUED, PAID
+  paymentDate   DateTime?
+  workspaceId   String?
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+
+  @@index([payrollRunId])
+  @@index([employeeId])
+  @@index([status])
+  @@index([workspaceId])
+}
+
+// 7. SHIFTS & ROSTERS
+model HrmShift {
+  id           String   @id @default(uuid())
+  name         String
+  code         String?
+  startTime    String // e.g. "09:00"
+  endTime      String // e.g. "17:00"
+  breakMinutes Int      @default(60)
+  status       String   @default("ACTIVE") // ACTIVE, INACTIVE
+  workspaceId  String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  assignments HrmShiftAssignment[]
+
+  @@index([workspaceId])
+  @@index([status])
+}
+
+model HrmShiftAssignment {
+  id          String      @id @default(uuid())
+  shiftId     String
+  shift       HrmShift    @relation(fields: [shiftId], references: [id], onDelete: Cascade)
+  employeeId  String
+  employee    HrmEmployee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  startDate   DateTime
+  endDate     DateTime?
+  workspaceId String?
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  @@index([shiftId])
+  @@index([employeeId])
+  @@index([workspaceId])
+}
+
+// 8. COMPANY ASSETS
+model HrmAsset {
+  id           String    @id @default(uuid())
+  assetName    String
+  assetTag     String    @unique
+  serialNumber String?
+  category     String // LAPTOP, MONITOR, PHONE, FURNITURE, OTHER
+  cost         Float?
+  purchaseDate DateTime?
+  status       String    @default("AVAILABLE") // AVAILABLE, ASSIGNED, UNDER_MAINTENANCE, RETIRED
+  workspaceId  String?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  assignments HrmAssetAssignment[]
+
+  @@index([workspaceId])
+  @@index([status])
+  @@index([category])
+}
+
+model HrmAssetAssignment {
+  id           String      @id @default(uuid())
+  assetId      String
+  asset        HrmAsset    @relation(fields: [assetId], references: [id], onDelete: Cascade)
+  employeeId   String
+  employee     HrmEmployee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  assignedDate DateTime    @default(now())
+  returnDate   DateTime?
+  notes        String?
+  workspaceId  String?
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+
+  @@index([assetId])
+  @@index([employeeId])
+  @@index([workspaceId])
+}
+
+// 9. EXPENSES & CLAIMS
+model HrmExpense {
+  id          String      @id @default(uuid())
+  employeeId  String
+  employee    HrmEmployee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  title       String
+  category    String // TRAVEL, MEALS, EQUIPMENT, TRAINING, MISCELLANEOUS
+  amount      Float
+  currency    String      @default("USD")
+  expenseDate DateTime    @default(now())
+  status      String      @default("PENDING") // PENDING, APPROVED, REJECTED, REIMBURSED
+  receiptUrl  String?
+  notes       String?
+  workspaceId String?
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  @@index([employeeId])
+  @@index([status])
+  @@index([workspaceId])
+}
+
+// 10. PERFORMANCE & APPRAISALS
+model HrmPerformanceReview {
+  id          String      @id @default(uuid())
+  employeeId  String
+  employee    HrmEmployee @relation(fields: [employeeId], references: [id], onDelete: Cascade)
+  reviewerId  String?
+  cycleName   String // e.g. "Q4 2026 Annual Performance Review"
+  rating      Float?
+  reviewNotes String?
+  goals       Json?       @default("[]")
+  status      String      @default("DRAFT") // DRAFT, SUBMITTED, COMPLETED
+  workspaceId String?
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  @@index([employeeId])
+  @@index([status])
+  @@index([workspaceId])
+}
+
+// 11. RECRUITMENT & TALENT ACQUISITION
+model HrmJobPosting {
+  id             String         @id @default(uuid())
+  jobTitle       String
+  departmentId   String?
+  department     HrmDepartment? @relation(fields: [departmentId], references: [id], onDelete: SetNull)
+  jobGrade       String?
+  openingsCount  Int            @default(1)
+  employmentType String         @default("Full-time")
+  description    String?
+  status         String         @default("OPEN") // OPEN, CLOSED, ON_HOLD
+  hiringManager  String?
+  workspaceId    String?
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+
+  @@index([departmentId])
+  @@index([status])
+  @@index([workspaceId])
+}
+
+// 12. TRAINING & DEVELOPMENT
+model HrmTrainingProgram {
+  id          String    @id @default(uuid())
+  title       String
+  description String?
+  trainer     String?
+  startDate   DateTime?
+  endDate     DateTime?
+  status      String    @default("SCHEDULED") // SCHEDULED, IN_PROGRESS, COMPLETED
+  workspaceId String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([workspaceId])
+  @@index([status])
+}
+
+// 13. INTERNAL HELPDESK & TICKETING
+model HrmHelpdeskTicket {
+  id              String   @id @default(uuid())
+  ticketNumber    String?
+  employeeId      String?
+  category        String   @default("GENERAL") // PAYROLL, LEAVE, BENEFITS, IT, WORKPLACE, OTHER
+  subject         String
+  description     String
+  priority        String   @default("MEDIUM") // LOW, MEDIUM, HIGH, URGENT
+  status          String   @default("OPEN") // OPEN, IN_PROGRESS, RESOLVED, CLOSED
+  assignedTo      String?
+  resolutionNotes String?
+  workspaceId     String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@index([employeeId])
+  @@index([status])
+  @@index([priority])
+  @@index([workspaceId])
+}
+
+// 14. ONBOARDING & OFFBOARDING
+model HrmOnboardingTask {
+  id            String    @id @default(uuid())
+  employeeId    String?
+  taskName      String
+  category      String    @default("GENERAL") // DOCUMENTATION, IT_SETUP, ORIENTATION, TRAINING
+  dueDate       DateTime?
+  completedDate DateTime?
+  isCompleted   Boolean   @default(false)
+  assignedTo    String?
+  workspaceId   String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  @@index([employeeId])
+  @@index([isCompleted])
+  @@index([workspaceId])
+}

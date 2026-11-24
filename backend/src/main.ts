@@ -24,7 +24,7 @@ async function selectReachableDatabaseUrl(): Promise<void> {
   const direct = parseHostPort(directUrl, 5432);
   const pooler = parseHostPort(poolerUrl, 6543);
 
-  const checkSocket = (target: { host: string; port: number } | null, timeoutMs = 1200): Promise<boolean> => {
+  const checkSocket = (target: { host: string; port: number } | null, timeoutMs = 4000): Promise<boolean> => {
     if (!target) return Promise.resolve(false);
     return new Promise((resolve) => {
       const s = new net.Socket();
@@ -44,16 +44,19 @@ async function selectReachableDatabaseUrl(): Promise<void> {
     });
   };
 
-  const [directOk, poolerOk] = await Promise.all([
-    checkSocket(direct),
-    checkSocket(pooler),
+  const [poolerOk, directOk] = await Promise.all([
+    checkSocket(pooler, 4000),
+    checkSocket(direct, 4000),
   ]);
 
-  if (directOk && directUrl) {
+  if (poolerOk && poolerUrl) {
+    console.log(`📡 Database route: pooler connection [${pooler?.host}:${pooler?.port}] is reachable.`);
+    process.env.DATABASE_URL = poolerUrl;
+  } else if (directOk && directUrl) {
     console.log(`📡 Database route: direct connection [${direct?.host}:${direct?.port}] is reachable.`);
     process.env.DATABASE_URL = directUrl;
-  } else if (poolerOk && poolerUrl) {
-    console.log(`📡 Database route: pooler connection [${pooler?.host}:${pooler?.port}] is reachable.`);
+  } else if (poolerUrl) {
+    console.log(`📡 Database route: defaulting to pooler connection [${pooler?.host}:${pooler?.port}].`);
     process.env.DATABASE_URL = poolerUrl;
   }
 }
