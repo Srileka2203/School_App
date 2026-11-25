@@ -1,0 +1,1 @@
+export { HrmDashboardPage } from './HrmDashboardPage';

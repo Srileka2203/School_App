@@ -1,0 +1,1 @@
+export { EmployeeCertificationsPage } from './EmployeeCertificationsPage';

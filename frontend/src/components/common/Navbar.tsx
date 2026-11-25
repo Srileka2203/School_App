@@ -111,6 +111,12 @@ const MAIN_MODULES: NavModuleItem[] = [
     icon: <BuildingIcon size={18} />,
     basePath: '/erp',
   },
+  {
+    id: 'hrm',
+    label: 'HRM Suite',
+    icon: <UsersIcon size={18} />,
+    basePath: '/hrm',
+  },
 ];
 
 /* 2. Remaining Modules inside Right-Side Settings Flyout Panel (Neat & Categorized) */
@@ -251,6 +257,15 @@ const SEARCHABLE_ITEMS: SearchableModuleItem[] = [
     keywords: ['erp', 'enterprise', 'procurement', 'workflows', 'approvals', 'supply chain', 'inventory', 'manufacturing', 'bom', 'quality', 'integrations'],
     description: 'Enterprise resource planning: procurement, work orders, logistics, and workflows',
     icon: <BuildingIcon size={16} />,
+  },
+  {
+    id: 'hrm',
+    title: 'HRM Suite',
+    category: 'Enterprise Operations',
+    path: '/hrm',
+    keywords: ['hrm', 'hr', 'human resources', 'employees', 'departments', 'payroll', 'attendance', 'leaves', 'recruitment', 'onboarding', 'performance', 'expenses', 'assets', 'shifts'],
+    description: 'Human resource management: employees, payroll, attendance, leave, performance & assets',
+    icon: <UsersIcon size={16} />,
   },
 
   // 2. Settings & Operations

@@ -1,0 +1,1 @@
+export { EmployeeHistoryPage } from './EmployeeHistoryPage';

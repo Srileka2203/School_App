@@ -143,6 +143,34 @@ import {
   ErpIntegrationsPage,
   ErpReportsPage,
 } from './pages/erp';
+import {
+  HrmDashboardPage,
+  EmployeesPage,
+  DepartmentsPage,
+  DesignationsPage,
+  LocationsPage,
+  JobGradesPage,
+  EmploymentTypesPage,
+  EmployeeDocumentsPage,
+  EmployeeEducationPage,
+  EmployeeExperiencePage,
+  EmployeeSkillsPage,
+  EmployeeCertificationsPage,
+  EmployeeHistoryPage,
+  ReportingPage,
+  AttendancePage,
+  LeaveManagementPage,
+  ShiftsPage,
+  PayrollPage,
+  RecruitmentPage,
+  OnboardingPage,
+  PerformancePage,
+  ExpensesPage,
+  AssetsPage,
+  TrainingPage,
+  HelpdeskPage,
+  ReportsPage,
+} from './pages/hrm';
 import { NotFoundPage } from './pages/NotFoundPage';
 import { ApiConfigBanner } from './components/common/ApiConfigBanner';
 
@@ -439,6 +467,35 @@ export function App() {
         <Route path="/erp/quality" element={<ErpQualityPage />} />
         <Route path="/erp/integrations" element={<ErpIntegrationsPage />} />
         <Route path="/erp/reports" element={<ErpReportsPage />} />
+
+        {/* HRM Human Resource Management Routes */}
+        <Route path="/hrm" element={<HrmDashboardPage />} />
+        <Route path="/hrm/dashboard" element={<HrmDashboardPage />} />
+        <Route path="/hrm/employees" element={<EmployeesPage />} />
+        <Route path="/hrm/departments" element={<DepartmentsPage />} />
+        <Route path="/hrm/designations" element={<DesignationsPage />} />
+        <Route path="/hrm/locations" element={<LocationsPage />} />
+        <Route path="/hrm/job-grades" element={<JobGradesPage />} />
+        <Route path="/hrm/employment-types" element={<EmploymentTypesPage />} />
+        <Route path="/hrm/employee-documents" element={<EmployeeDocumentsPage />} />
+        <Route path="/hrm/employee-education" element={<EmployeeEducationPage />} />
+        <Route path="/hrm/employee-experience" element={<EmployeeExperiencePage />} />
+        <Route path="/hrm/employee-skills" element={<EmployeeSkillsPage />} />
+        <Route path="/hrm/employee-certifications" element={<EmployeeCertificationsPage />} />
+        <Route path="/hrm/employee-history" element={<EmployeeHistoryPage />} />
+        <Route path="/hrm/reporting" element={<ReportingPage />} />
+        <Route path="/hrm/attendance" element={<AttendancePage />} />
+        <Route path="/hrm/leave-management" element={<LeaveManagementPage />} />
+        <Route path="/hrm/shifts" element={<ShiftsPage />} />
+        <Route path="/hrm/payroll" element={<PayrollPage />} />
+        <Route path="/hrm/recruitment" element={<RecruitmentPage />} />
+        <Route path="/hrm/onboarding" element={<OnboardingPage />} />
+        <Route path="/hrm/performance" element={<PerformancePage />} />
+        <Route path="/hrm/expenses" element={<ExpensesPage />} />
+        <Route path="/hrm/assets" element={<AssetsPage />} />
+        <Route path="/hrm/training" element={<TrainingPage />} />
+        <Route path="/hrm/helpdesk" element={<HelpdeskPage />} />
+        <Route path="/hrm/reports" element={<ReportsPage />} />
 
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/change-password" element={<ChangePasswordPage />} />
