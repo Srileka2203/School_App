@@ -69,9 +69,15 @@ export class HrmAttendanceService {
     try {
       // Find valid employee in DB or first employee
       let employeeId = data.employeeId;
-      const emp = await this.prisma.hrmEmployee.findFirst({
-        where: { OR: [{ id: employeeId }, { employeeNumber: employeeId }] },
-      });
+      let emp: any = null;
+      if (employeeId) {
+        emp = await this.prisma.hrmEmployee.findFirst({
+          where: { OR: [{ id: employeeId }, { employeeNumber: employeeId }] },
+        });
+      }
+      if (!emp) {
+        emp = await this.prisma.hrmEmployee.findFirst();
+      }
       if (emp) employeeId = emp.id;
 
       const created = await this.prisma.hrmAttendance.create({

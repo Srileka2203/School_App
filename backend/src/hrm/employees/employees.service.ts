@@ -270,6 +270,7 @@ export class HrmEmployeesService {
       this.items.unshift(formatted);
       return formatted;
     } catch (err) {
+      console.error('Prisma create error in HrmEmployeesService:', err);
       const newItem = {
         id: data.id || `emp-${Date.now()}`,
         employeeNumber,

@@ -80,9 +80,15 @@ export class HrmEmployeeSkillsService {
 
     try {
       let employeeId = data.employeeId;
-      const emp = await this.prisma.hrmEmployee.findFirst({
-        where: { OR: [{ id: employeeId }, { employeeNumber: employeeId }] },
-      });
+      let emp: any = null;
+      if (employeeId) {
+        emp = await this.prisma.hrmEmployee.findFirst({
+          where: { OR: [{ id: employeeId }, { employeeNumber: employeeId }] },
+        });
+      }
+      if (!emp) {
+        emp = await this.prisma.hrmEmployee.findFirst();
+      }
       if (emp) employeeId = emp.id;
 
       const created = await this.prisma.hrmEmployeeSkill.create({
@@ -97,6 +103,7 @@ export class HrmEmployeeSkillsService {
       this.items.unshift(formatted);
       return formatted;
     } catch (err) {
+      console.error('Prisma create error in HrmEmployeeSkillsService:', err);
       const newItem = {
         id: data.id || `sk-${Date.now()}`,
         skillName,
