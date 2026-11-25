@@ -3,7 +3,7 @@ import { PrismaService } from '../../database/prisma.service';
 
 @Injectable()
 export class HrmEmployeeEducationService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) { }
 
   private items: any[] = [
     {
@@ -43,7 +43,7 @@ export class HrmEmployeeEducationService {
         }));
         return { data: result, meta: { total: result.length } };
       }
-    } catch (err) {}
+    } catch (err) { }
 
     let result = [...this.items];
     if (query?.employeeId) {
@@ -56,7 +56,7 @@ export class HrmEmployeeEducationService {
     try {
       const item = await this.prisma.hrmEmployeeEducation.findUnique({ where: { id } });
       if (item) return { ...item, institution: item.institutionName };
-    } catch (err) {}
+    } catch (err) { }
 
     const item = this.items.find((i) => i.id === id);
     if (!item) throw new NotFoundException(`Education record with ID ${id} not found`);
