@@ -9,9 +9,9 @@ function formatDatabaseUrl(rawUrl?: string): string {
     if (!url.searchParams.has('pool_timeout')) {
       url.searchParams.set('pool_timeout', '30');
     }
-    // Ensure connection_limit is set (10 connections max for Supabase stability)
+    // Ensure connection_limit is set (5 connections max for Supabase stability)
     if (!url.searchParams.has('connection_limit')) {
-      url.searchParams.set('connection_limit', '10');
+      url.searchParams.set('connection_limit', '5');
     }
     // Ensure connect_timeout is at least 30 seconds
     if (!url.searchParams.has('connect_timeout')) {
