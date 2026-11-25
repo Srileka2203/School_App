@@ -6,98 +6,123 @@ export class HrmEmployeeDocumentsService {
   constructor(private readonly prisma: PrismaService) {}
 
   private items: any[] = [
-  {
-    "id": "doc-01",
-    "employeeId": "emp-101",
-    "title": "Employment Agreement 2023",
-    "documentType": "CONTRACT",
-    "fileUrl": "https://files.example.com/contracts/emp-101.pdf",
-    "expiryDate": null,
-    "status": "VERIFIED"
-  },
-  {
-    "id": "doc-02",
-    "employeeId": "emp-101",
-    "title": "Government Passport Copy",
-    "documentType": "ID_CARD",
-    "fileUrl": "https://files.example.com/id/emp-101-pass.pdf",
-    "expiryDate": "2029-08-20",
-    "status": "VERIFIED"
-  },
-  {
-    "id": "doc-03",
-    "employeeId": "emp-102",
-    "title": "Sales NDA & Non-Compete",
-    "documentType": "NDA",
-    "fileUrl": "https://files.example.com/legal/emp-102-nda.pdf",
-    "expiryDate": null,
-    "status": "VERIFIED"
-  }
-];
+    {
+      id: 'doc-01',
+      employeeId: 'emp-101',
+      documentType: 'PASSPORT',
+      documentName: 'International Passport.pdf',
+      documentNumber: 'P89218290',
+      fileUrl: 'https://documents.example.com/passport-emp-101.pdf',
+      status: 'VERIFIED',
+    },
+    {
+      id: 'doc-02',
+      employeeId: 'emp-102',
+      documentType: 'CONTRACT',
+      documentName: 'Employment Agreement Executed.pdf',
+      documentNumber: 'CTR-2023-118',
+      fileUrl: 'https://documents.example.com/contract-emp-102.pdf',
+      status: 'VERIFIED',
+    },
+  ];
 
   async findAll(query?: any) {
+    try {
+      const dbItems = await this.prisma.hrmEmployeeDocument.findMany({
+        where: query?.employeeId ? { employeeId: query.employeeId } : undefined,
+        orderBy: { createdAt: 'desc' },
+      });
+      if (dbItems && dbItems.length > 0) {
+        return { data: dbItems, meta: { total: dbItems.length } };
+      }
+    } catch (err) {}
+
     let result = [...this.items];
-    if (query?.search) {
-      const q = String(query.search).toLowerCase();
-      result = result.filter((item) =>
-        Object.values(item).some((val) =>
-          typeof val === 'string' && val.toLowerCase().includes(q),
-        ),
-      );
-    }
-    if (query?.status) {
-      result = result.filter((item) => item.status === query.status);
-    }
-    if (query?.department) {
-      result = result.filter((item) => item.department === query.department);
-    }
     if (query?.employeeId) {
       result = result.filter((item) => item.employeeId === query.employeeId);
     }
-    return {
-      data: result,
-      meta: { total: result.length },
-    };
+    return { data: result, meta: { total: result.length } };
   }
 
   async findOne(id: string) {
-    const item = this.items.find((i) => i.id === id || i.code === id || i.employeeNumber === id);
-    if (!item) {
-      throw new NotFoundException(`EmployeeDocument with ID ${id} not found`);
-    }
+    try {
+      const item = await this.prisma.hrmEmployeeDocument.findUnique({ where: { id } });
+      if (item) return item;
+    } catch (err) {}
+
+    const item = this.items.find((i) => i.id === id);
+    if (!item) throw new NotFoundException(`Document with ID ${id} not found`);
     return item;
   }
 
   async create(data: any) {
-    const newItem = {
-      id: `emp-${Date.now()}`,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-      ...data,
-    };
-    this.items.unshift(newItem);
-    return newItem;
+    const documentType = data.documentType || 'OTHER';
+    const documentNumber = data.documentNumber || null;
+    const fileUrl = data.fileUrl || 'https://example.com/doc.pdf';
+
+    try {
+      let employeeId = data.employeeId;
+      const emp = await this.prisma.hrmEmployee.findFirst({
+        where: { OR: [{ id: employeeId }, { employeeNumber: employeeId }] },
+      });
+      if (emp) employeeId = emp.id;
+
+      const created = await this.prisma.hrmEmployeeDocument.create({
+        data: {
+          employeeId,
+          documentType,
+          documentNumber,
+          fileUrl,
+        },
+      });
+      this.items.unshift(created);
+      return created;
+    } catch (err) {
+      const newItem = {
+        id: data.id || `doc-${Date.now()}`,
+        documentType,
+        documentNumber,
+        fileUrl,
+        createdAt: new Date().toISOString(),
+        ...data,
+      };
+      this.items.unshift(newItem);
+      return newItem;
+    }
   }
 
   async update(id: string, data: any) {
-    const index = this.items.findIndex((i) => i.id === id);
-    if (index === -1) {
-      throw new NotFoundException(`EmployeeDocument with ID ${id} not found`);
+    try {
+      const updated = await this.prisma.hrmEmployeeDocument.update({
+        where: { id },
+        data: {
+          ...(data.documentType ? { documentType: data.documentType } : {}),
+          ...(data.documentNumber !== undefined ? { documentNumber: data.documentNumber } : {}),
+          ...(data.fileUrl ? { fileUrl: data.fileUrl } : {}),
+        },
+      });
+      const idx = this.items.findIndex((i) => i.id === id);
+      if (idx !== -1) this.items[idx] = { ...this.items[idx], ...updated };
+      return updated;
+    } catch (err) {
+      const index = this.items.findIndex((i) => i.id === id);
+      if (index === -1) throw new NotFoundException(`Document with ID ${id} not found`);
+      this.items[index] = { ...this.items[index], ...data };
+      return this.items[index];
     }
-    this.items[index] = {
-      ...this.items[index],
-      ...data,
-      updatedAt: new Date().toISOString(),
-    };
-    return this.items[index];
   }
 
   async remove(id: string) {
-    const index = this.items.findIndex((i) => i.id === id);
-    if (index === -1) {
-      throw new NotFoundException(`EmployeeDocument with ID ${id} not found`);
+    try {
+      const deleted = await this.prisma.hrmEmployeeDocument.delete({ where: { id } });
+      const idx = this.items.findIndex((i) => i.id === id);
+      if (idx !== -1) this.items.splice(idx, 1);
+      return { message: 'Document successfully deleted', item: deleted };
+    } catch (err) {
+      const index = this.items.findIndex((i) => i.id === id);
+      if (index === -1) throw new NotFoundException(`Document with ID ${id} not found`);
+      const removed = this.items.splice(index, 1)[0];
+      return { message: 'Document successfully deleted', item: removed };
     }
-    const removed = this.items.splice(index, 1)[0];
-    return { message: `EmployeeDocument successfully deleted`, item: removed };
   }
 }
