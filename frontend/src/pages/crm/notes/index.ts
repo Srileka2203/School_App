@@ -1,2 +1,0 @@
-// CRM Notes Module
-export {};

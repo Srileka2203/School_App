@@ -1,8 +1,0 @@
-export enum TicketCategory {
-  TECHNICAL = 'TECHNICAL',
-  BILLING = 'BILLING',
-  ACCOUNT = 'ACCOUNT',
-  FEATURE_REQUEST = 'FEATURE_REQUEST',
-  BUG = 'BUG',
-  GENERAL = 'GENERAL',
-}

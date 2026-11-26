@@ -1,1 +1,0 @@
-export { DesignationsPage } from './DesignationsPage';
